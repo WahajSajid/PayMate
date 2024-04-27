@@ -86,7 +86,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/createNetwork"
+                        android:text="@string/firstOption"
                         android:textStyle="bold" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -125,7 +125,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/already_have_one_or_been_a_part"
+                        android:text="@string/secondOption"
                         android:textSize="@dimen/optionsTextSize"
                         android:textStyle="bold" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
