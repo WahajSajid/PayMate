@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginRightAndBottom">10dp</dimen>
+    <dimen name="cardElevation">5sp</dimen>
+    <dimen name="cardCornerRadius">15sp</dimen>
+    <dimen name="cardHeight">70sp</dimen>
+    <dimen name="_10sp">10sp</dimen>
+    <dimen name="optionsTextSize">18sp</dimen>
+    <dimen name="welcomeTextSize">18sp</dimen>
+</resources>

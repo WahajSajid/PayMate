@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PayMate</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="WelcomeText">Welcome</string>
+    <string name="createNetwork">Create Network</string>
+    <string name="secondOption">Already have one or been a part.</string>
+    <string name="_OR">OR</string>
+    <string name="already_have_one_or_been_a_part">Already have one or been a part.</string>
+</resources>
