@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentCreateNetworkOrLogInBinding
 
 class CreateNetworkOrLogIn : Fragment() {
@@ -16,6 +17,11 @@ class CreateNetworkOrLogIn : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_create_network_or_log_in, container, false)
+        binding.firstOptionCardView.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_createNetworkOrLogIn_to_adminInfo)
+        }
+
+
         return binding.root
     }
 }

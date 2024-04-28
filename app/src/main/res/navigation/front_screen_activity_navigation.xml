@@ -9,5 +9,14 @@
         android:id="@+id/createNetworkOrLogIn"
         android:name="com.application.paymate.CreateNetworkOrLogIn"
         android:label="fragment_create_network_or_log_in"
-        tools:layout="@layout/fragment_create_network_or_log_in" />
+        tools:layout="@layout/fragment_create_network_or_log_in" >
+        <action
+            android:id="@+id/action_createNetworkOrLogIn_to_adminInfo"
+            app:destination="@id/adminInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminInfo"
+        android:name="com.application.paymate.AdminInfo"
+        android:label="@string/adminInfo"
+        tools:layout="@layout/fragment_admin_info" />
 </navigation>

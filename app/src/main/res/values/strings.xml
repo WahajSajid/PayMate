@@ -5,4 +5,16 @@
     <string name="firstOption">Create Network</string>
     <string name="secondOption">Login Via Username</string>
     <string name="_OR">OR</string>
+    <string name="admin_info">Admin Info</string>
+    <string name="bottomText">Your Information will be private to you</string>
+    <string name="sloganText">Handle your dues more efficiently</string>
+    <string name="enterNameHint">Name</string>
+    <string name="adminInfo">Admin Info</string>
+    <string name="enterCnicHint">CNIC</string>
+    <string name="enterUserName">Username</string>
+    <string name="enterName">Enter Name</string>
+    <string name="createPasswordHint">Create Password</string>
+    <string name="confirmPasswordHint">Confirm Password</string>
+    <string name="loginAndRegisterButtonText">Register and Login</string>
+    <string name="adminInfoScreenBottomText">All your information is secure and will be only private to you.</string>
 </resources>
