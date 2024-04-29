@@ -9,4 +9,5 @@
     <dimen name="welcomeTextSize">18sp</dimen>
     <dimen name="adminInfoTextSize">20sp</dimen>
     <dimen name="boxCornerRadius">20sp</dimen>
+    <dimen name="headerHeight">250dp</dimen>
 </resources>

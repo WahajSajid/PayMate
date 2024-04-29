@@ -13,8 +13,10 @@
     <string name="enterCnicHint">CNIC</string>
     <string name="enterUserName">Username</string>
     <string name="enterName">Enter Name</string>
-    <string name="createPasswordHint">Create Password</string>
-    <string name="confirmPasswordHint">Confirm Password</string>
+    <string name="createPasswordHint">Create Pin</string>
+    <string name="confirmPasswordHint">Confirm Pin</string>
     <string name="loginAndRegisterButtonText">Register and Login</string>
     <string name="adminInfoScreenBottomText">All your information is secure and will be only private to you.</string>
+    <string name="loginText">Login</string>
+    <string name="adminPrefix">admin_</string>
 </resources>

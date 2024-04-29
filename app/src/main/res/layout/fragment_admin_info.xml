@@ -88,10 +88,13 @@
                 app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
                 app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
                 app:boxStrokeColor="@color/yellow"
+                app:boxStrokeErrorColor="@color/design_default_color_error"
                 app:counterOverflowTextColor="@color/yellow"
                 app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:counterTextColor="@color/yellow"
+                app:cursorErrorColor="@color/design_default_color_error"
                 app:errorEnabled="true"
+                app:errorTextColor="@color/design_default_color_error"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -114,10 +117,13 @@
                 app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
                 app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
                 app:boxStrokeColor="@color/yellow"
+                app:boxStrokeErrorColor="@color/design_default_color_error"
                 app:counterOverflowTextColor="@color/yellow"
                 app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:counterTextColor="@color/yellow"
                 app:errorEnabled="true"
+                app:errorIconTint="@color/design_default_color_error"
+                app:errorTextColor="@color/design_default_color_error"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +134,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enterUserName"
-                    android:inputType="text|textAutoComplete" />
+                    android:inputType="text|textAutoComplete"
+                    android:text="@string/adminPrefix" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -155,7 +162,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/createPasswordHint"
-                    android:inputType="text|textAutoComplete" />
+                    android:inputType="number|numberPassword|numberDecimal"
+                    android:maxLength="@integer/pinMaxLength" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -184,11 +192,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/confirmPasswordHint"
-                    android:inputType="text|textAutoComplete" />
+                    android:inputType="number|numberPassword|numberDecimal"
+                    android:maxLength="@integer/pinMaxLength" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
+            android:id="@+id/registerButton"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
