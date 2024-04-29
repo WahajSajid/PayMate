@@ -6,14 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.application.paymate.databinding.FragmentAdminInfoBinding
 
 class AdminInfo : Fragment() {
     private lateinit var binding: FragmentAdminInfoBinding
-    private lateinit var CNICValidator: CNICValidator
-    private lateinit var text:String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,19 +28,27 @@ class AdminInfo : Fragment() {
         binding.enterCNICEditText.filters = cnincLengthFilter
 
         //Setting up TextWatcher for CNIC number to check the length of number.
-        CNICValidator = CNICValidator(binding.enterCNICEditText, "Invalid")
-        binding.enterCNICEditText.addTextChangedListener(CNICValidator)
+        val cnicValidator = CNICValidator(object : CNICValidatorCallBack {
+            override fun onInputValidated(isValid: Boolean) {
+                if (isValid) {
+                    // Store the input data from the user to the firebase.
+                } else {
+                    binding.enterCNICEditText.error = "Invalid"
+                }
+            }
+        })
+        binding.enterCNICEditText.addTextChangedListener(cnicValidator)
 
         //Setting up TextWatcher for username to check if the username is starting with admin or not and if there is any space in between.
-        val usernameValidator = UsernameValidator(object : UsernameValidatorCallBack{
+        val usernameValidator = UsernameValidator(object : UsernameValidatorCallBack {
             override fun onInputValidated(isValid: Boolean) {
-               if(isValid){
-                  // Store the input data from the user to the firebase.
-               } else {
-                   binding.enterUserNameEditText.error = "Invalid"
-               }
+                if (isValid) {
+                    // Store the input data from the user to the firebase.
+                } else {
+                    binding.enterUserNameEditText.error = "Invalid"
+                }
             }
-        },binding.enterUserNameEditText)
+        })
         binding.enterUserNameEditText.addTextChangedListener(usernameValidator)
         return binding.root
     }
