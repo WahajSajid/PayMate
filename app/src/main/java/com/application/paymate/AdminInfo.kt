@@ -11,7 +11,7 @@ import com.application.paymate.databinding.FragmentAdminInfoBinding
 
 class AdminInfo : Fragment() {
     private lateinit var binding: FragmentAdminInfoBinding
-    private lateinit var password:String
+    private var password:String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +58,7 @@ class AdminInfo : Fragment() {
             override fun onInputValidated(isValid: Boolean) {
                 if(isValid){
                     //FireBase code goes here to store user input
+                  password = binding.createPasswordEditText.text.toString()
                 } else{
                     binding.createPasswordEditText.error = "Invalid"
                 }
