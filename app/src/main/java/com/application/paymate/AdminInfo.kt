@@ -11,6 +11,7 @@ import com.application.paymate.databinding.FragmentAdminInfoBinding
 
 class AdminInfo : Fragment() {
     private lateinit var binding: FragmentAdminInfoBinding
+    private lateinit var password:String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,11 +28,12 @@ class AdminInfo : Fragment() {
         binding.confirmPasswordEditText.filters = pinLengthFilter
         binding.enterCNICEditText.filters = cnincLengthFilter
 
-        //Setting up TextWatcher for CNIC number to check the length of number.
+        //Setting up TextWatcher for CNIC number to check the length of number, if the length is 13 proceed ahead otherwise throw error.
         val cnicValidator = CNICValidator(object : CNICValidatorCallBack {
             override fun onInputValidated(isValid: Boolean) {
                 if (isValid) {
-                    // Store the input data from the user to the firebase.
+                    //FireBase code goes here to store user input
+
                 } else {
                     binding.enterCNICEditText.error = "Invalid"
                 }
@@ -43,13 +45,40 @@ class AdminInfo : Fragment() {
         val usernameValidator = UsernameValidator(object : UsernameValidatorCallBack {
             override fun onInputValidated(isValid: Boolean) {
                 if (isValid) {
-                    // Store the input data from the user to the firebase.
+                    //FireBase code goes here to store user input
                 } else {
                     binding.enterUserNameEditText.error = "Invalid"
                 }
             }
         })
         binding.enterUserNameEditText.addTextChangedListener(usernameValidator)
+
+        //Setting up TextWatcher for create pin EditText to check the length of pin, if the length is 4 proceed ahead otherwise throw error.
+        val createPinValidator = CreatePinValidator(object :CreaatePinValidatorCallBack{
+            override fun onInputValidated(isValid: Boolean) {
+                if(isValid){
+                    //FireBase code goes here to store user input
+                } else{
+                    binding.createPasswordEditText.error = "Invalid"
+                }
+            }
+        })
+        binding.createPasswordEditText.addTextChangedListener(createPinValidator)
+
+        //Setting up TextWatcher for confirm pin EditText to check the length of pin, if the length is 4 proceed ahead otherwise throw error.
+        val confirmPinValidator = ConfirmPinValidator(object:ConfirmPinValidatorCallBack{
+            override fun onInputValidated(isValid: Boolean) {
+                if(isValid){
+                    if(binding.confirmPasswordEditText.text.toString() == password){
+                        //FireBase code goes here to store user input
+                    } else binding.confirmPasswordEditText.error = "Create and confirm pin numbers does not match"
+                } else{
+                    binding.confirmPasswordEditText.error = "Invalid"
+                }
+            }
+        })
+        binding.confirmPasswordEditText.addTextChangedListener(confirmPinValidator)
+
         return binding.root
     }
 }

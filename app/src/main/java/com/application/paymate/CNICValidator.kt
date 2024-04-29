@@ -11,9 +11,8 @@ class CNICValidator(private val callBack: CNICValidatorCallBack):TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        if((s.isNullOrBlank() || s.length<13)){
-            callBack.onInputValidated(false)
-        }
+        if((s.isNullOrBlank() || s.length<13)) callBack.onInputValidated(false)
+        else callBack.onInputValidated(true)
         for (char in s.toString()) {
             if (char.isDigit()) {
                 continue
@@ -23,7 +22,6 @@ class CNICValidator(private val callBack: CNICValidatorCallBack):TextWatcher {
             }
         }
     }
-
     override fun afterTextChanged(s: Editable?) {
 
     }
