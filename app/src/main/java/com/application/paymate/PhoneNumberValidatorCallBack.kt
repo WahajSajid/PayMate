@@ -1,5 +1,5 @@
 package com.application.paymate
 
-interface CNICValidatorCallBack {
+interface PhoneNumberValidatorCallBack {
     fun onInputValidated(isValid:Boolean)
 }

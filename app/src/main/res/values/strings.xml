@@ -10,7 +10,7 @@
     <string name="sloganText">Handle your dues more efficiently</string>
     <string name="enterNameHint">Name</string>
     <string name="adminInfo">Admin Info</string>
-    <string name="enterCnicHint">CNIC</string>
+    <string name="enterPhoneNumberHint">Phone Number</string>
     <string name="enterUserName">Username</string>
     <string name="enterName">Enter Name</string>
     <string name="createPasswordHint">Create Pin</string>
@@ -19,4 +19,7 @@
     <string name="adminInfoScreenBottomText">All your information is secure and will be only private to you.</string>
     <string name="loginText">Login</string>
     <string name="adminPrefix">admin_</string>
+    <string name="loginButtonText">Login</string>
+    <string name="pinHint">Pin Number</string>
+    <string name="_ForgotPassword">Forgot Password?</string>
 </resources>

@@ -104,7 +104,7 @@
                     android:id="@+id/enterCNICEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enterCnicHint"
+                    android:hint="@string/enterPhoneNumberHint"
                     android:inputType="number|numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -198,7 +198,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/loginButton"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

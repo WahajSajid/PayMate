@@ -13,6 +13,10 @@
         android:theme="@style/Theme.PayMate"
         tools:targetApi="31">
         <activity
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PayMate" />
+        <activity
             android:name=".FrontScreenActivity"
             android:exported="true">
             <intent-filter>
@@ -21,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

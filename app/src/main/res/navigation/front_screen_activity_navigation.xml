@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_createNetworkOrLogIn_to_adminInfo"
             app:destination="@id/adminInfo" />
+        <action
+            android:id="@+id/action_createNetworkOrLogIn_to_loginScreen"
+            app:destination="@id/loginScreen" />
     </fragment>
     <fragment
         android:id="@+id/adminInfo"
         android:name="com.application.paymate.AdminInfo"
         android:label="@string/adminInfo"
         tools:layout="@layout/fragment_admin_info" />
+    <fragment
+        android:id="@+id/loginScreen"
+        android:name="com.application.paymate.LoginScreen"
+        android:label="fragment_login_screen"
+        tools:layout="@layout/fragment_login_screen" />
 </navigation>
