@@ -21,12 +21,12 @@ class AdminInfo : Fragment() {
 
         //Setting up minimum length for CNIC number and pin
         val minPinLength = 4 // Minimum Pin length
-        val minCnicLength = 11 //Minimum CNIC number length
+        val minCnicLength = 11 //Minimum phone number length
         val pinLengthFilter = arrayOf<InputFilter>(InputFilter.LengthFilter(minPinLength))
         val cnincLengthFilter = arrayOf<InputFilter>(InputFilter.LengthFilter(minCnicLength))
         binding.createPasswordEditText.filters = pinLengthFilter
         binding.confirmPasswordEditText.filters = pinLengthFilter
-        binding.enterCNICEditText.filters = cnincLengthFilter
+        binding.enterPhoneNumberEditText.filters = cnincLengthFilter
 
         //Setting up TextWatcher for CNIC number to check the length of number, if the length is 13 proceed ahead otherwise throw error.
         val phoneNumberValidator = PhoneNumberValidator(object : PhoneNumberValidatorCallBack {
@@ -35,11 +35,11 @@ class AdminInfo : Fragment() {
                     //FireBase code goes here to store user input
 
                 } else {
-                    binding.enterCNICEditText.error = "Invalid"
+                    binding.enterPhoneNumberEditText.error = "Invalid"
                 }
             }
         })
-        binding.enterCNICEditText.addTextChangedListener(phoneNumberValidator)
+        binding.enterPhoneNumberEditText.addTextChangedListener(phoneNumberValidator)
 
         //Setting up TextWatcher for username to check if the username is starting with admin or not and if there is any space in between.
         val usernameValidator = UsernameValidator(object : UsernameValidatorCallBack {
