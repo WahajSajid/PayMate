@@ -22,4 +22,20 @@
     <string name="loginButtonText">Login</string>
     <string name="pinHint">Pin Number</string>
     <string name="_ForgotPassword">Forgot Password?</string>
+    <string name="_RecoverAccount">Account Recovery</string>
+    <string name="_Hello">Hello,</string>
+    <string name="admin_icon_description">Icon for admin Identity</string>
+    <string name="_Add">Add</string>
+    <string name="_home">Home</string>
+    <string name="_profile">Profile</string>
+    <string name="add_dues">Add Dues</string>
+    <string name="_administration">Administration</string>
+    <string name="add_dues_image_description">Add Dues</string>
+    <string name="administration_image_content_description">Aministration Image</string>
+    <string name="notify_all_image_description">Notify All Image</string>
+    <string name="notify_all">Notify All</string>
+    <string name="all_mates_image_description">All mates</string>
+    <string name="all_mates">All Mates</string>
+    <string name="log_out_image_description">Log Out vector Image</string>
+    <string name="logout">Logout</string>
 </resources>
