@@ -43,17 +43,17 @@ android {
 
 dependencies {
 
-    val nav_version = "2.3.5"
+    val nav_version = "2.7.7"
     //noinspection GradleDependency
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation(libs.androidx.navigation.fragment.ktx)
     //noinspection GradleDependency
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation(libs.androidx.navigation.ui.ktx)
     //Card View Dependency
     implementation ("androidx.cardview:cardview:1.0.0")
 
 
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
 
 
     implementation(libs.androidx.core.ktx)

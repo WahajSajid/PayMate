@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MateInfo">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/inputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/enterNameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+                app:boxStrokeColor="@color/yellow"
+                app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:counterOverflowTextColor="@color/yellow"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:counterTextColor="@color/yellow"
+                app:errorEnabled="false"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/enterNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enterNameHint"
+                    android:inputType="text|textAutoComplete" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/enterCNICInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+                app:boxStrokeColor="@color/yellow"
+                app:boxStrokeErrorColor="@color/design_default_color_error"
+                app:counterOverflowTextColor="@color/yellow"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:counterTextColor="@color/yellow"
+                app:cursorErrorColor="@color/design_default_color_error"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/design_default_color_error"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/enterNameInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/enterPhoneNumberEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enterPhoneNumberHint"
+                    android:inputType="number|numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/enterUserNameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+                app:boxStrokeColor="@color/yellow"
+                app:boxStrokeErrorColor="@color/design_default_color_error"
+                app:counterOverflowTextColor="@color/yellow"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:counterTextColor="@color/yellow"
+                app:errorEnabled="true"
+                app:errorIconTint="@color/design_default_color_error"
+                app:errorTextColor="@color/design_default_color_error"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/enterCNICInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/enterUserNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enterUserName"
+                    android:inputType="text|textAutoComplete"
+                    android:text="@string/mate_prefix" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/createPasswordInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+                app:boxStrokeColor="@color/yellow"
+                app:counterOverflowTextColor="@color/yellow"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:counterTextColor="@color/yellow"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/enterUserNameInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/createPasswordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/createPasswordHint"
+                    android:inputType="number|numberPassword|numberDecimal"
+                    android:maxLength="@integer/pinMaxLength" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirmPasswordInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+                app:boxStrokeColor="@color/yellow"
+                app:counterEnabled="false"
+                app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:counterOverflowTextColor="@color/yellow"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:counterTextColor="@color/yellow"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createPasswordInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmPasswordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/confirmPasswordHint"
+                    android:inputType="number|numberPassword|numberDecimal"
+                    android:maxLength="@integer/pinMaxLength" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/loginButton"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_mate_button_text"
+            app:backgroundTint="@color/yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</layout>
+

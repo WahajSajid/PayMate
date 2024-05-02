@@ -7,17 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.application.paymate.databinding.FragmentAdminInfoBinding
+import com.application.paymate.databinding.FragmentMateInfoBinding
 
-class AdminInfo : Fragment() {
-    private lateinit var binding: FragmentAdminInfoBinding
-    private var password:String = ""
+class MateInfo : Fragment() {
+    private lateinit var binding:FragmentMateInfoBinding
+    private lateinit var password:String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_info, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_mate_info, container, false)
 
         //Setting up minimum length for phone number and pin number
         val minPinLength = 4 // Minimum Pin length
@@ -42,7 +42,7 @@ class AdminInfo : Fragment() {
         binding.enterPhoneNumberEditText.addTextChangedListener(phoneNumberValidator)
 
         //Setting up TextWatcher for username to check if the username is starting with admin or not and if there is any space in between.
-        val usernameValidator = UsernameValidator(object : UsernameValidatorCallBack {
+        val usernameValidator = MateUserNameInputValidator(object : MateUserNameInputValidatorCallBack {
             override fun onInputValidated(isValid: Boolean) {
                 if (isValid) {
                     //FireBase code goes here to store user input
@@ -53,12 +53,13 @@ class AdminInfo : Fragment() {
         })
         binding.enterUserNameEditText.addTextChangedListener(usernameValidator)
 
+
         //Setting up TextWatcher for create pin EditText to check the length of pin, if the length is 4 proceed ahead otherwise throw error.
         val createPinValidator = CreatePinValidator(object :CreaatePinValidatorCallBack{
             override fun onInputValidated(isValid: Boolean) {
                 if(isValid){
                     //FireBase code goes here to store user input
-                  password = binding.createPasswordEditText.text.toString()
+                    password = binding.createPasswordEditText.text.toString()
                 } else{
                     binding.createPasswordEditText.error = "Invalid"
                 }
