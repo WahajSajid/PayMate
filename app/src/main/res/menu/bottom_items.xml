@@ -6,8 +6,7 @@
         android:title="@string/_home" />
     <item
         android:id="@+id/mateInfo"
-        android:icon="@drawable/baseline_add_24"
-        android:title="@string/_Add" />
+        android:icon="@drawable/baseline_add_24" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/baseline_boy_24"

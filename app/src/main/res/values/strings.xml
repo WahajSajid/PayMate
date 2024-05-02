@@ -41,4 +41,9 @@
     <string name="mate_info">Mate Info</string>
     <string name="mate_prefix">mate_</string>
     <string name="add_mate_button_text">Add Mate</string>
+
+
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+
 </resources>
