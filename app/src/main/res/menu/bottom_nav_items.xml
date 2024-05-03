@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/adminDashboard2"
         android:icon="@drawable/baseline_dashboard_24"
         android:title="Dashboard" />
 
@@ -13,7 +13,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/profile"
+        android:id="@+id/adminProfile"
         android:icon="@drawable/baseline_person_24"
         android:title="Profile" />
 

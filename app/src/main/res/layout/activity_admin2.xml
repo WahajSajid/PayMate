@@ -6,6 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent">
+
+
         <androidx.drawerlayout.widget.DrawerLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -13,6 +15,18 @@
             android:fitsSystemWindows="true"
             tools:openDrawer="start"
             tools:context=".AdminActivity">
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/NavigationHost"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:defaultNavHost="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:navGraph="@navigation/admin_activity_navigation" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -22,19 +36,8 @@
                     android:layout_height="56dp"
                     android:id="@+id/toolbar"
                     android:elevation="4dp"
-                    android:background="@color/yellow"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    android:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-<!--                <androidx.fragment.app.FragmentContainerView-->
-<!--                    android:id="@+id/NavigationHost"-->
-<!--                    android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:defaultNavHost="true"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:navGraph="@navigation/admin_activity_navigation" />-->
+                    android:background="@color/yellow" />
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

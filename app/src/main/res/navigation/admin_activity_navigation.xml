@@ -14,10 +14,18 @@
         <action
             android:id="@+id/action_adminDashboard2_to_mateInfo"
             app:destination="@id/mateInfo" />
+        <action
+            android:id="@+id/action_adminDashboard2_to_adminProfile"
+            app:destination="@id/adminProfile" />
     </fragment>
     <fragment
         android:id="@+id/mateInfo"
         android:name="com.application.paymate.MateInfo"
         android:label="Add Mate"
         tools:layout="@layout/fragment_mate_info" />
+    <fragment
+        android:id="@+id/adminProfile"
+        android:name="com.application.paymate.AdminProfile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_admin_profile" />
 </navigation>

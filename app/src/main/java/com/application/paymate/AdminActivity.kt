@@ -7,12 +7,23 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.application.paymate.databinding.ActivityAdmin2Binding
 import com.google.android.material.navigation.NavigationView
 
 class AdminActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityAdmin2Binding
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,22 +41,15 @@ class AdminActivity : AppCompatActivity() {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 // Handle item selection here
                 when (item.itemId) {
-                    R.id.nav_dasboard -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, AdminDashboard()).commit()
-                        drawerLayout.closeDrawer(GravityCompat.START)
-                        return true
-                    }
-
                     R.id.nav_settings -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, AdminProfile()).commit()
-                        drawerLayout.closeDrawer(GravityCompat.START)
+//                        supportFragmentManager.beginTransaction()
+//                            .replace(R.id.fragment_container, AdminProfile()).commit()
+//                        drawerLayout.closeDrawer(GravityCompat.START)
                         return true
                     }
 
                     R.id.nav_about -> {
-//                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AboutFragment()).commit()
+
                         return true
                     }
 
@@ -63,15 +67,23 @@ class AdminActivity : AppCompatActivity() {
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AdminDashboard()).commit()
-            navigationView.setCheckedItem(R.id.nav_dasboard)
-        }
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, AdminDashboard()).commit()
+////            navigationView.setCheckedItem(R.id.nav_dasboard)
+//        }
 
-        //Setting Up logic for bottom Navigation View and ToolBar
+        //Setting Up logic for BottomBar
+        val bottomBar = binding.bottomNavigationView
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.NavigationHost) as NavHostFragment
+        navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(
+            fallbackOnNavigateUpListener = ::onSupportNavigateUp,
+            topLevelDestinationIds = (setOf(R.id.adminDashboard2))
+        )
+        bottomBar.setupWithNavController(navController)
     }
-
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
