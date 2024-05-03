@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/adminIcon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:contentDescription="@string/admin_icon_description"
@@ -70,7 +70,7 @@
             android:id="@+id/dashboardItems"
             style="@style/admin_dashboard_itemsLayout_style"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="450dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/adminDashboardHeaderLayout">
@@ -79,7 +79,7 @@
                 android:id="@+id/addDuesCard"
                 style="@style/admin_dashboard_itemsLayout_cards_style"
                 android:layout_width="120dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 app:layout_constraintBottom_toTopOf="@+id/notifyAllCard"
                 app:layout_constraintEnd_toStartOf="@+id/administrationCard"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -121,7 +121,7 @@
                 android:id="@+id/administrationCard"
                 style="@style/admin_dashboard_itemsLayout_cards_style"
                 android:layout_width="120dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/addDuesCard"
@@ -161,7 +161,7 @@
                 android:id="@+id/notifyAllCard"
                 style="@style/admin_dashboard_itemsLayout_cards_style"
                 android:layout_width="120dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/allMatesCard"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -202,7 +202,7 @@
                 android:id="@+id/allMatesCard"
                 style="@style/admin_dashboard_itemsLayout_cards_style"
                 android:layout_width="120dp"
-                android:layout_height="140dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -242,7 +242,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/logOutCard"
                 style="@style/admin_dashboard_itemsLayout_cards_style"
-                android:layout_width="150dp"
+                android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@id/allMatesCard"
@@ -277,7 +277,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

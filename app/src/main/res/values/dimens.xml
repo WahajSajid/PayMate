@@ -10,7 +10,7 @@
     <dimen name="adminInfoTextSize">20sp</dimen>
     <dimen name="boxCornerRadius">20sp</dimen>
     <dimen name="headerHeight">250dp</dimen>
-    <dimen name="dashboardHeight">200dp</dimen>
+    <dimen name="dashboardHeight">100dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
 
@@ -18,7 +18,7 @@
     <style name="admin_dashboard_itemsLayout_style">
         <item name="android:layout_marginStart">10sp</item>
         <item name="android:layout_marginLeft">10sp</item>
-        <item name="android:layout_marginTop">-40sp</item>
+        <item name="android:layout_marginTop">15sp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
     </style>
