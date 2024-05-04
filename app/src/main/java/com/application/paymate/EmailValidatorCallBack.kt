@@ -1,5 +1,5 @@
 package com.application.paymate
 
-interface PhoneNumberValidatorCallBack {
+interface EmailValidatorCallBack {
     fun onInputValidated(isValid:Boolean)
 }

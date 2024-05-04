@@ -73,11 +73,7 @@ class AdminActivity : AppCompatActivity() {
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, AdminDashboard()).commit()
-////            navigationView.setCheckedItem(R.id.nav_dasboard)
-//        }
+
 
         //Setting Up logic for BottomBar
         val bottomBar = binding.bottomNavigationView
@@ -90,8 +86,8 @@ class AdminActivity : AppCompatActivity() {
         )
         bottomBar.setupWithNavController(navController)
 
-        //Setting up logic for status bar color
-
+        //Setting up SetOnClick listener for add mate floating button
+        binding.addButton.setOnClickListener { findNavController(R.id.NavigationHost).navigate(R.id.action_adminDashboard2_to_mateInfo) }
 
 
     }

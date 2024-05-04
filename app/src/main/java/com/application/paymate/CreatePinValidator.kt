@@ -11,7 +11,7 @@ class CreatePinValidator(private val callBack: CreaatePinValidatorCallBack):Text
 
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        if(s.isNullOrBlank() || s.length<4) callBack.onInputValidated(false)
+        if(s.isNullOrBlank() || s.length<6) callBack.onInputValidated(false)
         else callBack.onInputValidated(true)
     }
 

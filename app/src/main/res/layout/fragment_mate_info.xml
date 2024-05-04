@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@id/enterNameInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/enterPhoneNumberEditText"
+                    android:id="@+id/enterEmailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enterPhoneNumberHint"
@@ -125,7 +125,7 @@
                 app:layout_constraintTop_toBottomOf="@id/enterUserNameInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/createPasswordEditText"
+                    android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/createPasswordHint"
@@ -165,7 +165,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/registerButton"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

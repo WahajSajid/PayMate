@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.application.paymate" />
+                  <option name="mobileSdkAppId" value="1:454928281130:android:27a25a82d8d181ae7d1d53" />
+                  <option name="projectId" value="paymate-e1dab" />
+                  <option name="projectNumber" value="454928281130" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

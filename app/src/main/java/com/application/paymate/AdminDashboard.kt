@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentAdminDashboardBinding
 
 class AdminDashboard : Fragment() {

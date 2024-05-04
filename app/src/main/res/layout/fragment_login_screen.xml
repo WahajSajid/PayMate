@@ -4,156 +4,118 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginScreen">
+    tools:context=".AdminLoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainLayout"
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/headerLayout"
+        <ImageView
+            android:id="@+id/loginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:src="@drawable/login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/enterEmailInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+            app:boxStrokeColor="#2F80ED"
+            app:boxStrokeErrorColor="@color/design_default_color_error"
+            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:cursorErrorColor="@color/design_default_color_error"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/design_default_color_error"
+            app:hintAnimationEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/loginText">
 
-            <View
-                android:id="@+id/headerDesign"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enterEmailEditText"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/headerHeight"
-                android:background="@drawable/header_design"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/headerAppName"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/alfa_slab_one"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:textSize="34sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/RecoverText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/marginRightAndBottom"
-                android:layout_marginRight="@dimen/marginRightAndBottom"
-                android:layout_marginBottom="@dimen/marginRightAndBottom"
-                android:text="@string/loginText"
-                android:textColor="@color/white"
-                android:textSize="@dimen/welcomeTextSize"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/sloganText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sloganText"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="@id/headerAppName"
-                app:layout_constraintStart_toStartOf="@id/headerAppName"
-                app:layout_constraintTop_toBottomOf="@id/headerAppName" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:hint="@string/Email_Hint"
+                android:inputType="text|textEmailAddress|textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/inputLayout"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/enterPasswordInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+            app:boxStrokeColor="#2F80ED"
+            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:errorEnabled="true"
+            app:hintAnimationEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headerLayout"
-            app:layout_constraintBottom_toTopOf="@id/loginButton">
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/enterUserNameInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enterEmailInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
-                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
-                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
-                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-                app:boxStrokeColor="@color/yellow"
-                app:boxStrokeErrorColor="@color/design_default_color_error"
-                app:counterOverflowTextColor="@color/yellow"
-                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:counterTextColor="@color/yellow"
-                app:errorEnabled="true"
-                app:errorIconTint="@color/design_default_color_error"
-                app:errorTextColor="@color/design_default_color_error"
-                app:hintAnimationEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:hint="@string/password_hint"
+                android:inputType="text|textPassword|textAutoComplete"
+                android:maxLength="@integer/pinMaxLength" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/enterUserNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enterUserName"
-                    android:inputType="text|textAutoComplete" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/enterPinInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
-                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
-                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
-                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-                app:boxStrokeColor="@color/yellow"
-                app:counterOverflowTextColor="@color/yellow"
-                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:counterTextColor="@color/yellow"
-                app:errorEnabled="true"
-                app:hintAnimationEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/enterUserNameInputLayout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/enterPinEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/pinHint"
-                    android:inputType="number|numberPassword|numberDecimal"
-                    android:maxLength="@integer/pinMaxLength" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/forgotPasswordText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_ForgotPassword"
-
-                android:textColor="@color/design_default_color_primary_variant"
-                app:layout_constraintEnd_toEndOf="@id/enterPinInputLayout"
-                app:layout_constraintTop_toBottomOf="@id/enterPinInputLayout" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/loginButton"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:layout_width="144dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#2F80ED"
             android:text="@string/loginButtonText"
-            app:backgroundTint="@color/yellow"
+            app:cornerRadius="7sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputLayout" />
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="2sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_here_text"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_text"
+                android:layout_marginLeft="3dp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

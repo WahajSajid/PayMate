@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "454928281130",
+    "project_id": "paymate-e1dab",
+    "storage_bucket": "paymate-e1dab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454928281130:android:27a25a82d8d181ae7d1d53",
+        "android_client_info": {
+          "package_name": "com.application.paymate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZXl3iFNajkQTV3evrq3OM5G5Qb29taNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

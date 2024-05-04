@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.googleGmsGoogleServices)
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.application.paymate"
-        minSdk = 16
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -43,6 +44,7 @@ android {
 
 dependencies {
 
+    implementation(libs.firebase.auth)
     val nav_version = "2.7.7"
     //noinspection GradleDependency
     implementation(libs.androidx.navigation.fragment.ktx)
