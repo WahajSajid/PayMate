@@ -68,7 +68,7 @@ class MateInfo : Fragment() {
 //        binding.createPasswordEditText.addTextChangedListener(createPinValidator)
 
         //Setting up TextWatcher for confirm pin EditText to check the length of pin, if the length is 4 proceed ahead otherwise throw error.
-        val confirmPinValidator = ConfirmPinValidator(object:ConfirmPinValidatorCallBack{
+        val confirmPinValidator = ConfirmPasswordValidator(object:ConfirmPasswordValidatorCallBack{
             override fun onInputValidated(isValid: Boolean) {
                 if(isValid){
                     if(binding.confirmPasswordEditText.text.toString() == password){

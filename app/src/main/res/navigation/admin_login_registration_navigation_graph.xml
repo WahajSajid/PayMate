@@ -9,5 +9,18 @@
         android:id="@+id/adminLoginFragment"
         android:name="com.application.paymate.AdminLoginFragment"
         android:label="fragment_login_screen"
-        tools:layout="@layout/fragment_login_screen" />
+        tools:layout="@layout/fragment_login_screen" >
+        <action
+            android:id="@+id/action_adminLoginFragment_to_adminRegistrationFragment"
+            app:destination="@id/adminRegistrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminRegistrationFragment"
+        android:name="com.application.paymate.AdminRegistrationFragment"
+        android:label="fragment_admin_registration"
+        tools:layout="@layout/fragment_admin_registration" >
+        <action
+            android:id="@+id/action_adminRegistrationFragment_to_adminLoginFragment"
+            app:destination="@id/adminLoginFragment" />
+    </fragment>
 </navigation>

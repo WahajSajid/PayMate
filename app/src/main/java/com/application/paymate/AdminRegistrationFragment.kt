@@ -1,19 +1,21 @@
 package com.application.paymate
 
 import android.os.Bundle
-import android.text.InputFilter
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.loader.app.LoaderManager
 import androidx.navigation.findNavController
-import com.application.paymate.databinding.FragmentAdminInfoBinding
+import com.application.paymate.databinding.FragmentAdminRegistrationBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
-class AdminInfo : Fragment() {
-    private lateinit var binding: FragmentAdminInfoBinding
+class AdminRegistrationFragment : Fragment() {
+    private lateinit var binding: FragmentAdminRegistrationBinding
+    private lateinit var supportLoaderManager: LoaderManager
     private var password:String = ""
     private lateinit var auth: FirebaseAuth
     private lateinit var name:String
@@ -23,16 +25,13 @@ class AdminInfo : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_info, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_registration, container, false)
         //Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-
-
-        //Setting up minimum length for phone number and pin number
-        val minPinLength = 6 // Minimum Pin length
-        val pinLengthFilter = arrayOf<InputFilter>(InputFilter.LengthFilter(minPinLength))
-        binding.confirmPasswordEditText.filters = pinLengthFilter
+        binding.loginTextButton.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)
+        }
 
         //Setting up TextWatcher for phone number to check the length of number, if the length is 11 proceed ahead otherwise throw error.
         val emailValidator = EmailValidator(object : EmailValidatorCallBack {
@@ -47,34 +46,22 @@ class AdminInfo : Fragment() {
         })
         binding.enterEmailEditText.addTextChangedListener(emailValidator)
 
-        //Setting up TextWatcher for username to check if the username is starting with admin or not and if there is any space in between.
-        val usernameValidator = UsernameValidator(object : UsernameValidatorCallBack {
+
+        //Setting up TextWatcher for create pin EditText to check the length of pin, if the length is 4 proceed ahead otherwise throw error.
+        val createPinValidator = CreatePasswordValidator(object :CreaatePasswordValidatorCallBack{
             override fun onInputValidated(isValid: Boolean) {
-                if (isValid) {
+                if(isValid){
                     //FireBase code goes here to store user input
-                    name = binding.enterUserNameEditText.text.toString()
-                } else {
-                    binding.enterUserNameEditText.error = "Invalid"
+                  password = binding.createPasswordEditText.text.toString()
+                } else{
+                    binding.createPasswordEditText.error = "Invalid"
                 }
             }
         })
-        binding.enterUserNameEditText.addTextChangedListener(usernameValidator)
-
-        //Setting up TextWatcher for create pin EditText to check the length of pin, if the length is 4 proceed ahead otherwise throw error.
-//        val createPinValidator = CreatePinValidator(object :CreaatePinValidatorCallBack{
-//            override fun onInputValidated(isValid: Boolean) {
-//                if(isValid){
-//                    //FireBase code goes here to store user input
-//                  password = binding.createPasswordEditText.text.toString()
-//                } else{
-//                    binding.createPasswordEditText.error = "Invalid"
-//                }
-//            }
-//        })
-//        binding.createPasswordEditText.addTextChangedListener(createPinValidator)
+        binding.createPasswordEditText.addTextChangedListener(createPinValidator)
 
         //Setting up TextWatcher for confirm pin EditText to check the length of pin, if the length is 4 proceed ahead otherwise throw error.
-        val confirmPinValidator = ConfirmPinValidator(object:ConfirmPinValidatorCallBack{
+        val confirmPinValidator = ConfirmPasswordValidator(object:ConfirmPasswordValidatorCallBack{
             override fun onInputValidated(isValid: Boolean) {
                 if(isValid){
                     if(binding.confirmPasswordEditText.text.toString() == password){
@@ -88,17 +75,21 @@ class AdminInfo : Fragment() {
         })
         binding.confirmPasswordEditText.addTextChangedListener(confirmPinValidator)
         binding.registerButton.setOnClickListener {
-            name = binding.enterNameEditText.text.toString()
-            auth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener { task ->
-                    if(task.isSuccessful) {
-                        Toast.makeText(context,"Registration Successful",Toast.LENGTH_SHORT).show()
-                        view?.findNavController()?.navigate(R.id.action_adminInfo_to_loginScreen)
-                    }
-                    else Toast.makeText(context,"Registration Failed: ${task.exception?.message}",Toast.LENGTH_SHORT).show()
-                }
-
+            val name = binding.enterNameEditText.text.toString()
+            registerUser(email,password,name)
         }
         return binding.root
+    }
+    private fun registerUser(email:String,password:String,name:String){
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("admin_profiles")
+        auth.createUserWithEmailAndPassword(email,password)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    Toast.makeText(context,"Registration Successful",Toast.LENGTH_SHORT).show()
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name").setValue(name)
+                    view?.findNavController()?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)
+                } else Toast.makeText(context,"Registration Failed: ${task.exception?.message}",Toast.LENGTH_SHORT).show()
+            }
     }
 }

@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/adminInfo"
-        android:name="com.application.paymate.AdminInfo"
+        android:name="com.application.paymate.AdminRegistrationFragment"
         android:label="@string/adminInfo"
-        tools:layout="@layout/fragment_admin_info" >
+        tools:layout="@layout/fragment_admin_registration" >
         <action
             android:id="@+id/action_adminInfo_to_loginScreen"
             app:destination="@id/loginScreen" />

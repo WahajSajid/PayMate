@@ -1,5 +1,5 @@
 package com.application.paymate
 
-interface ConfirmPinValidatorCallBack {
+interface ConfirmPasswordValidatorCallBack {
     fun onInputValidated(isValid:Boolean)
 }
