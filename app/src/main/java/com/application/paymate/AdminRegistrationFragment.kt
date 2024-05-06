@@ -34,6 +34,7 @@ class AdminRegistrationFragment : Fragment() {
         //Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
+        //Setting up click listener for login text button
         binding.loginTextButton.setOnClickListener {
             view?.findNavController()
                 ?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)
@@ -82,7 +83,10 @@ class AdminRegistrationFragment : Fragment() {
                 }
             })
         binding.confirmPasswordEditText.addTextChangedListener(confirmPinValidator)
+
+        //Setting up click listener on Register Button to register the user using Firebase authentication
         binding.registerButton.setOnClickListener {
+            //Checking if the checkIfInputFieldIsEmpty function returns true or false
             if (checkIfInputFieldIsEmpty()) {
                 if(checkCreateAndConfirmPasswordsMatchOrNot()){
                     val name = binding.enterNameEditText.text.toString()
@@ -139,21 +143,25 @@ class AdminRegistrationFragment : Fragment() {
 
     //Function to register the user using Firebase authentication
     private fun registerUser(email: String, password: String, name: String) {
+        binding.spinnerLayout.visibility = View.VISIBLE
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("admin_profiles")
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
                     myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name")
                         .setValue(name)
+                    Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
                     view?.findNavController()
                         ?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)
-                } else Toast.makeText(
+                } else {
+                    Toast.makeText(
                     context,
                     "Registration Failed: ${task.exception?.message}",
                     Toast.LENGTH_SHORT
                 ).show()
+                binding.spinnerLayout.visibility = View.GONE
+                }
             }
     }
 }

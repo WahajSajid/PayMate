@@ -11,6 +11,30 @@
         android:background="@drawable/rgistraion_background">
 
 
+
+
+        <RelativeLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:id="@+id/spinnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progress_icon"
+                android:progressDrawable="@drawable/progress_icon"
+                android:progressTint="@color/app_theme_color" />
+        </RelativeLayout>
+
+
         <ImageView
             android:id="@+id/registerText"
             android:layout_width="wrap_content"
@@ -31,7 +55,7 @@
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="#2F80ED"
+            app:boxStrokeColor="@color/app_theme_color"
             app:boxStrokeErrorColor="@color/design_default_color_error"
             app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
             app:cursorErrorColor="@color/design_default_color_error"
@@ -59,7 +83,7 @@
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="#2F80ED"
+            app:boxStrokeColor="@color/app_theme_color"
             app:boxStrokeErrorColor="@color/design_default_color_error"
             app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
             app:cursorErrorColor="@color/design_default_color_error"
@@ -87,7 +111,7 @@
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="#2F80ED"
+            app:boxStrokeColor="@color/app_theme_color"
             app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
             app:errorEnabled="true"
             app:hintAnimationEnabled="true"
@@ -111,7 +135,7 @@
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="#2F80ED"
+            app:boxStrokeColor="@color/app_theme_color"
             app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
             app:errorEnabled="true"
             app:hintAnimationEnabled="true"
@@ -136,7 +160,7 @@
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="#2F80ED"
+            android:backgroundTint="@color/app_theme_color"
             android:text="@string/register_button_text"
             app:cornerRadius="7sp"
             app:layout_constraintBottom_toBottomOf="parent"

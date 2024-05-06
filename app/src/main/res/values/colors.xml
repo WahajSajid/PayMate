@@ -16,4 +16,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="lavender">#8692f7</color>
 
+    <color name="app_theme_color">#2F80ED</color>
+
 </resources>
