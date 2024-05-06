@@ -28,19 +28,21 @@
     <string name="_Add">Add Mate</string>
     <string name="_home">Home</string>
     <string name="_profile">Profile</string>
-    <string name="add_dues">Add Dues</string>
-    <string name="_administration">Administration</string>
     <string name="add_dues_image_description">Add Dues</string>
-    <string name="administration_image_content_description">Aministration Image</string>
+    <string name="administration_image_content_description">Administration Image</string>
     <string name="notify_all_image_description">Notify All Image</string>
-    <string name="notify_all">Notify All</string>
     <string name="all_mates_image_description">All mates</string>
-    <string name="all_mates">All Mates</string>
     <string name="log_out_image_description">Log Out vector Image</string>
-    <string name="logout">Logout</string>
     <string name="mate_info">Mate Info</string>
     <string name="mate_prefix">mate_</string>
     <string name="add_mate_button_text">Add Mate</string>
+
+<!--    Admin Dashboard Strings-->
+    <string name="split_bills">Split Bills</string>
+    <string name="all_mates">All Mates</string>
+    <string name="notify_all">Notify All</string>
+    <string name="_administration">Administration</string>
+    <string name="wallet_text">Add Wallet</string>
 
     <!--    Welcome Screen Strings-->
     <string name="get_started_button_text">Get Started</string>

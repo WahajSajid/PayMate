@@ -29,7 +29,7 @@
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="#2F80ED"
+            app:boxStrokeColor="@color/app_theme_color"
             app:boxStrokeErrorColor="@color/design_default_color_error"
             app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
             app:cursorErrorColor="@color/design_default_color_error"
@@ -44,6 +44,7 @@
                 android:id="@+id/enterEmailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_mail_24"
                 android:hint="@string/Email_Hint"
                 android:inputType="text|textEmailAddress|textAutoComplete" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -57,7 +58,7 @@
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="#2F80ED"
+            app:boxStrokeColor="@color/app_theme_color"
             app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
             app:errorEnabled="true"
             app:hintAnimationEnabled="true"
@@ -69,18 +70,19 @@
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/baseline_lock_24"
                 android:hint="@string/password_hint"
                 android:inputType="text|textPassword|textAutoComplete"
                 android:maxLength="@integer/pinMaxLength" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/loginButton"
             android:layout_width="144dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="#2F80ED"
+            android:backgroundTint="@color/app_theme_color"
             android:text="@string/loginButtonText"
             app:cornerRadius="7sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#2F80ED"
+                android:textColor="@color/app_theme_color"
                 android:text="@string/new_here_text" />
 
             <TextView
@@ -111,7 +113,7 @@
                 android:layout_marginLeft="3dp"
                 android:clickable="true"
                 android:text="@string/register_text"
-                android:textColor="#2F80ED"
+                android:textColor="@color/app_theme_color"
                 android:textStyle="bold" />
         </LinearLayout>
 

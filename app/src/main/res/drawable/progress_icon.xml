@@ -16,9 +16,9 @@
                     android:height="48dp"
                     android:width="48dp" />
                 <gradient
-                    android:centerColor="@color/app_theme_color"
-                    android:endColor="@color/purple_500"
-                    android:startColor="@color/lavender"
+                    android:centerColor="@color/yellow"
+                    android:endColor="@color/yellow_light"
+                    android:startColor="@color/yellow_light2"
                     android:type="sweep"
                     android:useLevel="false" />
             </shape>

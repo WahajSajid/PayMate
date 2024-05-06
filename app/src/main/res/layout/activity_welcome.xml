@@ -16,7 +16,7 @@
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="#2F80ED"
+            android:backgroundTint="@color/app_theme_color"
             android:text="@string/user_screen_title"
             app:cornerRadius="7sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="#2F80ED"
+            android:backgroundTint="@color/app_theme_color"
             android:text="@string/admin_screen_title"
             app:cornerRadius="7sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +47,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pay_removebg_preview" />
+            app:srcCompat="@drawable/pay_removebg_preview__1_" />
 
         <TextView
             android:id="@+id/mateText"
@@ -55,8 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="-10dp"
             android:text="@string/app_name_text"
-            android:textColor="#5B5CFC"
+            android:textColor="@color/app_theme_color"
             android:textSize="@dimen/app_name_text_size"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/slogan"
-            android:textColor="#2F80ED"
+            android:textColor="@color/app_theme_color"
             android:textSize="@dimen/slogan_text_size"
             app:layout_constraintEnd_toEndOf="@+id/mateText"
             app:layout_constraintStart_toStartOf="@+id/imageView"
