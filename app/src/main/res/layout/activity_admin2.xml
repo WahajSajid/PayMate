@@ -25,7 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:animateLayoutChanges="true"
-                    android:background="@color/yellow"
+                    android:background="@color/app_theme_color"
                     android:elevation="4dp"
                     android:theme="@style/Theme.PayMate"
                     app:popupTheme="@style/Theme.PayMate" />
@@ -54,7 +54,7 @@
                 android:layout_gravity="start"
                 app:headerLayout="@layout/nav_drawer_header"
                 app:menu="@menu/navigation_drawer_items"
-                app:itemIconTint="@color/yellow"
+                app:itemIconTint="@color/app_theme_color"
                 app:itemTextColor="@color/black"/>
         </androidx.drawerlayout.widget.DrawerLayout>
 
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/app_theme_color"
             android:src="@drawable/baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

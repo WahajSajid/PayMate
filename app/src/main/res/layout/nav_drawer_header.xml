@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="176dp"
-        android:background="@drawable/headerbkg_photoroom"
+        android:background="@drawable/headerbkg"
         android:gravity="bottom"
         android:orientation="vertical"
         android:padding="16dp">
@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:srcCompat="@drawable/icon" />
+            app:srcCompat="@drawable/baseline_person_pin_24" />
 
         <TextView
             android:id="@+id/navAdminName"
