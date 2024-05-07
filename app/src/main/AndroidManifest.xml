@@ -6,9 +6,8 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_mate_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PayMate"
         tools:targetApi="31">
@@ -25,18 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdminOrUserActivity"
-            android:exported="false" />
-        <activity
             android:name=".WelcomeActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".AdminActivity"
             android:exported="false"
             android:theme="@style/Theme.PayMate" />
-        <activity
-            android:name=".FrontScreenActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="android.app.lib_name"

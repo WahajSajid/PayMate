@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.loader.app.LoaderManager
 import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentAdminRegistrationBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -15,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase
 
 class AdminRegistrationFragment : Fragment() {
     private lateinit var binding: FragmentAdminRegistrationBinding
-    private lateinit var supportLoaderManager: LoaderManager
     private var password: String = ""
     private lateinit var auth: FirebaseAuth
     private lateinit var name: String
@@ -31,7 +29,7 @@ class AdminRegistrationFragment : Fragment() {
             container,
             false
         )
-        //Initialize Firebase Auth
+        //Initializing Firebase Auth
         auth = FirebaseAuth.getInstance()
 
         //Setting up click listener for login text button
@@ -149,8 +147,8 @@ class AdminRegistrationFragment : Fragment() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name")
-                        .setValue(name)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name").setValue(name)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("email").setValue(email)
                     Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
                     view?.findNavController()
                         ?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)
