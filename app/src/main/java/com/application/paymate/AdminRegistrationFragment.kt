@@ -150,6 +150,7 @@ class AdminRegistrationFragment : Fragment() {
                 if (task.isSuccessful) {
                     myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name").setValue(name)
                     myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("email").setValue(email)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("password").setValue(password)
                     Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
                     view?.findNavController()
                         ?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)

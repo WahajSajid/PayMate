@@ -17,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.application.paymate.databinding.ActivityAdmin2Binding
 import com.google.android.material.navigation.NavigationView
 
+@Suppress("DEPRECATION")
 class AdminActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityAdmin2Binding
@@ -41,13 +42,15 @@ class AdminActivity : AppCompatActivity() {
         val toolBar = binding.toolbar
         setSupportActionBar(toolBar)
         drawerLayout = findViewById(R.id.nav_drawer_header)
-        //Setting up name of admin on runtime according to the data in the navigation drawer.
+
+        //Updating UI of navigation drawer header with admin details
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
        val headerView =  navigationView.getHeaderView(0)
         val adminNameText = headerView.findViewById<TextView>(R.id.navAdminName)
         val adminEmailText = headerView.findViewById<TextView>(R.id.navAdminEmail)
         adminNameText.text = adminName
         adminEmailText.text = adminEmail
+
 
         navigationView.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {
