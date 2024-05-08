@@ -6,32 +6,78 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.application.paymate.databinding.FragmentAdminRegistrationBinding
 import com.application.paymate.databinding.FragmentLoginScreenBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class AdminLoginFragment : Fragment() {
-    lateinit var binding: FragmentLoginScreenBinding
+    private lateinit var binding: FragmentLoginScreenBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+   private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login_screen, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_login_screen, container, false)
 
+        //Initializing Firebase Auth
+        firebaseAuth = FirebaseAuth.getInstance()
 
         //Setting up click listener on Login Button
+
         binding.loginButton.setOnClickListener {
-            val intent = Intent(context, AdminActivity::class.java)
-            startActivity(intent)
+            if(emptyOrNot()) {
+                val email: String = binding.enterEmailEditText.text.toString()
+                val password: String = binding.passwordEditText.text.toString()
+                signInUser(email, password)
+            } else {
+                Toast.makeText(context,"Please fill all the fields",Toast.LENGTH_SHORT).show()
+            }
         }
+
         binding.registerTextButton.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_adminLoginFragment_to_adminRegistrationFragment)
+            view?.findNavController()
+                ?.navigate(R.id.action_adminLoginFragment_to_adminRegistrationFragment)
         }
-
-
-
         return binding.root
+    }
+    //Function to check if the input fields are empty or not.
+    private fun emptyOrNot():Boolean{
+        var isTrueOrFalse = false
+        if(binding.enterEmailEditText.text.toString().isEmpty() || binding.passwordEditText.text.toString().isEmpty()){
+            isTrueOrFalse = false
+        } else isTrueOrFalse = true
+        return isTrueOrFalse
+    }
+
+
+
+    //Function to sign user
+    private fun signInUser(email: String, password: String){
+        binding.spinnerLayout.visibility = View.VISIBLE
+        val database = FirebaseDatabase.getInstance()
+        val reference = database.getReference()
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                        reference.child("admin_profiles").child(firebaseAuth.currentUser?.uid!!)
+                            .child("name").get().addOnSuccessListener {
+                               val  adminName = it.value.toString()
+                                val intent = Intent(context, AdminActivity::class.java)
+                                intent.putExtra("adminName",adminName)
+                                startActivity(intent)
+                            }
+                }
+                else {
+                    binding.spinnerLayout.visibility = View.GONE
+                    Toast.makeText(context,"${task.exception?.message}",Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

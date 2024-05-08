@@ -16,7 +16,6 @@ class AdminRegistrationFragment : Fragment() {
     private lateinit var binding: FragmentAdminRegistrationBinding
     private var password: String = ""
     private lateinit var auth: FirebaseAuth
-    private lateinit var name: String
     private lateinit var email: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

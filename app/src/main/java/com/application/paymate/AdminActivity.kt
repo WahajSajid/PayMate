@@ -3,10 +3,12 @@ package com.application.paymate
 import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.WindowInsetsController
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -30,10 +32,16 @@ class AdminActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdmin2Binding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val shareViewModel: SharedViewModel by viewModels()
+
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val adminName = intent.getStringExtra("adminName")
+        shareViewModel.adminName.value = adminName
+
 
         //Setting Up logic for navigation drawer
         binding = ActivityAdmin2Binding.inflate(layoutInflater)

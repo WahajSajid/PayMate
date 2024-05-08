@@ -1,24 +1,21 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
+import androidx.fragment.app.activityViewModels
 import com.application.paymate.databinding.FragmentAdminDashboardBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.snapshots
 
 class AdminDashboard : Fragment() {
     private lateinit var binding: FragmentAdminDashboardBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val sharedViewModel :SharedViewModel by activityViewModels()
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,19 +23,8 @@ class AdminDashboard : Fragment() {
         // Inflate the layout for this fragment
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_admin_dashboard, container, false)
-        //Initilize firebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance()
-        val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference()
-        val name =
-            reference.child("admin_profiles").child("WSsTjYKDQoPdxcC1Yy05GGA0rJ12").child("name")
-                .get().addOnSuccessListener {
-                    binding.progressBar.visibility = View.VISIBLE
-                binding.adminName.text = it.value.toString()
-            }.addOnFailureListener{
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                }
-        binding.progressBar.visibility = View.GONE
+        //Update UI with admin name
+        binding.adminName.text = sharedViewModel.adminName.value
 
         return binding.root
     }
