@@ -1,28 +1,18 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
-import android.app.UiModeManager
-import android.content.Context
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.WindowInsetsController
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.application.paymate.databinding.ActivityAdmin2Binding
 import com.google.android.material.navigation.NavigationView
@@ -38,9 +28,11 @@ class AdminActivity : AppCompatActivity() {
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //Getting data from Admin Login Activity
         val adminName = intent.getStringExtra("adminName")
         shareViewModel.adminName.value = adminName
+        val adminEmail = intent.getStringExtra("adminEmail")
+        shareViewModel.adminEmail.value = adminEmail
 
 
         //Setting Up logic for navigation drawer
@@ -48,8 +40,15 @@ class AdminActivity : AppCompatActivity() {
         setContentView(binding.root)
         val toolBar = binding.toolbar
         setSupportActionBar(toolBar)
-        drawerLayout = findViewById(R.id.drawer_layout)
-        val navigationView = binding.navView
+        drawerLayout = findViewById(R.id.nav_drawer_header)
+        //Setting up name of admin on runtime according to the data in the navigation drawer.
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+       val headerView =  navigationView.getHeaderView(0)
+        val adminNameText = headerView.findViewById<TextView>(R.id.navAdminName)
+        val adminEmailText = headerView.findViewById<TextView>(R.id.navAdminEmail)
+        adminNameText.text = adminName
+        adminEmailText.text = adminEmail
+
         navigationView.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentLoginScreenBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 class AdminLoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
-   private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,12 +30,12 @@ class AdminLoginFragment : Fragment() {
         //Setting up click listener on Login Button
 
         binding.loginButton.setOnClickListener {
-            if(emptyOrNot()) {
+            if (emptyOrNot()) {
                 val email: String = binding.enterEmailEditText.text.toString()
                 val password: String = binding.passwordEditText.text.toString()
                 signInUser(email, password)
             } else {
-                Toast.makeText(context,"Please fill all the fields",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -47,37 +45,41 @@ class AdminLoginFragment : Fragment() {
         }
         return binding.root
     }
+
     //Function to check if the input fields are empty or not.
-    private fun emptyOrNot():Boolean{
+    private fun emptyOrNot(): Boolean {
         var isTrueOrFalse = false
-        if(binding.enterEmailEditText.text.toString().isEmpty() || binding.passwordEditText.text.toString().isEmpty()){
+        if (binding.enterEmailEditText.text.toString()
+                .isEmpty() || binding.passwordEditText.text.toString().isEmpty()
+        ) {
             isTrueOrFalse = false
         } else isTrueOrFalse = true
         return isTrueOrFalse
     }
 
 
-
     //Function to sign user
-    private fun signInUser(email: String, password: String){
+    private fun signInUser(email: String, password: String) {
         binding.spinnerLayout.visibility = View.VISIBLE
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference()
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                        reference.child("admin_profiles").child(firebaseAuth.currentUser?.uid!!)
-                            .child("name").get().addOnSuccessListener {
-                               val  adminName = it.value.toString()
-                                val intent = Intent(context, AdminActivity::class.java)
-                                intent.putExtra("adminName",adminName)
-                                startActivity(intent)
-                            }
-                }
-                else {
+                    reference.child("admin_profiles").child(firebaseAuth.uid.toString()).get()
+                        .addOnSuccessListener { snapshot ->
+                           val adminName =  snapshot.child("name").value.toString()
+                            val adminEmail = snapshot.child("email").value.toString()
+                            val intent = Intent(context,AdminActivity::class.java)
+                            intent.putExtra("adminName",adminName)
+                            intent.putExtra("adminEmail",adminEmail)
+                            startActivity(intent)
+                        }
+                } else {
                     binding.spinnerLayout.visibility = View.GONE
-                    Toast.makeText(context,"${task.exception?.message}",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 }

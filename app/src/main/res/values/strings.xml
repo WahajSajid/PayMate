@@ -37,7 +37,7 @@
     <string name="mate_prefix">mate_</string>
     <string name="add_mate_button_text">Add Mate</string>
 
-<!--    Admin Dashboard Strings-->
+    <!--    Admin Dashboard Strings-->
     <string name="split_bills">Split Bills</string>
     <string name="all_mates">All Mates</string>
     <string name="notify_all">Notify All</string>
@@ -54,14 +54,14 @@
     <string name="user_screen_title">User</string>
 
 
-<!--    Login Screen Strings-->
+    <!--    Login Screen Strings-->
     <string name="password_hint">Password</string>
     <string name="login_button_text">Login</string>
     <string name="new_here_text">New Here?</string>
     <string name="register_text">Register</string>
 
 
-<!--    Registration Screen Strings-->
+    <!--    Registration Screen Strings-->
     <string name="register_button_text">Register</string>
     <string name="already_member">Already Member?</string>
     <string name="name_hint">Full Name</string>
