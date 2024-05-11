@@ -1,10 +1,15 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -29,15 +34,11 @@ class AdminActivity : AppCompatActivity() {
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Getting data from Admin Login Activity
-        val adminName = intent.getStringExtra("adminName")
-        shareViewModel.adminName.value = adminName
-        val adminEmail = intent.getStringExtra("adminEmail")
-        shareViewModel.adminEmail.value = adminEmail
+        binding = ActivityAdmin2Binding.inflate(layoutInflater)
+
 
 
         //Setting Up logic for navigation drawer
-        binding = ActivityAdmin2Binding.inflate(layoutInflater)
         setContentView(binding.root)
         val toolBar = binding.toolbar
         setSupportActionBar(toolBar)
@@ -48,6 +49,9 @@ class AdminActivity : AppCompatActivity() {
        val headerView =  navigationView.getHeaderView(0)
         val adminNameText = headerView.findViewById<TextView>(R.id.navAdminName)
         val adminEmailText = headerView.findViewById<TextView>(R.id.navAdminEmail)
+        val sharedPreferences = getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
+        val adminName = sharedPreferences.getString("adminName","Loading....")
+        val adminEmail = sharedPreferences.getString("adminEmail","Loading...")
         adminNameText.text = adminName
         adminEmailText.text = adminEmail
 

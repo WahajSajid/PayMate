@@ -1,6 +1,9 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 class AdminLoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    @SuppressLint("CommitPrefEdits")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,25 +28,26 @@ class AdminLoginFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_login_screen, container, false)
 
-        //Initializing Firebase Auth
-        firebaseAuth = FirebaseAuth.getInstance()
 
-        //Setting up click listener on Login Button
+            //Initializing Firebase Auth
+            firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.loginButton.setOnClickListener {
-            if (emptyOrNot()) {
-                val email: String = binding.enterEmailEditText.text.toString()
-                val password: String = binding.passwordEditText.text.toString()
-                signInUser(email, password)
-            } else {
-                Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+
+            //Setting up click listener on Login Button
+            binding.loginButton.setOnClickListener {
+                if (emptyOrNot()) {
+                    val email: String = binding.enterEmailEditText.text.toString()
+                    val password: String = binding.passwordEditText.text.toString()
+                    signInUser(email, password)
+                } else {
+                    Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
 
-        binding.registerTextButton.setOnClickListener {
-            view?.findNavController()
-                ?.navigate(R.id.action_adminLoginFragment_to_adminRegistrationFragment)
-        }
+            binding.registerTextButton.setOnClickListener {
+                view?.findNavController()
+                    ?.navigate(R.id.action_adminLoginFragment_to_adminRegistrationFragment)
+            }
         return binding.root
     }
 
@@ -59,7 +64,10 @@ class AdminLoginFragment : Fragment() {
 
 
     //Function to sign user
+    @SuppressLint("CommitPrefEdits")
     private fun signInUser(email: String, password: String) {
+        val sharedPreferences = activity?.getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
+        var isLoggedIn:Boolean
         binding.spinnerLayout.visibility = View.VISIBLE
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference()
@@ -71,9 +79,12 @@ class AdminLoginFragment : Fragment() {
                            val adminName =  snapshot.child("name").value.toString()
                             val adminEmail = snapshot.child("email").value.toString()
                             val intent = Intent(context,AdminActivity::class.java)
-                            intent.putExtra("adminName",adminName)
-                            intent.putExtra("adminEmail",adminEmail)
+                            isLoggedIn = true
+                            sharedPreferences?.edit()?.putBoolean("isLoggedIn",isLoggedIn)?.apply()
+                            sharedPreferences?.edit()?.putString("adminName",adminName)?.apply()
+                            sharedPreferences?.edit()?.putString("adminEmail",adminEmail)?.apply()
                             startActivity(intent)
+                            activity?.finish()
                         }
                 } else {
                     binding.spinnerLayout.visibility = View.GONE

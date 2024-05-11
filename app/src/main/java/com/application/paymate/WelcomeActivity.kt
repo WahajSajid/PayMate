@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +12,17 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome)
+        val sharedPreferences = getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
+        if(sharedPreferences.getBoolean("isInstalled",false)){
+            val intent = Intent(this,AdminActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         binding.adminButton.setOnClickListener {
+            sharedPreferences.edit()?.putBoolean("isInstalled",true)?.apply()
             val intent = Intent(this,AdminLoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

@@ -14,10 +14,9 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_splash_screen)
         AppBarLayout.GONE
-        Handler(mainLooper).postDelayed({
-            startActivity(Intent(this,WelcomeActivity::class.java))
-            finish()
-        },1000)
-
+            Handler(mainLooper).postDelayed({
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                finish()
+            }, 1000)
     }
 }

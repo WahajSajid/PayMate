@@ -1,6 +1,7 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.getIntent
 import android.os.Bundle
@@ -25,8 +26,10 @@ class AdminDashboard : Fragment() {
         // Inflate the layout for this fragment
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_admin_dashboard, container, false)
-        //Update UI with admin name and email
-        binding.adminName.text = sharedViewModel.adminName.value
+        //Setting up shared preferences to update UI for admin name
+        val sharedPreferences = requireActivity().getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
+        val adminName = sharedPreferences.getString("adminName","Loading....")
+        binding.adminName.text  = adminName
 
             return binding.root
     }
