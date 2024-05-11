@@ -12,6 +12,7 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome)
+        //Setting up SharedPreferences to check the user is already installed application or not to show welcome screen.
         val sharedPreferences = getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
         if(sharedPreferences.getBoolean("isInstalled",false)){
             val intent = Intent(this,AdminActivity::class.java)
