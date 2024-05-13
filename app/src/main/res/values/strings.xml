@@ -77,5 +77,7 @@
     <string name="close_nav">Close Navigation Drawer</string>
     <string name="_Dashboard">Dashboard</string>
     <string name="Email_Hint">Email</string>
+    <string name="add_mate">Add Mate</string>
+    <string name="phone_hint">Phone</string>
 
 </resources>
