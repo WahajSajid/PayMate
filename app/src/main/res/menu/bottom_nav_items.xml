@@ -10,7 +10,8 @@
 
     <item
         android:id="@+id/addMate"
-        android:title="" />
+        android:icon="@drawable/baseline_add_24"
+        android:title="@string/_Add" />
 
     <item
         android:id="@+id/adminProfile"

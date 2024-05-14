@@ -22,7 +22,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.application.paymate.databinding.ActivityAdmin2Binding
 import com.google.android.material.navigation.NavigationView
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "CAST_NEVER_SUCCEEDS")
 class AdminActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityAdmin2Binding
@@ -55,7 +55,7 @@ class AdminActivity : AppCompatActivity() {
         adminNameText.text = adminName
         adminEmailText.text = adminEmail
 
-
+        //Setting up logic for navigation drawer items clicked.
         navigationView.setNavigationItemSelectedListener(object :
             NavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -99,10 +99,6 @@ class AdminActivity : AppCompatActivity() {
             topLevelDestinationIds = (setOf(R.id.adminDashboard2))
         )
         bottomBar.setupWithNavController(navController)
-
-        //Setting up SetOnClick listener for add mate floating button
-        binding.addButton.setOnClickListener { findNavController(R.id.NavigationHost).navigate(R.id.action_adminDashboard2_to_mateInfo) }
-
 
     }
     @Deprecated("Deprecated in Java")

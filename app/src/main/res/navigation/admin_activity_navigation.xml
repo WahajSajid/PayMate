@@ -12,20 +12,24 @@
         android:label="Dashboard"
         tools:layout="@layout/fragment_admin_dashboard">
         <action
-            android:id="@+id/action_adminDashboard2_to_mateInfo"
-            app:destination="@id/mateInfo" />
-        <action
             android:id="@+id/action_adminDashboard2_to_adminProfile"
             app:destination="@id/adminProfile" />
+        <action
+            android:id="@+id/action_adminDashboard2_to_addMate2"
+            app:destination="@id/addMate" />
     </fragment>
-    <fragment
-        android:id="@+id/mateInfo"
-        android:name="com.application.paymate.MateInfo"
-        android:label="Add Mate"
-        tools:layout="@layout/fragment_mate_info" />
     <fragment
         android:id="@+id/adminProfile"
         android:name="com.application.paymate.AdminProfile"
         android:label="Profile"
         tools:layout="@layout/fragment_admin_profile" />
+    <fragment
+        android:id="@+id/addMate"
+        android:name="com.application.paymate.AddMate"
+        android:label="fragment_add_mate"
+        tools:layout="@layout/fragment_add_mate" >
+        <action
+            android:id="@+id/action_addMate_to_adminDashboard2"
+            app:destination="@id/adminDashboard2" />
+    </fragment>
 </navigation>
