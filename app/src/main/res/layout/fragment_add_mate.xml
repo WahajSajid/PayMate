@@ -12,6 +12,21 @@
         android:background="@drawable/background">
 
 
+        <Spinner
+            android:id="@+id/mates_dropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/app_theme_color"
+            android:backgroundTintMode="src_atop"
+            android:elevation="5sp"
+            app:barrierMargin="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/addMateText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/app_theme_color" />
+
         <RelativeLayout
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,21 +49,7 @@
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/addMateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/add_mate"
-            android:textStyle="bold"
-            android:textSize="30sp"
-            android:textColor="@color/app_theme_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.428" />
-
-        <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/enterNameInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,19 +107,52 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <Button
+        <TextView
+            android:id="@+id/addMateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/add_mate"
+            android:textColor="@color/app_theme_color"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.551" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addMateButton"
             android:layout_width="144dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="36dp"
+            android:background="#FFFFFF"
             android:backgroundTint="@color/app_theme_color"
+            android:foregroundTint="#FFFFFF"
+            android:src="@drawable/tick_correct_removebg_preview"
             android:text="@string/add_mate_button_text"
+            android:tint="#FFFFFF"
             app:cornerRadius="7sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:strokeColor="#FFFFFF"
-            app:strokeWidth="2sp" />
+            app:strokeWidth="4sp" />
+
+
+        <!--        <Button-->
+<!--            android:id="@+id/addMateButton"-->
+<!--            android:layout_width="144dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:backgroundTint="@color/app_theme_color"-->
+<!--            android:text="@string/add_mate_button_text"-->
+<!--            app:cornerRadius="7sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:strokeColor="#FFFFFF"-->
+<!--            app:strokeWidth="2sp" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

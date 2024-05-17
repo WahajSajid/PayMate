@@ -30,6 +30,9 @@ class AdminRegistrationFragment : Fragment() {
         )
 
 
+
+
+
         //Initializing Firebase Auth
         auth = FirebaseAuth.getInstance()
 

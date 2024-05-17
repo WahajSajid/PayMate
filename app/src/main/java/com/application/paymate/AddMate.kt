@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -18,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 class AddMate : Fragment() {
     private lateinit var binding: FragmentAddMateBinding
     private lateinit var phoneNumber: String
+    private lateinit var mateId:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +28,32 @@ class AddMate : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_mate, container, false)
+
+        //Setting up items for drop down view.
+        val mateIds =
+            arrayOf("Mate 1", "Mate 2", "Mate 3", "Mate 4", "Mate 5", "Mate 6", "Mate 7", "Mate 8")
+        val adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, mateIds)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.matesDropDown.adapter = adapter
+
+        //Setting up onDropDownItemClick listener logic
+        binding.matesDropDown.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                mateId = mateIds[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+
 
         //Text Watcher for phone
         val phoneValidator = PhoneValidator(object : PhoneValidatorCallBck {
@@ -86,20 +115,21 @@ class AddMate : Fragment() {
         val database = FirebaseDatabase.getInstance()
         val databaseReference =
             database.getReference("admin_profiles")
-//        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child("mate_info").child("mate_name").setValue(name)
-//        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child("mate_info").child("mate_phone").setValue(phone)
-        databaseReference.orderByChild("name").equalTo(name)
-            .addListenerForSingleValueEvent(object: ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()) Toast.makeText(context,"${snapshot.exists()}",Toast.LENGTH_SHORT).show()
-                    else Toast.makeText(context,"Not found",Toast.LENGTH_SHORT).show()
-
-                }
-                override fun onCancelled(error: DatabaseError) {
-                   Toast.makeText(context,"$error",Toast.LENGTH_SHORT).show()
-                }
-            })
-
+        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
+            .child(mateId).child("name").setValue(name)
+        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
+            .child(mateId).child("phone").setValue(phone)
+//        databaseReference.orderByChild("name").equalTo(name)
+//            .addListenerForSingleValueEvent(object: ValueEventListener{
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    if(snapshot.exists()) Toast.makeText(context,"${snapshot.exists()}",Toast.LENGTH_SHORT).show()
+//                    else Toast.makeText(context,"Not found",Toast.LENGTH_SHORT).show()
+//
+//                }
+//                override fun onCancelled(error: DatabaseError) {
+//                   Toast.makeText(context,"$error",Toast.LENGTH_SHORT).show()
+//                }
+//            })
 
 //        Toast.makeText(context,"Mate Added",Toast.LENGTH_SHORT).show()
 //        view?.findNavController()?.navigate(R.id.action_addMate_to_adminDashboard2)
