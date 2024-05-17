@@ -14,13 +14,17 @@ import com.application.paymate.databinding.FragmentAddMateBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.MutableData
+import com.google.firebase.database.Transaction
 import com.google.firebase.database.ValueEventListener
 
 class AddMate : Fragment() {
     private lateinit var binding: FragmentAddMateBinding
     private lateinit var phoneNumber: String
-    private lateinit var mateId:String
+    private lateinit var mateIdNode: String
+    private lateinit var mateId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +36,13 @@ class AddMate : Fragment() {
         //Setting up items for drop down view.
         val mateIds =
             arrayOf("Mate 1", "Mate 2", "Mate 3", "Mate 4", "Mate 5", "Mate 6", "Mate 7", "Mate 8")
-        val adapter = ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, mateIds)
+        val adapter =
+            ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, mateIds)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.matesDropDown.adapter = adapter
 
         //Setting up onDropDownItemClick listener logic
-        binding.matesDropDown.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+        binding.matesDropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -45,14 +50,15 @@ class AddMate : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                mateId = mateIds[position]
+                mateIdNode = mateIds[position]
+                val positionIncrement = position + 1
+                mateId = positionIncrement.toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
-
 
 
         //Text Watcher for phone
@@ -110,29 +116,108 @@ class AddMate : Fragment() {
     }
 
 
+    //Function to check if the mate is already exists or not.
+    private fun mateExistsOrNot(mateReference: DatabaseReference): Boolean {
+        var isTrueOrFalse = false
+        mateReference.orderByChild("mate_id").equalTo(mateId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                   isTrueOrFalse = snapshot.exists()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                    binding.spinnerLayout.visibility = View.GONE
+                }
+            })
+
+        return isTrueOrFalse
+    }
+
+    //Function to check if the phone number is already exists or not
+    private fun phoneNumberExistOrNot(
+        phoneNumberReference: DatabaseReference,
+        phoneNumber: String
+    ): Boolean {
+        var isTrueOrFalse = false
+        phoneNumberReference.orderByChild("phone_number").equalTo(phoneNumber)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    isTrueOrFalse = snapshot.exists()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+        return isTrueOrFalse
+
+    }
+
+
     //Function to add mate
     private fun addMate(name: String, phone: String) {
+        binding.spinnerLayout.visibility = View.VISIBLE
         val database = FirebaseDatabase.getInstance()
         val databaseReference =
             database.getReference("admin_profiles")
-        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
-            .child(mateId).child("name").setValue(name)
-        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
-            .child(mateId).child("phone").setValue(phone)
-//        databaseReference.orderByChild("name").equalTo(name)
-//            .addListenerForSingleValueEvent(object: ValueEventListener{
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if(snapshot.exists()) Toast.makeText(context,"${snapshot.exists()}",Toast.LENGTH_SHORT).show()
-//                    else Toast.makeText(context,"Not found",Toast.LENGTH_SHORT).show()
-//
-//                }
-//                override fun onCancelled(error: DatabaseError) {
-//                   Toast.makeText(context,"$error",Toast.LENGTH_SHORT).show()
-//                }
-//            })
+        val mateReference = database.getReference("admin_profiles")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
+        val phoneNumberReference = database.getReference("all_phone_numbers")
+        val newPhoneNumber = HashMap<String, String>()
+        newPhoneNumber["phone_number"] = phone
 
-//        Toast.makeText(context,"Mate Added",Toast.LENGTH_SHORT).show()
-//        view?.findNavController()?.navigate(R.id.action_addMate_to_adminDashboard2)
+        //Checking if the Mate is already present or not
+        mateReference.orderByChild("mate_id").equalTo(mateId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        binding.spinnerLayout.visibility = View.GONE
+                        Toast.makeText(
+                            context,
+                            "$mateIdNode already exists",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                    else {
+                        //Checking if the phone number already exists or not
+                        phoneNumberReference.orderByChild("phone_number").equalTo(phoneNumber)
+                            .addListenerForSingleValueEvent(object :ValueEventListener{
+
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    if(snapshot.exists()) {
+                                        Toast.makeText(context,"$phone already exists",Toast.LENGTH_SHORT).show()
+                                        binding.spinnerLayout.visibility = View.GONE
+                                    } else{
+                                        phoneNumberReference.push().setValue(newPhoneNumber)
+                                        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                            .child("Mates").child(mateIdNode).child("mate_id")
+                                            .setValue(mateId)
+                                        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                            .child("Mates")
+                                            .child(mateIdNode).child("name").setValue(name)
+                                        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                            .child("Mates")
+                                            .child(mateIdNode).child("phone").setValue(phone)
+                                        Toast.makeText(context, "Mate Added", Toast.LENGTH_SHORT)
+                                            .show()
+                                        binding.spinnerLayout.visibility = View.GONE
+
+                                    }
+                                }
+                                override fun onCancelled(error: DatabaseError) {
+                                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                                    binding.spinnerLayout.visibility = View.GONE
+                                }
+                            })
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                    binding.spinnerLayout.visibility = View.GONE
+                }
+            })
     }
 
 
