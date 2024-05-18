@@ -43,7 +43,6 @@ class AddMate : Fragment() {
 
         //Setting up onDropDownItemClick listener logic
         binding.matesDropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -115,43 +114,6 @@ class AddMate : Fragment() {
         return isTrueOrFalse
     }
 
-
-    //Function to check if the mate is already exists or not.
-    private fun mateExistsOrNot(mateReference: DatabaseReference): Boolean {
-        var isTrueOrFalse = false
-        mateReference.orderByChild("mate_id").equalTo(mateId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                   isTrueOrFalse = snapshot.exists()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-                    binding.spinnerLayout.visibility = View.GONE
-                }
-            })
-
-        return isTrueOrFalse
-    }
-
-    //Function to check if the phone number is already exists or not
-    private fun phoneNumberExistOrNot(
-        phoneNumberReference: DatabaseReference,
-        phoneNumber: String
-    ): Boolean {
-        var isTrueOrFalse = false
-        phoneNumberReference.orderByChild("phone_number").equalTo(phoneNumber)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    isTrueOrFalse = snapshot.exists()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
-        return isTrueOrFalse
-
-    }
 
 
     //Function to add mate

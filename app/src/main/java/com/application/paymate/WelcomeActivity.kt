@@ -14,16 +14,26 @@ class WelcomeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome)
         //Setting up SharedPreferences to check the user is already installed application or not to show welcome screen.
         val sharedPreferences = getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
-        if(sharedPreferences.getBoolean("isInstalled",false)){
-            val intent = Intent(this,AdminActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        binding.adminButton.setOnClickListener {
-            sharedPreferences.edit()?.putBoolean("isInstalled",true)?.apply()
+        if(sharedPreferences.getString("isInstalled",null) == "admin"){
             val intent = Intent(this,AdminLoginActivity::class.java)
             startActivity(intent)
             finish()
+        } else if(sharedPreferences.getString("isInstalled",null) == "user") {
+                val intent = Intent(this, UserLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            binding.adminButton.setOnClickListener {
+                sharedPreferences.edit()?.putString("isInstalled", "admin")?.apply()
+                val intent = Intent(this, AdminLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            binding.userButton.setOnClickListener {
+                sharedPreferences.edit()?.putString("isInstalled", "user")?.apply()
+                val intent = Intent(this, UserLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
-    }
 }
