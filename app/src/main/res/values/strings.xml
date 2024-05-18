@@ -79,5 +79,10 @@
     <string name="Email_Hint">Email</string>
     <string name="add_mate">Add Mate</string>
     <string name="phone_hint">Phone</string>
+    <string name="hey_mate">Hey,Mate</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="otp_instructions">"OTP has been send to "</string>
+    <string name="enter_code_below">Enter OTP below to continue</string>
+    <string name="otp_hint">OTP</string>
 
 </resources>

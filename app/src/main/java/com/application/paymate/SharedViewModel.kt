@@ -12,4 +12,10 @@ class SharedViewModel:ViewModel(){
     //To store admin email
     private var _adminEmail = MutableLiveData("")
     var adminEmail:MutableLiveData<String> = _adminEmail
+
+
+    //To Store entered phone number by the mate
+    private var _credential = MutableLiveData("")
+    var credential:MutableLiveData<String> = _credential
+
 }

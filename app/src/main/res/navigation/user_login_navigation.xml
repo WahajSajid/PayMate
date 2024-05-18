@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_login_navigation"
+    app:startDestination="@id/enterPhoneNumber">
+    <fragment
+        android:id="@+id/enterPhoneNumber"
+        android:name="com.application.paymate.EnterPhoneNumber"
+        android:label="fragment_enter_phone_number"
+        tools:layout="@layout/fragment_enter_phone_number" >
+        <action
+            android:id="@+id/action_enterPhoneNumber_to_enterCodeForVerification"
+            app:destination="@id/enterCodeForVerification" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterCodeForVerification"
+        android:name="com.application.paymate.EnterCodeForVerification"
+        android:label="fragment_enter_code_for_verification"
+        tools:layout="@layout/fragment_enter_code_for_verification" />
+</navigation>
