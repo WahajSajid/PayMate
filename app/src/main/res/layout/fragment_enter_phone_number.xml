@@ -34,11 +34,29 @@
             app:layout_constraintVertical_bias="0.467"
             app:srcCompat="@drawable/high_five_removebg_preview" />
 
+
+        <Spinner
+            android:id="@+id/countryCodeDropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/app_theme_color"
+            android:backgroundTintMode="src_atop"
+            android:elevation="5sp"
+            app:layout_constraintBottom_toBottomOf="@id/enterPhoneInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/enterPhoneInputLayout"
+            app:layout_constraintVertical_bias="0.923"
+            app:strokeColor="@color/app_theme_color" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/enterPhoneInputLayout"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="36dp"
             app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
@@ -51,8 +69,8 @@
             app:errorTextColor="@color/design_default_color_error"
             app:hintAnimationEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.863"
+            app:layout_constraintStart_toEndOf="@id/countryCodeDropDown"
             app:layout_constraintTop_toBottomOf="@id/helloMateText">
 
             <com.google.android.material.textfield.TextInputEditText
