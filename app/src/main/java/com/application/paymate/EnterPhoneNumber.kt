@@ -18,11 +18,17 @@ import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.TotpSecret
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.util.concurrent.TimeUnit
 
 class EnterPhoneNumber : Fragment() {
     private lateinit var binding: FragmentEnterPhoneNumberBinding
     val sharedViewModel: SharedViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -32,25 +38,54 @@ class EnterPhoneNumber : Fragment() {
         )
         //Setting up logic for drop down menu
         val countryCode = arrayOf("+92")
-        val adapter = ArrayAdapter(this.requireContext(),android.R.layout.simple_spinner_item,countryCode)
+        val adapter =
+            ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, countryCode)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.countryCodeDropDown.adapter = adapter
+
+        //Setting up logic for send OTP button
         val phoneNumber = binding.enterPhoneEditText.text?.trim().toString()
         val phone = "+92$phoneNumber"
 
         val auth = FirebaseAuth.getInstance()
         binding.sendOTPButton.setOnClickListener {
-            if (inputFieldEmptyOrnNot())
-                if(binding.enterPhoneEditText.text?.length == 10){
+            if (inputFieldEmptyOrnNot()) {
+                if (binding.enterPhoneEditText.text?.length == 10) {
                     val options = PhoneAuthOptions.newBuilder(auth)
-                        .setPhoneNumber(phone)
-                        .setTimeout(60L,TimeUnit.SECONDS)
-                        .setActivity(this.requireActivity())
-                        .setCallbacks(callbacks)
-                }
-            else Toast.makeText(context, "Enter phone number first", Toast.LENGTH_SHORT).show()
+                        .setPhoneNumber(phone) // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(requireActivity()) // Activity (for callback binding)
+                        .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+                        .build()
+                    PhoneAuthProvider.verifyPhoneNumber(options)
+                } else Toast.makeText(context, "Invalid Phone Number", Toast.LENGTH_SHORT)
+                    .show()
+            }else Toast.makeText(context,"Please Input the number first",Toast.LENGTH_SHORT).show()
         }
         return binding.root
+    }
+
+
+    //Function to check if the number is registered by the user or not.
+    private fun userRegisteredOrNot(){
+        var isTrueOrFalse = false
+        val phoneNumber = binding.enterPhoneEditText.text?.trim().toString()
+        val phone = "+92$phoneNumber"
+        val database = FirebaseDatabase.getInstance()
+        val phoneNumberReference = database.getReference("all_phone_numbers")
+        phoneNumberReference.orderByChild("phone_number").equalTo(phone)
+            .addListenerForSingleValueEvent(object :ValueEventListener{
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()) Toast.makeText(context,"Number Registered",Toast.LENGTH_SHORT).show()
+                    else Toast.makeText(context,"Number Not Registered",Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
+        return
     }
 
     //Function to check if the input field is empty or not
@@ -60,7 +95,19 @@ class EnterPhoneNumber : Fragment() {
         return isTrueOrFalse
     }
 
-   private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        val auth = FirebaseAuth.getInstance()
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    Toast.makeText(context,"SignIn Successful",Toast.LENGTH_SHORT).show()
+                } else  Toast.makeText(context,"SignIn Failed",Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
             // This callback will be invoked in two situations:
@@ -96,11 +143,6 @@ class EnterPhoneNumber : Fragment() {
             // by combining the code with a verification ID.
 
             // Save verification ID and resending token so we can use them later
-            storedVerificationId = verificationId
-            resendToken = token
         }
     }
-
-
-
 }

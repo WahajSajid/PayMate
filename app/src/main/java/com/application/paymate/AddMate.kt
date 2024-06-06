@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener
 
 class AddMate : Fragment() {
     private lateinit var binding: FragmentAddMateBinding
-    private lateinit var phoneNumber: String
+    private var phoneNumber: String = ""
     private lateinit var mateIdNode: String
     private lateinit var mateId: String
 
@@ -63,7 +63,10 @@ class AddMate : Fragment() {
         //Text Watcher for phone
         val phoneValidator = PhoneValidator(object : PhoneValidatorCallBck {
             override fun onInputValidate(isTrue: Boolean) {
-                if (isTrue) phoneNumber = binding.enterPhoneEditText.text.toString()
+                if (isTrue) {
+                   val number = binding.enterPhoneEditText.text.toString()
+                    phoneNumber = "+92$number"
+                }
                 else binding.enterPhoneEditText.error = "Invalid phone"
             }
         })
@@ -85,7 +88,7 @@ class AddMate : Fragment() {
 
     //Function to check if the phoneNumber is valid or not
     private fun phoneNumberValidOrNot(phoneNumber: String): Boolean {
-        val isTrueOrFalse: Boolean = binding.enterPhoneEditText.text?.length == 11
+        val isTrueOrFalse: Boolean = binding.enterPhoneEditText.text?.length == 10
         return isTrueOrFalse
     }
 

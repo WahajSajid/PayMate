@@ -10,7 +10,7 @@ class PhoneValidator(private var callBack:PhoneValidatorCallBck):TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        if(s.isNullOrEmpty() || s.length<11) callBack.onInputValidate(false)
+        if(s.isNullOrEmpty() || s.length<10) callBack.onInputValidate(false)
         else callBack.onInputValidate(true)
     }
 

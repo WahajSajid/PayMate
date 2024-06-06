@@ -51,7 +51,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/enterNameInputLayout"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
@@ -80,7 +80,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/enterPhoneInputLayout"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
@@ -93,8 +93,8 @@
             app:errorEnabled="true"
             app:errorTextColor="@color/design_default_color_error"
             app:hintAnimationEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/enterNameInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/enterNameInputLayout"
             app:layout_constraintTop_toBottomOf="@id/enterNameInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -103,9 +103,31 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_hint"
                 android:inputType="phone"
-                android:maxLength="11" />
+                android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/box"
+            app:layout_constraintBottom_toBottomOf="@id/enterPhoneInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/enterPhoneInputLayout" />
+        <TextView
+            android:id="@+id/countryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+92"
+            app:layout_constraintStart_toStartOf="@id/view"
+            app:layout_constraintEnd_toEndOf="@id/view"
+            app:layout_constraintTop_toTopOf="@id/view"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            />
 
         <TextView
             android:id="@+id/addMateText"

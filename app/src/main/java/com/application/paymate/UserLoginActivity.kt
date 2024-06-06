@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,5 +15,6 @@ class UserLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
        binding = DataBindingUtil.setContentView(this,R.layout.activity_user_login)
+
     }
 }

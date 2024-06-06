@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,20 +10,21 @@ import com.application.paymate.databinding.ActivityWelcomeBinding
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding:ActivityWelcomeBinding
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome)
         //Setting up SharedPreferences to check the user is already installed application or not to show welcome screen.
         val sharedPreferences = getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
-        if(sharedPreferences.getString("isInstalled",null) == "admin"){
-            val intent = Intent(this,AdminLoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else if(sharedPreferences.getString("isInstalled",null) == "user") {
-                val intent = Intent(this, UserLoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+//        if(sharedPreferences.getString("isInstalled",null) == "admin"){
+//            val intent = Intent(this,AdminLoginActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        } else if(sharedPreferences.getString("isInstalled",null) == "user") {
+//                val intent = Intent(this, UserLoginActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//            }
             binding.adminButton.setOnClickListener {
                 sharedPreferences.edit()?.putString("isInstalled", "admin")?.apply()
                 val intent = Intent(this, AdminLoginActivity::class.java)
