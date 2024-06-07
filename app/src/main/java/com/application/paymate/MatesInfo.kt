@@ -1,8 +1,16 @@
 package com.application.paymate
 
-data class MatesInfo(
-    val name:String,
-    val phoneNumber:String,
-    val toPay:String,
-    val wallet:String
-)
+class MatesInfo {
+    var name: String? = null
+    var phone: String? = null
+    var mate_id:String? = null
+
+    // Add a no-argument constructor
+    constructor() {}
+
+    constructor(name :String,phoneNumber:String,id:String) {
+        this.name = name
+        this.phone = phoneNumber
+        this.mate_id = id
+    }
+}

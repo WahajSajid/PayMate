@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener
 
 class AllMates : Fragment() {
     private lateinit var binding: FragmentAllMatesBinding
-    val matesNames = mutableListOf<String>()
+    private lateinit var matesList: ArrayList<MatesInfo>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,31 +29,27 @@ class AllMates : Fragment() {
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
-        databaseReference.addListenerForSingleValueEvent(object:ValueEventListener{
+        matesList = ArrayList()
+
+        val recyclerView = binding.allMatesRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = AllMatesAdapter(matesList,requireContext())
+        recyclerView.adapter = adapter
+
+        databaseReference.addValueEventListener(object :ValueEventListener{
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(data in snapshot.children){
-                    val mate = data.getValue(String::class.java)
-                    matesNames.add(mate!!)
+                    val mateInfo = data.getValue(MatesInfo::class.java)
+                    matesList.add(mateInfo!!)
                 }
+                adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context,error.message,Toast.LENGTH_SHORT).show()
             }
         })
-
-        for(data in matesNames){
-            binding.textView.text = data[0].toString()
-        }
-
-
-
-
-        val recyclerView = binding.allMatesRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = AllMatesAdapter()
-        recyclerView.adapter = adapter
         return binding.root
     }
 

@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 
-class AllMatesAdapter():RecyclerView.Adapter<AllMatesAdapter.ViewHolder>(){
+class AllMatesAdapter(private var list:ArrayList<MatesInfo>,context: Context):RecyclerView.Adapter<AllMatesAdapter.ViewHolder>(){
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val mateId:TextView = itemView.findViewById(R.id.mateId)
         val mateName:TextView = itemView.findViewById(R.id.mateName)
@@ -19,19 +20,13 @@ class AllMatesAdapter():RecyclerView.Adapter<AllMatesAdapter.ViewHolder>(){
         return ViewHolder(view)
     }
 
-    override fun getItemCount():Int = 7
+    override fun getItemCount():Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when(position){
-            0 -> holder.mateId.text = "1"
-            1 -> holder.mateId.text = "2"
-            2 -> holder.mateId.text = "3"
-            3 -> holder.mateId.text = "4"
-            4 -> holder.mateId.text = "5"
-            5 -> holder.mateId.text = "6"
-            6 -> holder.mateId.text = "7"
-        }
-
+        val matesList = list[position]
+        holder.mateId.text = matesList.mate_id
+        holder.mateName.text = matesList.name
+        holder.phoneNumber.text = matesList.phone
     }
 
 
