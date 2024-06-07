@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit
 class EnterPhoneNumber : Fragment() {
     private lateinit var binding: FragmentEnterPhoneNumberBinding
     val sharedViewModel: SharedViewModel by activityViewModels()
+    private lateinit var phoneNumber:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,21 +44,35 @@ class EnterPhoneNumber : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.countryCodeDropDown.adapter = adapter
 
-        //Setting up logic for send OTP button
-        val phoneNumber = binding.enterPhoneEditText.text?.trim().toString()
-        val phone = "+92$phoneNumber"
+
+
 
         val auth = FirebaseAuth.getInstance()
+
         binding.sendOTPButton.setOnClickListener {
+            phoneNumber = binding.enterPhoneEditText.text.toString()
+            val phone = "+92$phoneNumber"
             if (inputFieldEmptyOrnNot()) {
                 if (binding.enterPhoneEditText.text?.length == 10) {
-                    val options = PhoneAuthOptions.newBuilder(auth)
-                        .setPhoneNumber(phone) // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(requireActivity()) // Activity (for callback binding)
-                        .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
-                        .build()
-                    PhoneAuthProvider.verifyPhoneNumber(options)
+                    val database = FirebaseDatabase.getInstance()
+                    val phoneNumberReference = database.getReference("all_phone_numbers")
+                    phoneNumberReference.orderByChild("phone_number").equalTo(phone)
+                        .addListenerForSingleValueEvent(object :ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if(snapshot.exists()) Toast.makeText(context,"Registered",Toast.LENGTH_SHORT).show()
+                                else Toast.makeText(context,"Not Registered",Toast.LENGTH_SHORT).show()
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                Toast.makeText(context,error.message,Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                        val options = PhoneAuthOptions.newBuilder(auth)
+                            .setPhoneNumber(phone) // Phone number to verify
+                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                            .setActivity(requireActivity()) // Activity (for callback binding)
+                            .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+                            .build()
+                        PhoneAuthProvider.verifyPhoneNumber(options)
                 } else Toast.makeText(context, "Invalid Phone Number", Toast.LENGTH_SHORT)
                     .show()
             }else Toast.makeText(context,"Please Input the number first",Toast.LENGTH_SHORT).show()
@@ -67,7 +82,7 @@ class EnterPhoneNumber : Fragment() {
 
 
     //Function to check if the number is registered by the user or not.
-    private fun userRegisteredOrNot(){
+    private fun userRegisteredOrNot():Boolean{
         var isTrueOrFalse = false
         val phoneNumber = binding.enterPhoneEditText.text?.trim().toString()
         val phone = "+92$phoneNumber"
@@ -77,15 +92,15 @@ class EnterPhoneNumber : Fragment() {
             .addListenerForSingleValueEvent(object :ValueEventListener{
 
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()) Toast.makeText(context,"Number Registered",Toast.LENGTH_SHORT).show()
-                    else Toast.makeText(context,"Number Not Registered",Toast.LENGTH_SHORT).show()
+                    if(snapshot.exists()) isTrueOrFalse = true
+                    else isTrueOrFalse = false
                 }
 
                 override fun onCancelled(error: DatabaseError) {
 
                 }
             })
-        return
+        return isTrueOrFalse
     }
 
     //Function to check if the input field is empty or not

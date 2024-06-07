@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_adminDashboard2_to_addMate2"
             app:destination="@id/addMate" />
+        <action
+            android:id="@+id/action_adminDashboard2_to_allMates"
+            app:destination="@id/allMates" />
     </fragment>
     <fragment
         android:id="@+id/adminProfile"
@@ -32,4 +35,9 @@
             android:id="@+id/action_addMate_to_adminDashboard2"
             app:destination="@id/adminDashboard2" />
     </fragment>
+    <fragment
+        android:id="@+id/allMates"
+        android:name="com.application.paymate.AllMates"
+        android:label="fragment_all_mates"
+        tools:layout="@layout/fragment_all_mates" />
 </navigation>

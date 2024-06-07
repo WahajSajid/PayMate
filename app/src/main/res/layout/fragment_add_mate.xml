@@ -8,23 +8,30 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background">
+        android:layout_height="match_parent">
+
+        <!--        <View-->
+<!--            android:id="@+id/spinnerView"-->
+<!--            android:layout_width="120dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_marginBottom="13dp"-->
+<!--            android:background="@drawable/box"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/enterNameInputLayout"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/enterNameInputLayout" />-->
 
 
         <Spinner
             android:id="@+id/mates_dropDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:backgroundTint="@color/app_theme_color"
             android:backgroundTintMode="src_atop"
             android:elevation="5sp"
             app:barrierMargin="3dp"
-            app:layout_constraintBottom_toTopOf="@+id/addMateText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.044"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/enterNameInputLayout"
+            app:layout_constraintBottom_toTopOf="@+id/enterNameInputLayout"
             app:strokeColor="@color/app_theme_color" />
 
         <RelativeLayout
@@ -53,7 +60,7 @@
             android:id="@+id/enterNameInputLayout"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="80dp"
             app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
             app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
             app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
@@ -67,7 +74,7 @@
             app:hintAnimationEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addMateText">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/enterNameEditText"
@@ -93,8 +100,8 @@
             app:errorEnabled="true"
             app:errorTextColor="@color/design_default_color_error"
             app:hintAnimationEnabled="true"
-            app:layout_constraintEnd_toEndOf="@+id/enterNameInputLayout"
-            app:layout_constraintStart_toStartOf="@+id/enterNameInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/enterNameInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -108,53 +115,55 @@
 
 
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="13dp"
-            android:background="@drawable/box"
-            app:layout_constraintBottom_toBottomOf="@id/enterPhoneInputLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/enterPhoneInputLayout" />
-        <TextView
-            android:id="@+id/countryCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+92"
-            app:layout_constraintStart_toStartOf="@id/view"
-            app:layout_constraintEnd_toEndOf="@id/view"
-            app:layout_constraintTop_toTopOf="@id/view"
-            app:layout_constraintBottom_toBottomOf="@id/view"
-            />
+<!--        <View-->
+<!--            android:id="@+id/view"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_marginBottom="13dp"-->
+<!--            android:background="@drawable/box"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/enterPhoneInputLayout"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/enterPhoneInputLayout"-->
+<!--            app:layout_constraintTop_toTopOf="@id/enterPhoneInputLayout" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/countryCode"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="+92"-->
+<!--            app:layout_constraintStart_toStartOf="@id/view"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/view"-->
+<!--            app:layout_constraintTop_toTopOf="@id/view"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/view"-->
+<!--            />-->
 
-        <TextView
-            android:id="@+id/addMateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/add_mate"
-            android:textColor="@color/app_theme_color"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.551" />
+<!--        <TextView-->
+<!--            android:id="@+id/addMateText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:text="@string/add_mate"-->
+<!--            android:textColor="@color/app_theme_color"-->
+<!--            android:textSize="30sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.551" />-->
 
 
         <Button
             android:id="@+id/addMateButton"
-            android:layout_width="144dp"
-            android:layout_height="60dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="80dp"
             android:backgroundTint="@color/app_theme_color"
             android:text="@string/add_mate_button_text"
-            app:cornerRadius="7sp"
+            app:cornerRadius="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:strokeColor="#FFFFFF"
             app:strokeWidth="2sp" />
 

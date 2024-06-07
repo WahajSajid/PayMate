@@ -38,7 +38,7 @@ class AddMate : Fragment() {
             arrayOf("Mate 1", "Mate 2", "Mate 3", "Mate 4", "Mate 5", "Mate 6", "Mate 7", "Mate 8")
         val adapter =
             ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, mateIds)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(android.R.layout.preference_category)
         binding.matesDropDown.adapter = adapter
 
         //Setting up onDropDownItemClick listener logic

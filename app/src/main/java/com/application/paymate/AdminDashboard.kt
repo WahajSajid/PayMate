@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentAdminDashboardBinding
 
 class AdminDashboard : Fragment() {
@@ -30,6 +31,10 @@ class AdminDashboard : Fragment() {
         val sharedPreferences = requireActivity().getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
         val adminName = sharedPreferences.getString("adminName","Loading....")
         binding.adminName.text  = adminName
+
+        binding.allMatesCard.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_adminDashboard2_to_allMates)
+        }
 
             return binding.root
     }
