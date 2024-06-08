@@ -33,6 +33,9 @@ class AddMate : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_mate, container, false)
 
+        view?.setFocusableInTouchMode(true)
+        view?.requestFocus()
+
         //Setting up items for drop down view.
         val mateIds =
             arrayOf("Mate 1", "Mate 2", "Mate 3", "Mate 4", "Mate 5", "Mate 6", "Mate 7", "Mate 8")

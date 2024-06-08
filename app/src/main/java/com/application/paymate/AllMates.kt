@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,32 +26,47 @@ class AllMates : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all_mates, container, false)
-
+        // Initialize Firebase
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
+        // Initialize matesList
         matesList = ArrayList()
-
+        // Show spinner
+        binding.spinnerLayout.visibility = View.VISIBLE
+        // Recycler View initialization and adapter setting
         val recyclerView = binding.allMatesRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = AllMatesAdapter(matesList,requireContext())
         recyclerView.adapter = adapter
 
-        databaseReference.addValueEventListener(object :ValueEventListener{
 
+
+        //Value Event listener to retrieve the data from firebase realtime database
+        databaseReference.addValueEventListener(object :ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
+                binding.spinnerLayout.visibility = View.GONE
+
+                //Checking if any mate is exists in the database or not. If exists then show the list is empty message
+                if(!snapshot.exists()) binding.emptyListLayout.visibility = View.VISIBLE
+                else binding.emptyListLayout.visibility = View.GONE
+
+                binding.spinnerLayout.visibility = View.GONE
                 for(data in snapshot.children){
                     val mateInfo = data.getValue(MatesInfo::class.java)
                     matesList.add(mateInfo!!)
                 }
                 adapter.notifyDataSetChanged()
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context,error.message,Toast.LENGTH_SHORT).show()
+                binding.spinnerLayout.visibility = View.GONE
             }
         })
         return binding.root
     }
+
+
 
 }

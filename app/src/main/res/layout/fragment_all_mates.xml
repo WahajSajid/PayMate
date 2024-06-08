@@ -18,5 +18,90 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <RelativeLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:id="@+id/spinnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progress_icon"
+                android:progressDrawable="@drawable/progress_icon"
+                android:progressTint="@color/app_theme_color" />
+        </RelativeLayout>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/emptyListLayout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            >
+
+
+            <ImageView
+                android:id="@+id/emptyListIcon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/explore" />
+
+            <LinearLayout
+                android:id="@+id/exploreListIsEmptyTextLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/emptyListIcon"
+                app:layout_constraintStart_toStartOf="@id/emptyListIcon"
+                app:layout_constraintTop_toBottomOf="@+id/emptyListIcon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your mate list is"
+                    android:textColor="@color/material_dynamic_neutral70"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5sp"
+                    android:text="EMPTY"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/sorryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Please click on the Add Button below to add mates"
+                android:textColor="@color/material_dynamic_neutral70"
+                app:layout_constraintEnd_toEndOf="@id/exploreListIsEmptyTextLayout"
+                app:layout_constraintStart_toStartOf="@id/exploreListIsEmptyTextLayout"
+                app:layout_constraintTop_toBottomOf="@id/exploreListIsEmptyTextLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
