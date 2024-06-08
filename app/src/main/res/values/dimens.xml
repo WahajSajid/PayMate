@@ -14,14 +14,12 @@
     <dimen name="fab_margin">16dp</dimen>
 
 
-<!--    Dimers for welcome Screen-->
+    <!--    Dimers for welcome Screen-->
     <dimen name="app_name_text_size">40sp</dimen>
     <dimen name="slogan_text_size">25sp</dimen>
 
 
-
-
-<!--    Styles for Admin Dashboard Fragment-->
+    <!--    Styles for Admin Dashboard Fragment-->
     <style name="admin_dashboard_itemsLayout_style">
         <item name="android:layout_marginStart">10sp</item>
         <item name="android:layout_marginLeft">10sp</item>

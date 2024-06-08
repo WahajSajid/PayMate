@@ -7,7 +7,7 @@
 
     </style>
 
-    <style name="Theme.PayMate" parent="Base.Theme.PayMate" >
+    <style name="Theme.PayMate" parent="Base.Theme.PayMate">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

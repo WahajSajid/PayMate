@@ -68,7 +68,7 @@ class AddMate : Fragment() {
             override fun onInputValidate(isTrue: Boolean) {
                 if (isTrue) {
                    val number = binding.enterPhoneEditText.text.toString()
-                    phoneNumber = "+92$number"
+                    phoneNumber = number
                 }
                 else binding.enterPhoneEditText.error = "Invalid phone"
             }
@@ -91,7 +91,7 @@ class AddMate : Fragment() {
 
     //Function to check if the phoneNumber is valid or not
     private fun phoneNumberValidOrNot(phoneNumber: String): Boolean {
-        val isTrueOrFalse: Boolean = binding.enterPhoneEditText.text?.length == 10
+        val isTrueOrFalse: Boolean = binding.enterPhoneEditText.text?.length == 11
         return isTrueOrFalse
     }
 
@@ -149,7 +149,7 @@ class AddMate : Fragment() {
                     }
                     else {
                         //Checking if the phone number already exists or not
-                        phoneNumberReference.orderByChild("phone_number").equalTo(phoneNumber)
+                        mateReference.orderByChild("phone").equalTo(phoneNumber)
                             .addListenerForSingleValueEvent(object :ValueEventListener{
 
                                 override fun onDataChange(snapshot: DataSnapshot) {

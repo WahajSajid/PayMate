@@ -18,4 +18,16 @@ class SharedViewModel:ViewModel(){
     private var _credential = MutableLiveData("")
     var credential:MutableLiveData<String> = _credential
 
+    //To share the Mate Node
+    private var _mateNode = MutableLiveData("")
+    var mateNode:MutableLiveData<String> = _mateNode
+
+
+    //mate name
+    private var _mateName = MutableLiveData("")
+    var mateName:MutableLiveData<String> = _mateName
+
+    //mate phone number
+    private var _matePhone = MutableLiveData("")
+    var matePhone:MutableLiveData<String> = _matePhone
 }

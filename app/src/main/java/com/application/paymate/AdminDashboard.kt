@@ -32,7 +32,7 @@ class AdminDashboard : Fragment() {
         val adminName = sharedPreferences.getString("adminName","Loading....")
         binding.adminName.text  = adminName
 
-        binding.allMatesCard.setOnClickListener {
+        binding.allMatesCardImage.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_adminDashboard2_to_allMates)
         }
 

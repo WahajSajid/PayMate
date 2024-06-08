@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/changeNameInputLayout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+            app:boxStrokeColor="@color/app_theme_color"
+            app:boxStrokeErrorColor="@color/design_default_color_error"
+            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:cursorErrorColor="@color/design_default_color_error"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/design_default_color_error"
+            app:hintAnimationEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/changeNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:text="Muhammad Wahaj Sajid"
+                android:inputType="text|textPersonName|textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/changePhoneInputLayout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+            app:boxStrokeColor="@color/app_theme_color"
+            app:boxStrokeErrorColor="@color/design_default_color_error"
+            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:cursorErrorColor="@color/design_default_color_error"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/design_default_color_error"
+            app:hintAnimationEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/changeNameInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/changePhoneEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_hint"
+                android:text="03000072635"
+                android:inputType="phone"
+                android:maxLength="11" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/changeButton"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/app_theme_color"
+            android:text="Change"
+            app:cornerRadius="15sp"
+            app:layout_constraintTop_toBottomOf="@id/changePhoneInputLayout"
+            app:layout_constraintEnd_toEndOf="@id/changePhoneInputLayout"
+            app:layout_constraintStart_toStartOf="@id/changePhoneInputLayout"
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="2sp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
+
