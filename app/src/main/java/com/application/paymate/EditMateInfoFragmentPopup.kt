@@ -10,11 +10,12 @@ import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.application.paymate.databinding.PopupFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-class PopupFragment : DialogFragment() {
+class EditMateInfoFragmentPopup : DialogFragment() {
     private lateinit var binding: PopupFragmentBinding
     private var phoneNumber: String = ""
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -45,8 +46,11 @@ class PopupFragment : DialogFragment() {
         binding.changePhoneEditText.addTextChangedListener(phoneValidator)
 
         binding.changeButton.setOnClickListener {
-            val changedName = binding.changeNameEditText.text.toString()
-            val changedPhone = binding.changePhoneEditText.text.toString()
+            if(NetworkUtil.isNetworkAvailable(requireContext())){
+
+
+                val changedName = binding.changeNameEditText.text.toString()
+                val changedPhone = binding.changePhoneEditText.text.toString()
                 if (phoneNumberValidOrNot()) {
                     val database = FirebaseDatabase.getInstance()
                     val databaseReference = database.getReference("admin_profiles")
@@ -55,6 +59,8 @@ class PopupFragment : DialogFragment() {
                     databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                         .child("Mates").child(mateIdNode).child("phone").setValue(changedPhone)
                     Toast.makeText(context,"Changes Saved",Toast.LENGTH_SHORT).show()
+                    val navController = findNavController()
+                    navController.navigate(R.id.action_allMates_to_adminDashboard2)
                     dismiss()
 
                 } else Toast.makeText(
@@ -62,6 +68,8 @@ class PopupFragment : DialogFragment() {
                     "Please input a valid phone number",
                     Toast.LENGTH_SHORT
                 ).show()
+
+            } else Toast.makeText(context,"No Internet Connection",Toast.LENGTH_SHORT).show()
         }
 
 

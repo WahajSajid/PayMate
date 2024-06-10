@@ -52,7 +52,7 @@ class AllMates : Fragment() {
                 sharedViewModel.mateNode.value = mateText.text.toString() + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
                 sharedViewModel.matePhone.value = matePhone.text.toString()
-                val popScreen = PopupFragment()
+                val popScreen = EditMateInfoFragmentPopup()
                 popScreen.show(childFragmentManager,"popup_fragment")
 
             }
@@ -64,27 +64,35 @@ class AllMates : Fragment() {
 
 
         //Value Event listener to retrieve the data from firebase realtime database
-        databaseReference.addValueEventListener(object :ValueEventListener{
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.spinnerLayout.visibility = View.GONE
+        if(NetworkUtil.isNetworkAvailable(requireContext())){
 
-                //Checking if any mate is exists in the database or not. If exists then show the list is empty message
-                if(!snapshot.exists()) binding.emptyListLayout.visibility = View.VISIBLE
-                else binding.emptyListLayout.visibility = View.GONE
+            databaseReference.addValueEventListener(object :ValueEventListener{
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    binding.spinnerLayout.visibility = View.GONE
 
-                binding.spinnerLayout.visibility = View.GONE
-                for(data in snapshot.children){
-                    val mateInfo = data.getValue(MatesInfo::class.java)
-                    matesList.add(mateInfo!!)
+                    //Checking if any mate is exists in the database or not. If exists then show the list is empty message
+                    if(!snapshot.exists()) binding.emptyListLayout.visibility = View.VISIBLE
+                    else binding.emptyListLayout.visibility = View.GONE
+
+                    binding.spinnerLayout.visibility = View.GONE
+                    for(data in snapshot.children){
+                        val mateInfo = data.getValue(MatesInfo::class.java)
+                        matesList.add(mateInfo!!)
+                    }
+                    adapter.notifyDataSetChanged()
                 }
-                adapter.notifyDataSetChanged()
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context,error.message,Toast.LENGTH_SHORT).show()
-                binding.spinnerLayout.visibility = View.GONE
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(context,error.message,Toast.LENGTH_SHORT).show()
+                    binding.spinnerLayout.visibility = View.GONE
+                }
+            })
+
+        } else{
+            binding.spinnerLayout.visibility = View.GONE
+            binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
+        }
+
         return binding.root
     }
 

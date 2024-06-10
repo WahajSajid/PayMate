@@ -39,5 +39,9 @@
         android:id="@+id/allMates"
         android:name="com.application.paymate.AllMates"
         android:label="fragment_all_mates"
-        tools:layout="@layout/fragment_all_mates" />
+        tools:layout="@layout/fragment_all_mates" >
+        <action
+            android:id="@+id/action_allMates_to_adminDashboard2"
+            app:destination="@id/adminDashboard2" />
+    </fragment>
 </navigation>
