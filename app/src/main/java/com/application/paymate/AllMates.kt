@@ -46,9 +46,8 @@ class AllMates : Fragment() {
 
 
         //Setting Up click listener for editButton on recycler view item
-
         adapter.itemClickListener(object : AllMatesAdapter.OnItemClickListener{
-            override fun itemClickListener(position: Int, mateId: TextView,mateText:TextView,mateName:TextView,matePhone:TextView) {
+            override fun editButtonListener(position: Int, mateId: TextView,mateText:TextView,mateName:TextView,matePhone:TextView) {
                 sharedViewModel.mateNode.value = mateText.text.toString() + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
                 sharedViewModel.matePhone.value = matePhone.text.toString()
@@ -57,8 +56,20 @@ class AllMates : Fragment() {
 
             }
 
+            override fun removeButtonListener(
+                mateId: TextView,
+                mateText: TextView,
+                mateName: TextView
+            ) {
+                sharedViewModel.mateNode.value = mateText.text.toString() + mateId.text.toString()
+                sharedViewModel.mateName.value = mateName.text.toString()
+                val popScreen = RemoveMatePopUp()
+                popScreen.show(childFragmentManager,"remove_popup_fragment")
+            }
+
             override val mutex: Mutex = Mutex()
         })
+
 
 
 

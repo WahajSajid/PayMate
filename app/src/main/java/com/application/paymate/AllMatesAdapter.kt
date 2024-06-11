@@ -14,40 +14,76 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-class AllMatesAdapter(private var list:ArrayList<MatesInfo>,context: Context):RecyclerView.Adapter<AllMatesAdapter.ViewHolder>(){
+class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) :
+    RecyclerView.Adapter<AllMatesAdapter.ViewHolder>() {
 
-    private lateinit var  clickListener: OnItemClickListener
+    private lateinit var clickListener: OnItemClickListener
 
-    interface OnItemClickListener{
-        fun itemClickListener(position: Int,mateId:TextView,mateText:TextView,mateName:TextView,matePhone:TextView)
+    interface OnItemClickListener {
+        fun editButtonListener(
+            position: Int,
+            mateId: TextView,
+            mateText: TextView,
+            mateName: TextView,
+            matePhone: TextView
+        )
+        fun removeButtonListener(mateId:TextView,mateText: TextView,mateName:TextView)
+
         val mutex: Mutex
     }
-    fun itemClickListener(listener: OnItemClickListener){
+
+    fun itemClickListener(listener: OnItemClickListener) {
         clickListener = listener
     }
 
-    class ViewHolder(itemView: View,clickListener:OnItemClickListener):RecyclerView.ViewHolder(itemView) {
-        val mateId:TextView = itemView.findViewById(R.id.mateId)
-        val mateName:TextView = itemView.findViewById(R.id.mateName)
-        val phoneNumber:TextView = itemView.findViewById(R.id.phoneNumber)
-        val mateText:TextView = itemView.findViewById(R.id.mateText)
-        val editButton: Button = itemView.findViewById(R.id.ediDetailsButton)
-
+    class ViewHolder(itemView: View, clickListener: OnItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
+        val mateId: TextView = itemView.findViewById(R.id.mateId)
+        val mateName: TextView = itemView.findViewById(R.id.mateName)
+        val phoneNumber: TextView = itemView.findViewById(R.id.phoneNumber)
+        val mateText: TextView = itemView.findViewById(R.id.mateText)
+        val editButton: Button = itemView.findViewById(R.id.editDetailsButton)
+        val removeButton: Button = itemView.findViewById(R.id.removeButton)
         init {
             editButton.setOnClickListener {
                 editButton.findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
-                    clickListener.mutex.withLock { clickListener.itemClickListener(adapterPosition,mateId,mateText,mateName,phoneNumber) }
+                    clickListener.mutex.withLock {
+                        clickListener.editButtonListener(
+                            adapterPosition,
+                            mateId,
+                            mateText,
+                            mateName,
+                            phoneNumber
+                        )
+                    }
                 }
             }
         }
+
+        init {
+            removeButton.setOnClickListener {
+                removeButton.findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
+                    clickListener.mutex.withLock {
+                        clickListener.removeButtonListener(
+                            mateId,
+                            mateText,
+                            mateName,
+                        )
+                    }
+                }
+            }
+        }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.all_info_items,parent,false)
-        return ViewHolder(view,clickListener)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.all_info_items, parent, false)
+        return ViewHolder(view, clickListener)
     }
 
-    override fun getItemCount():Int = list.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val matesList = list[position]

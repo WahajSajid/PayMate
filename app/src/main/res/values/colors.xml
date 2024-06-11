@@ -20,6 +20,8 @@
 
 
 
+    <color name="red">#FF0000</color>
+
     <color name="blue">#2F80ED</color>
     <color name="app_theme_color">#FFA500</color>
 
