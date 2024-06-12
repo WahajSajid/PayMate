@@ -4,7 +4,7 @@ class MatesInfo {
     var name: String? = null
     var phone: String? = null
     var mate_id:String? = null
-
+    var isExpanded: Boolean = false
     // Add a no-argument constructor
     constructor() {}
 

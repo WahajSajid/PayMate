@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.paymate.databinding.FragmentAllMatesBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.sync.Mutex
+import org.w3c.dom.Text
 
 class AllMates : Fragment() {
     private lateinit var binding: FragmentAllMatesBinding
@@ -66,6 +68,14 @@ class AllMates : Fragment() {
                 val popScreen = RemoveMatePopUp()
                 popScreen.show(childFragmentManager,"remove_popup_fragment")
             }
+
+            override fun updateButtonClickListener(rentAmount: TextView, otherAmount: TextView,walletAmount:TextView) {
+                sharedViewModel.rentAmount.value = rentAmount.text.toString()
+                sharedViewModel.otherAmount.value = otherAmount.text.toString()
+                sharedViewModel.walletAmount.value = walletAmount.text.toString()
+                view?.findNavController()?.navigate(R.id.action_allMates_to_updateFragment)
+            }
+
 
             override val mutex: Mutex = Mutex()
         })

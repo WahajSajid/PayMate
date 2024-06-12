@@ -54,7 +54,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Your mate list is"
-                    android:textColor="@color/material_dynamic_neutral70"
                     android:textStyle="bold" />
 
                 <TextView
@@ -72,7 +71,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="Please click on the Add Button below to add mates"
-                android:textColor="@color/material_dynamic_neutral70"
                 app:layout_constraintEnd_toEndOf="@id/exploreListIsEmptyTextLayout"
                 app:layout_constraintStart_toStartOf="@id/exploreListIsEmptyTextLayout"
                 app:layout_constraintTop_toBottomOf="@id/exploreListIsEmptyTextLayout" />
@@ -116,7 +114,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No Network"
-                    android:textColor="@color/material_dynamic_neutral70"
                     android:textStyle="bold" />
 
                 <TextView

@@ -30,4 +30,18 @@ class SharedViewModel:ViewModel(){
     //mate phone number
     private var _matePhone = MutableLiveData("")
     var matePhone:MutableLiveData<String> = _matePhone
+
+    //Rent Amount
+    private var _rentAmount = MutableLiveData("")
+    var rentAmount:MutableLiveData<String> = _matePhone
+
+    //Other Amount
+    private var _otherAmount = MutableLiveData("")
+    var otherAmount:MutableLiveData<String> = _matePhone
+
+
+    //Wallet Amount
+    private var _walletAmount = MutableLiveData("")
+    var walletAmount:MutableLiveData<String> = _matePhone
+
 }

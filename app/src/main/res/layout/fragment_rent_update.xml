@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RentUpdateFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Spinner
+            android:id="@+id/selectOptionDropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/app_theme_color"
+            android:backgroundTintMode="src_atop"
+            android:elevation="5sp"
+            app:barrierMargin="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/addRentLayout"
+            app:layout_constraintStart_toStartOf="@id/addRentLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/app_theme_color" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addRentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selectOptionDropDown">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/rentAmountInputLayout"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:clickable="false"
+                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/updateRentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:text="1200"
+                    tools:ignore="Deprecated" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/addIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rentAmountInputLayout"
+                app:layout_constraintStart_toEndOf="@+id/rentAmountInputLayout"
+                app:layout_constraintTop_toTopOf="@+id/rentAmountInputLayout"
+                app:srcCompat="@drawable/baseline_add_24" />
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/enterRentAmountInputLayout"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+                app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+                app:boxStrokeColor="@color/app_theme_color"
+                app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/addIcon"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/enterRentAmountEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Rent Amount"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/updateChangesButton"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="80dp"
+            android:backgroundTint="@color/app_theme_color"
+            android:text="Update Changes"
+            app:cornerRadius="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

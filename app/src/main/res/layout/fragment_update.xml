@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".UpdateFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/selectTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Please click on the item you want to update"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/rentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rent"
+            app:layout_constraintStart_toStartOf="@id/rentUpdateEditText"
+            app:layout_constraintBottom_toTopOf="@id/rentUpdateEditText"/>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/rentUpdateEditText"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:clickable="false"
+            android:focusable="false"
+            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:hintAnimationEnabled="true"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selectTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/updateRentEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:focusable="false"
+                android:text="1200"
+                tools:ignore="Deprecated" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+        <TextView
+            android:id="@+id/otherTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other Dues"
+            app:layout_constraintStart_toStartOf="@id/otherUpdateEditText"
+            app:layout_constraintBottom_toTopOf="@id/otherUpdateEditText"/>
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/otherUpdateEditText"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:clickable="false"
+            android:focusable="false"
+            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:hintAnimationEnabled="true"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rentUpdateEditText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/updateOtherEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:focusable="false"
+                android:text="1200"
+                tools:ignore="Deprecated" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/walletTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wallet"
+            app:layout_constraintStart_toStartOf="@id/walletUpdateEditText"
+            app:layout_constraintBottom_toTopOf="@id/walletUpdateEditText"/>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/walletUpdateEditText"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:clickable="false"
+            android:focusable="false"
+            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:hintAnimationEnabled="true"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/otherUpdateEditText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/walletUpdateEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:focusable="false"
+                android:text="1200"
+                tools:ignore="Deprecated" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
