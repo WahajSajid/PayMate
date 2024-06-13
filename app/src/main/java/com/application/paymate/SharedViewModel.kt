@@ -33,15 +33,24 @@ class SharedViewModel:ViewModel(){
 
     //Rent Amount
     private var _rentAmount = MutableLiveData("")
-    var rentAmount:MutableLiveData<String> = _matePhone
+    var rentAmount:MutableLiveData<String> = _rentAmount
 
     //Other Amount
     private var _otherAmount = MutableLiveData("")
-    var otherAmount:MutableLiveData<String> = _matePhone
+    var otherAmount:MutableLiveData<String> = _otherAmount
 
 
     //Wallet Amount
     private var _walletAmount = MutableLiveData("")
-    var walletAmount:MutableLiveData<String> = _matePhone
+    var walletAmount:MutableLiveData<String> = _walletAmount
+
+
+    //Wallet Amount
+    private var __mateId = MutableLiveData(1)
+    var _mateId:MutableLiveData<Int> = __mateId
+
+    init{
+        __mateId.value = 1
+    }
 
 }

@@ -69,10 +69,11 @@ class AllMates : Fragment() {
                 popScreen.show(childFragmentManager,"remove_popup_fragment")
             }
 
-            override fun updateButtonClickListener(rentAmount: TextView, otherAmount: TextView,walletAmount:TextView) {
+            override fun updateButtonClickListener(rentAmount: TextView, otherAmount: TextView,walletAmount:TextView,mateText:TextView,mateId:TextView) {
                 sharedViewModel.rentAmount.value = rentAmount.text.toString()
                 sharedViewModel.otherAmount.value = otherAmount.text.toString()
                 sharedViewModel.walletAmount.value = walletAmount.text.toString()
+                sharedViewModel.mateNode.value = mateText.text.toString() + mateId.text.toString()
                 view?.findNavController()?.navigate(R.id.action_allMates_to_updateFragment)
             }
 

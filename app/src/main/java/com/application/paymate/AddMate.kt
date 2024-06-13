@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentAddMateBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,7 +27,8 @@ class AddMate : Fragment() {
     private lateinit var binding: FragmentAddMateBinding
     private var phoneNumber: String = ""
     private var _mateIdNode: String = ""
-    private var _mateId: Int = 1
+    private val sharedViewModel:SharedViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +40,7 @@ class AddMate : Fragment() {
         view?.setFocusableInTouchMode(true)
         view?.requestFocus()
 
-
+         val _mateId = sharedViewModel._mateId.value.toString().toInt()
 
         //Text Watcher for phone
         val phoneValidator = PhoneValidator(object : PhoneValidatorCallBck {
@@ -56,7 +58,7 @@ class AddMate : Fragment() {
                 if (phoneNumberValidOrNot(phoneNumber)) {
                     val name = binding.enterNameEditText.text.toString()
                     _mateIdNode = "Mate $_mateId"
-                    addMate(name, phoneNumber)
+                    addMate(name, phoneNumber,_mateId)
                 } else binding.enterPhoneInputLayout.error = "Invalid Phone Number"
             } else Toast.makeText(context, "Please input all the fields", Toast.LENGTH_SHORT).show()
 
@@ -99,7 +101,7 @@ class AddMate : Fragment() {
 
 
     //Function to add mate
-    private fun addMate(name: String, phone: String) {
+    private fun addMate(name: String, phone: String,_mateId:Int) {
         binding.spinnerLayout.visibility = View.VISIBLE
 
         val database = FirebaseDatabase.getInstance()
@@ -136,13 +138,22 @@ class AddMate : Fragment() {
                             databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                                 .child("Mates")
                                 .child(_mateIdNode).child("phone").setValue(phone)
+                            databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                .child("Mates")
+                                .child(_mateIdNode).child("rent_amount").setValue("0")
+                            databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                .child("Mates")
+                                .child(_mateIdNode).child("other_amount").setValue("0")
+                            databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                .child("Mates")
+                                .child(_mateIdNode).child("wallet_amount").setValue("0")
                             Toast.makeText(context, "Mate Added", Toast.LENGTH_SHORT)
                                 .show()
                             databaseReference
                                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
                                 .child(_mateIdNode).get()
                                 .addOnSuccessListener { snapshot ->
-                                    _mateId = snapshot.child("mate_id").value.toString().toInt() + 1
+                                    sharedViewModel._mateId.value = snapshot.child("mate_id").value.toString().toInt() + 1
                                 }
                             binding.spinnerLayout.visibility = View.GONE
 
