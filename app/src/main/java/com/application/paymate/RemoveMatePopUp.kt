@@ -2,6 +2,7 @@ package com.application.paymate
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.application.paymate.databinding.RemoveMatePopupFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
+@Suppress("DEPRECATION")
 class RemoveMatePopUp : DialogFragment() {
     private lateinit var binding: RemoveMatePopupFragmentBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -52,8 +54,7 @@ class RemoveMatePopUp : DialogFragment() {
         databaseReference.removeValue().addOnCompleteListener { task ->
             if(task.isSuccessful){
                 dismiss()
-                val navController = findNavController()
-                navController.navigate(R.id.action_allMates_to_adminDashboard2)
+                activity?.onBackPressed()
                 Toast.makeText(context,"$mateName Removed Successfully",Toast.LENGTH_SHORT).show()
             } else{
                 dismiss()

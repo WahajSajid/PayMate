@@ -88,7 +88,7 @@ class RentUpdateFragment : Fragment() {
                         val newRentAmount = currentRentAmount.toInt() + enteredRentAmount.toInt()
                         databaseReference.setValue(newRentAmount.toString())
                         Toast.makeText(context, "Rent Updated", Toast.LENGTH_SHORT).show()
-                        view?.findNavController()?.navigate(R.id.action_rentUpdateFragment_to_allMates)
+                        view?.findNavController()?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
                     }
                 } else Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
             }
@@ -113,7 +113,7 @@ class RentUpdateFragment : Fragment() {
                         val newRentAmount = currentRentAmount.toInt() - enteredRentAmount.toInt()
                         databaseReference.setValue(newRentAmount.toString())
                         Toast.makeText(context, "Changes Saved", Toast.LENGTH_SHORT).show()
-                        view?.findNavController()?.navigate(R.id.action_rentUpdateFragment_to_allMates)
+                        view?.findNavController()?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
                     }
                 } else Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
             }

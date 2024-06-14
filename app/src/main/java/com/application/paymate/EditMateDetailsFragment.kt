@@ -1,32 +1,28 @@
 package com.application.paymate
 
-import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.application.paymate.databinding.PopupFragmentBinding
+import com.application.paymate.databinding.FragmentEditDetailsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-@Suppress("DEPRECATION")
-class EditMateInfoFragmentPopup : DialogFragment() {
-    private lateinit var binding: PopupFragmentBinding
+class EditMateDetailsFragment : Fragment() {
+    private lateinit var binding:FragmentEditDetailsBinding
+    private val sharedViewModel:SharedViewModel by activityViewModels()
     private var phoneNumber: String = ""
-    private val sharedViewModel: SharedViewModel by activityViewModels()
-    @SuppressLint("UseGetLayoutInflater")
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val inflater = LayoutInflater.from(context)
-        binding = DataBindingUtil.inflate(inflater,R.layout.popup_fragment, null,false)
 
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_edit_details, container, false)
         //Initializing variables from sharedView Model and edit texts
         val mateIdNode = sharedViewModel.mateNode.value.toString()
         val oldName = sharedViewModel.mateName.value.toString()
@@ -47,7 +43,7 @@ class EditMateInfoFragmentPopup : DialogFragment() {
         })
         binding.changePhoneEditText.addTextChangedListener(phoneValidator)
 
-        binding.changeButton.setOnClickListener {
+        binding.saveChangesButton.setOnClickListener {
             if(NetworkUtil.isNetworkAvailable(requireContext())){
 
 
@@ -60,10 +56,7 @@ class EditMateInfoFragmentPopup : DialogFragment() {
                         .child("Mates").child(mateIdNode).child("name").setValue(changedName)
                     databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                         .child("Mates").child(mateIdNode).child("phone").setValue(changedPhone)
-                    Toast.makeText(context,"Changes Saved",Toast.LENGTH_SHORT).show()
-                    dismiss()
-//                    startActivity(Intent(requireContext(),AdminActivity::class.java))
-                    activity?.onBackPressed()
+                    Toast.makeText(context,"Changes Saved", Toast.LENGTH_SHORT).show()
 
                 } else Toast.makeText(
                     context,
@@ -71,41 +64,14 @@ class EditMateInfoFragmentPopup : DialogFragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-            } else Toast.makeText(context,"No Internet Connection",Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(context,"No Internet Connection", Toast.LENGTH_SHORT).show()
         }
-
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(binding.root)
-            .create()
-
-        return dialog
+        return binding.root
     }
-
     //Function to check if the phone number is valid or not
     private fun phoneNumberValidOrNot(): Boolean {
         var isTrueOrFalse = false
         if (binding.changePhoneEditText.text.toString().length == 11) isTrueOrFalse = true
         return isTrueOrFalse
     }
-
-
-    //Function to check if the inputFields is empty or not
-    private fun inputFieldEmptyOrNot(): Boolean {
-        var isTrueOrFalse = false
-        val inputLayout = arrayOf(binding.changeNameInputLayout, binding.changePhoneInputLayout)
-
-        for (i in inputLayout.indices) {
-            if (inputLayout[i].isEmpty()) {
-                isTrueOrFalse = false
-                inputLayout[i].error = "Field Cannot be empty"
-            } else {
-                isTrueOrFalse = true
-                inputLayout[i].error = null
-            }
-        }
-
-        return isTrueOrFalse
-    }
-
 }

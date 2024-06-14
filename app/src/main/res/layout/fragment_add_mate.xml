@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <RelativeLayout
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,43 +89,6 @@
                 android:maxLength="11" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-<!--        <View-->
-<!--            android:id="@+id/view"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:layout_marginBottom="13dp"-->
-<!--            android:background="@drawable/box"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/enterPhoneInputLayout"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/enterPhoneInputLayout"-->
-<!--            app:layout_constraintTop_toTopOf="@id/enterPhoneInputLayout" />-->
-<!--        <TextView-->
-<!--            android:id="@+id/countryCode"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="+92"-->
-<!--            app:layout_constraintStart_toStartOf="@id/view"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/view"-->
-<!--            app:layout_constraintTop_toTopOf="@id/view"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/view"-->
-<!--            />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/addMateText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:text="@string/add_mate"-->
-<!--            android:textColor="@color/app_theme_color"-->
-<!--            android:textSize="30sp"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.551" />-->
 
 
         <Button

@@ -33,7 +33,9 @@ class AdminDashboard : Fragment() {
         binding.adminName.text  = adminName
 
         binding.allMatesCardImage.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_adminDashboard2_to_allMates)
+            val intent = Intent(requireContext(), AllMatesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
 
             return binding.root

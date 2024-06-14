@@ -150,22 +150,5 @@
                 android:progressTint="@color/app_theme_color" />
         </RelativeLayout>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

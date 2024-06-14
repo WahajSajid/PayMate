@@ -53,8 +53,7 @@ class AllMates : Fragment() {
                 sharedViewModel.mateNode.value = mateText.text.toString() + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
                 sharedViewModel.matePhone.value = matePhone.text.toString()
-                val popScreen = EditMateInfoFragmentPopup()
-                popScreen.show(childFragmentManager,"popup_fragment")
+                view?.findNavController()?.navigate(R.id.action_allMates2_to_editMateDetailsFragment)
 
             }
 
@@ -74,7 +73,7 @@ class AllMates : Fragment() {
                 sharedViewModel.otherAmount.value = otherAmount.text.toString()
                 sharedViewModel.walletAmount.value = walletAmount.text.toString()
                 sharedViewModel.mateNode.value = mateText.text.toString() + mateId.text.toString()
-                view?.findNavController()?.navigate(R.id.action_allMates_to_updateFragment)
+                view?.findNavController()?.navigate(R.id.action_allMates2_to_updateFragment2)
             }
 
 

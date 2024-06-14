@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/all_mates_navigation"
+    app:startDestination="@id/allMates2">
+
+    <fragment
+        android:id="@+id/allMates2"
+        android:name="com.application.paymate.AllMates"
+        android:label="All Mates"
+        tools:layout="@layout/fragment_all_mates">
+        <action
+            android:id="@+id/action_allMates2_to_updateFragment2"
+            app:destination="@id/updateFragment2" />
+        <action
+            android:id="@+id/action_allMates2_to_editMateDetailsFragment"
+            app:destination="@id/editMateDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment2"
+        android:name="com.application.paymate.UpdateFragment"
+        android:label="Update Dues"
+        tools:layout="@layout/fragment_update">
+        <action
+            android:id="@+id/action_updateFragment2_to_rentUpdateFragment2"
+            app:destination="@id/rentUpdateFragment2" />
+        <action
+            android:id="@+id/action_updateFragment2_to_otherDueUpdateFragment2"
+            app:destination="@id/otherDueUpdateFragment2" />
+        <action
+            android:id="@+id/action_updateFragment2_to_walletUpdateFragment4"
+            app:destination="@id/walletUpdateFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/rentUpdateFragment2"
+        android:name="com.application.paymate.RentUpdateFragment"
+        android:label="Update Rent"
+        tools:layout="@layout/fragment_rent_update" >
+        <action
+            android:id="@+id/action_rentUpdateFragment2_to_allMates2"
+            app:destination="@id/allMates2" />
+    </fragment>
+    <fragment
+        android:id="@+id/otherDueUpdateFragment2"
+        android:name="com.application.paymate.OtherDueUpdateFragment"
+        android:label="Update Other Dues"
+        tools:layout="@layout/fragment_other_due" />
+    <fragment
+        android:id="@+id/walletUpdateFragment4"
+        android:name="com.application.paymate.WalletUpdateFragment"
+        android:label="Update Wallet"
+        tools:layout="@layout/fragment_wallet_update" />
+    <fragment
+        android:id="@+id/editMateDetailsFragment"
+        android:name="com.application.paymate.EditMateDetailsFragment"
+        android:label="Edit Mate Info"
+        tools:layout="@layout/fragment_edit_details" />
+</navigation>

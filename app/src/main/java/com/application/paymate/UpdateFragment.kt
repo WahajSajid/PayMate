@@ -34,15 +34,15 @@ class UpdateFragment : Fragment() {
 
         //Setting up click listeners for the edit texts
         binding.updateRentEditText.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_updateFragment_to_rentUpdateFragment)
+            view?.findNavController()?.navigate(R.id.action_updateFragment2_to_rentUpdateFragment2)
         }
 
         binding.updateOtherEdit.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_updateFragment_to_otherDueUpdateFragment)
+            view?.findNavController()?.navigate(R.id.action_updateFragment2_to_otherDueUpdateFragment2)
         }
 
         binding.walletUpdateEdit.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_updateFragment_to_walletUpdateFragment)
+            view?.findNavController()?.navigate(R.id.action_updateFragment2_to_walletUpdateFragment4)
         }
 
         return binding.root

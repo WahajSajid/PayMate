@@ -17,9 +17,6 @@
         <action
             android:id="@+id/action_adminDashboard2_to_addMate2"
             app:destination="@id/addMate" />
-        <action
-            android:id="@+id/action_adminDashboard2_to_allMates"
-            app:destination="@id/allMates" />
     </fragment>
     <fragment
         android:id="@+id/adminProfile"
@@ -35,50 +32,4 @@
             android:id="@+id/action_addMate_to_adminDashboard2"
             app:destination="@id/adminDashboard2" />
     </fragment>
-    <fragment
-        android:id="@+id/allMates"
-        android:name="com.application.paymate.AllMates"
-        android:label="fragment_all_mates"
-        tools:layout="@layout/fragment_all_mates" >
-        <action
-            android:id="@+id/action_allMates_to_adminDashboard2"
-            app:destination="@id/adminDashboard2" />
-        <action
-            android:id="@+id/action_allMates_to_updateFragment"
-            app:destination="@id/updateFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateFragment"
-        android:name="com.application.paymate.UpdateFragment"
-        android:label="fragment_update"
-        tools:layout="@layout/fragment_update" >
-        <action
-            android:id="@+id/action_updateFragment_to_rentUpdateFragment"
-            app:destination="@id/rentUpdateFragment" />
-        <action
-            android:id="@+id/action_updateFragment_to_otherDueUpdateFragment"
-            app:destination="@id/otherDueUpdateFragment" />
-        <action
-            android:id="@+id/action_updateFragment_to_walletUpdateFragment"
-            app:destination="@id/walletUpdateFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/rentUpdateFragment"
-        android:name="com.application.paymate.RentUpdateFragment"
-        android:label="fragment_rent_update"
-        tools:layout="@layout/fragment_rent_update" >
-        <action
-            android:id="@+id/action_rentUpdateFragment_to_allMates"
-            app:destination="@id/allMates" />
-    </fragment>
-    <fragment
-        android:id="@+id/otherDueUpdateFragment"
-        android:name="com.application.paymate.OtherDueUpdateFragment"
-        android:label="fragment_other_due"
-        tools:layout="@layout/fragment_other_due" />
-    <fragment
-        android:id="@+id/walletUpdateFragment"
-        android:name="com.application.paymate.WalletUpdateFragment"
-        android:label="fragment_wallet_update"
-        tools:layout="@layout/fragment_wallet_update" />
 </navigation>
