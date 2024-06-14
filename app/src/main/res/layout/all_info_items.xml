@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_marginTop="5sp"
-    app:cardElevation="10sp"
+    app:cardElevation="5sp"
     android:layout_height="wrap_content">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/itemCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardCornerRadius="15sp"
-        app:cardElevation="5sp"
+        app:cardElevation="4sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,23 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/mateText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mate "
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/mateId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
             </LinearLayout>
 
@@ -79,6 +63,8 @@
                 app:layout_constraintTop_toBottomOf="@id/mateImage"
                 app:srcCompat="@drawable/baseline_phone_24" />
 
+
+
             <TextView
                 android:id="@+id/phoneNumber"
                 android:layout_width="wrap_content"
@@ -89,6 +75,29 @@
                 app:layout_constraintStart_toEndOf="@id/phoneIcon"
                 app:layout_constraintTop_toTopOf="@id/phoneIcon" />
 
+
+            <TextView
+                android:id="@+id/mateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:text="ID: "
+                android:textColor="@color/app_theme_color"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneIcon" />
+
+            <TextView
+                android:id="@+id/mateId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2sp"
+                android:text="9"
+                app:layout_constraintStart_toEndOf="@id/mateText"
+                app:layout_constraintTop_toTopOf="@id/mateText"
+                app:layout_constraintBottom_toBottomOf="@id/mateText"/>
+
+
             <TextView
                 android:id="@+id/rentText"
                 android:layout_width="wrap_content"
@@ -98,7 +107,7 @@
                 android:textColor="@color/app_theme_color"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phoneIcon" />
+                app:layout_constraintTop_toBottomOf="@id/mateText" />
 
             <TextView
                 android:id="@+id/rentAmount"
@@ -163,43 +172,37 @@
                 <Button
                     android:id="@+id/editDetailsButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="37dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/app_theme_color"
                     android:text="Edit"
                     app:cornerRadius="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:strokeColor="#FFFFFF"
-                    app:strokeWidth="1sp" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
 
                 <Button
                     android:id="@+id/updateButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="37dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/app_theme_color"
                     android:text="Update"
                     app:cornerRadius="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/editDetailsButton"
-                    app:strokeColor="#FFFFFF"
-                    app:strokeWidth="1sp" />
+                    app:layout_constraintEnd_toStartOf="@id/editDetailsButton" />
 
 
                 <Button
                     android:id="@+id/removeButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="37dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/red"
                     android:text="Remove"
                     app:cornerRadius="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/updateButton"
-                    app:strokeColor="#FFFFFF"
-                    app:strokeWidth="1sp" />
+                    app:layout_constraintEnd_toStartOf="@id/updateButton" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

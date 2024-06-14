@@ -29,6 +29,8 @@ class RentUpdateFragment : Fragment() {
         val existingRentAmount = sharedViewModel.rentAmount.value.toString()
         binding.updateRentEditText.setText(existingRentAmount)
 
+        val mateIdNode = sharedViewModel.mateNode.value.toString()
+
         //Setting up items of the Drop down spinner view
         val dropDownItems = arrayOf("Add", "Subtract")
         val dropDownView = binding.selectOptionDropDown
@@ -49,7 +51,15 @@ class RentUpdateFragment : Fragment() {
                 when (position) {
                     0 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
-                        addRent()
+//                        addRent()
+                        val addAmountObject = AddAmount()
+                       val isUpdated = addAmountObject.addAmount(
+                            binding.updateChangesButton,
+                            mateIdNode,
+                            "update_rent",
+                            binding.enterRentAmountEditText,
+                            requireContext(),view!!
+                        )
                     }
 
                     1 -> {
@@ -88,7 +98,8 @@ class RentUpdateFragment : Fragment() {
                         val newRentAmount = currentRentAmount.toInt() + enteredRentAmount.toInt()
                         databaseReference.setValue(newRentAmount.toString())
                         Toast.makeText(context, "Rent Updated", Toast.LENGTH_SHORT).show()
-                        view?.findNavController()?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
+                        view?.findNavController()
+                            ?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
                     }
                 } else Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
             }
@@ -111,9 +122,20 @@ class RentUpdateFragment : Fragment() {
                     databaseReference.get().addOnCompleteListener { snapshot ->
                         val currentRentAmount = snapshot.result.value.toString()
                         val newRentAmount = currentRentAmount.toInt() - enteredRentAmount.toInt()
-                        databaseReference.setValue(newRentAmount.toString())
-                        Toast.makeText(context, "Changes Saved", Toast.LENGTH_SHORT).show()
-                        view?.findNavController()?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
+
+                        //Checking if the new rent amount is negative or not if yes then do not update the rent amount
+                        if (newRentAmount < 0) {
+                            Toast.makeText(
+                                context,
+                                "Rent Amount cannot be negative",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            databaseReference.setValue(newRentAmount.toString())
+                            Toast.makeText(context, "Changes Saved", Toast.LENGTH_SHORT).show()
+                            view?.findNavController()
+                                ?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
+                        }
                     }
                 } else Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
             }

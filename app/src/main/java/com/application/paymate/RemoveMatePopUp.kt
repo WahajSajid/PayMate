@@ -54,7 +54,7 @@ class RemoveMatePopUp : DialogFragment() {
         databaseReference.removeValue().addOnCompleteListener { task ->
             if(task.isSuccessful){
                 dismiss()
-                activity?.onBackPressed()
+                requireActivity().finish()
                 Toast.makeText(context,"$mateName Removed Successfully",Toast.LENGTH_SHORT).show()
             } else{
                 dismiss()

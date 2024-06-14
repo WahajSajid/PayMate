@@ -45,12 +45,20 @@
         android:id="@+id/otherDueUpdateFragment2"
         android:name="com.application.paymate.OtherDueUpdateFragment"
         android:label="Update Other Dues"
-        tools:layout="@layout/fragment_other_due" />
+        tools:layout="@layout/fragment_other_due" >
+        <action
+            android:id="@+id/action_otherDueUpdateFragment2_to_allMates2"
+            app:destination="@id/allMates2" />
+    </fragment>
     <fragment
         android:id="@+id/walletUpdateFragment4"
         android:name="com.application.paymate.WalletUpdateFragment"
         android:label="Update Wallet"
-        tools:layout="@layout/fragment_wallet_update" />
+        tools:layout="@layout/fragment_wallet_update" >
+        <action
+            android:id="@+id/action_walletUpdateFragment4_to_allMates2"
+            app:destination="@id/allMates2" />
+    </fragment>
     <fragment
         android:id="@+id/editMateDetailsFragment"
         android:name="com.application.paymate.EditMateDetailsFragment"

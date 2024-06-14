@@ -27,21 +27,21 @@ class UpdateFragment : Fragment() {
         val walletAmount = sharedViewModel.walletAmount.value.toString()
 
         //Overriding the text of the Text View to update the UI
-       binding.updateRentEditText.setText(rentAmount)
-        binding.updateOtherEdit.setText(otherAmount)
-        binding.walletUpdateEdit.setText(walletAmount)
+       binding.rentUpdateEditText.setText(rentAmount)
+        binding.otherUpdateEditText.setText(otherAmount)
+        binding.walletUpdateEditText.setText(walletAmount)
 
 
         //Setting up click listeners for the edit texts
-        binding.updateRentEditText.setOnClickListener{
+        binding.rentUpdateEditText.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_updateFragment2_to_rentUpdateFragment2)
         }
 
-        binding.updateOtherEdit.setOnClickListener{
+        binding.otherUpdateEditText.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_updateFragment2_to_otherDueUpdateFragment2)
         }
 
-        binding.walletUpdateEdit.setOnClickListener{
+        binding.walletUpdateEditText.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_updateFragment2_to_walletUpdateFragment4)
         }
 

@@ -103,14 +103,14 @@
             android:id="@+id/updateChangesButton"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/app_theme_color"
             android:text="Update Changes"
             app:cornerRadius="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addRentLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

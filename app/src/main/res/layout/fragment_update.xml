@@ -20,89 +20,129 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
-            android:id="@+id/rentTextView"
+            android:id="@+id/rentHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="Rent"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/selectTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
+
+        <TextView
+            android:id="@+id/rentAmountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Amount"
             app:layout_constraintStart_toStartOf="@id/rentUpdateEditText"
             app:layout_constraintBottom_toTopOf="@id/rentUpdateEditText"/>
 
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/rentUpdateEditText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:clickable="false"
-            android:focusable="false"
-            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:hintAnimationEnabled="true"
-            android:layout_marginTop="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selectTextView">
+
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/updateRentEditText"
+                android:id="@+id/rentUpdateEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:editable="false"
                 android:focusable="false"
+                android:layout_marginTop="40sp"
                 android:text="1200"
-                tools:ignore="Deprecated" />
-        </com.google.android.material.textfield.TextInputLayout>
+                tools:ignore="Deprecated"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rentHeader"/>
 
 
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="wrap_content"
+            android:layout_height="5dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/otherDuesHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rentUpdateEditText" />
 
+
+        <TextView
+            android:id="@+id/otherDuesHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="5dp"
+            android:text="Other Dues"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/divider1"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
 
         <TextView
             android:id="@+id/otherTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Other Dues"
+            android:text="Amount"
+            android:layout_marginStart="5sp"
             app:layout_constraintStart_toStartOf="@id/otherUpdateEditText"
             app:layout_constraintBottom_toTopOf="@id/otherUpdateEditText"/>
 
 
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/otherUpdateEditText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:clickable="false"
-            android:focusable="false"
-            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:hintAnimationEnabled="true"
-            android:layout_marginTop="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rentUpdateEditText">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/updateOtherEdit"
+                android:id="@+id/otherUpdateEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:editable="false"
                 android:focusable="false"
+                android:layout_marginTop="40sp"
                 android:text="1200"
-                tools:ignore="Deprecated" />
-        </com.google.android.material.textfield.TextInputLayout>
+                tools:ignore="Deprecated"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/otherDuesHeader"/>
+
+
+
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="wrap_content"
+            android:layout_height="5dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/walletHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/otherUpdateEditText" />
+
+
+
+        <TextView
+            android:id="@+id/walletHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="5dp"
+            android:text="Wallet"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/divider2"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
 
 
@@ -111,42 +151,27 @@
             android:id="@+id/walletTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
             android:text="Wallet"
             app:layout_constraintStart_toStartOf="@id/walletUpdateEditText"
             app:layout_constraintBottom_toTopOf="@id/walletUpdateEditText"/>
 
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/walletUpdateEditText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:clickable="false"
-            android:focusable="false"
-            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:hintAnimationEnabled="true"
-            android:layout_marginTop="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/otherUpdateEditText">
+        
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/walletUpdateEdit"
+                android:id="@+id/walletUpdateEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:editable="false"
                 android:focusable="false"
+                android:layout_marginTop="40sp"
                 android:text="1200"
-                tools:ignore="Deprecated" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
+                tools:ignore="Deprecated"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/walletHeader"/>
 
 
 
