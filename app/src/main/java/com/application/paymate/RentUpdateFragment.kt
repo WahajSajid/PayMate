@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -51,20 +50,35 @@ class RentUpdateFragment : Fragment() {
                 when (position) {
                     0 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
-//                        addRent()
-                        val addAmountObject = AddAmount()
-                       val isUpdated = addAmountObject.addAmount(
-                            binding.updateChangesButton,
-                            mateIdNode,
-                            "update_rent",
-                            binding.enterRentAmountEditText,
-                            requireContext(),view!!
-                        )
+
+                        //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
+                        val updateAmountObject = UpdateAmount()
+                        view?.let {
+                            updateAmountObject.updateAmount(
+                                binding.updateChangesButton,
+                                mateIdNode,
+                                "update_rent",
+                                "plus",
+                                binding.enterRentAmountEditText,
+                                requireActivity(), it
+                            )
+                        }
                     }
 
                     1 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_minimize_24)
-                        subtractRent()
+                        //Making an instance of the UpdateAmount class and calling the updateAmount method to subtract the amount in realtime database
+                        val updateAmountObject = UpdateAmount()
+                        view?.let {
+                            updateAmountObject.updateAmount(
+                                binding.updateChangesButton,
+                                mateIdNode,
+                                "update_rent",
+                                "minus",
+                                binding.enterRentAmountEditText,
+                                requireActivity(), it
+                            )
+                        }
                     }
                 }
             }

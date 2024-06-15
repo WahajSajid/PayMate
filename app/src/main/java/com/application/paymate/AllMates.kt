@@ -97,6 +97,7 @@ class AllMates : Fragment() {
                     else binding.emptyListLayout.visibility = View.GONE
 
                     binding.spinnerLayout.visibility = View.GONE
+                    matesList.clear()
                     for(data in snapshot.children){
                         val mateInfo = data.getValue(MatesInfo::class.java)
                         matesList.add(mateInfo!!)

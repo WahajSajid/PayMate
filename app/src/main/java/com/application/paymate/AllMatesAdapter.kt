@@ -116,6 +116,8 @@ class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) 
         holder.mateName.text = matesList.name
         holder.phoneNumber.text = matesList.phone
         holder.rentAmount.text = matesList.rent_amount
+        holder.otherAmount.text = matesList.other_amount
+        holder.walletAmount.text = matesList.wallet_amount
 
 
         holder.cardView.setOnClickListener {

@@ -22,8 +22,11 @@ class OtherDueUpdateFragment : Fragment() {
         // Inflate the layout for this fragment
        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_other_due, container, false)
 
-        val existingRentAmount = sharedViewModel.rentAmount.value.toString()
-        binding.updateOtherAmountEditText.setText(existingRentAmount)
+        val mateIdNode = sharedViewModel.mateNode.value.toString()
+
+
+        val existingOtherAmount = sharedViewModel.otherAmount.value.toString()
+        binding.updateOtherAmountEditText.setText(existingOtherAmount)
 
         //Setting up items of the Drop down spinner view
         val dropDownItems = arrayOf("Add", "Subtract")
@@ -45,16 +48,39 @@ class OtherDueUpdateFragment : Fragment() {
                 when (position) {
                     0 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
-//                        addRent()
+
+                        //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
+                        val updateAmountObject = UpdateAmount()
+                        view?.let {
+                            updateAmountObject.updateAmount(
+                                binding.updateChangesButton,
+                                mateIdNode,
+                                "update_other_amount",
+                                "plus",
+                                binding.enterOtherAmountEditText,
+                                requireActivity(), it
+                            )
+                        }
                     }
 
                     1 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_minimize_24)
-//                        subtractRent()
+
+                        //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
+                        val updateAmountObject = UpdateAmount()
+                        view?.let {
+                            updateAmountObject.updateAmount(
+                                binding.updateChangesButton,
+                                mateIdNode,
+                                "update_other_amount",
+                                "minus",
+                                binding.enterOtherAmountEditText,
+                                requireActivity(), it
+                            )
+                        }
                     }
                 }
             }
-
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
