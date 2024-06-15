@@ -51,13 +51,14 @@ class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) 
         val editButton: Button = itemView.findViewById(R.id.editDetailsButton)
         val removeButton: Button = itemView.findViewById(R.id.removeButton)
         val cardView: CardView = itemView.findViewById(R.id.itemCard)
-        val view :View = itemView.findViewById(R.id.buttonLayout)
+//        val view :View = itemView.findViewById(R.id.buttonLayout)
         val updateButton: Button = itemView.findViewById(R.id.updateButton)
         val rentAmount :TextView = itemView.findViewById(R.id.rentAmount)
         val otherAmount:TextView = itemView.findViewById(R.id.otherAmount)
         val walletAmount :TextView = itemView.findViewById(R.id.walletAmount)
+        val buttonCard:CardView = itemView.findViewById(R.id.buttonsCard)
         fun collapseExpandedView(){
-            view.visibility = View.GONE
+            buttonCard.visibility = View.GONE
         }
         init {
             editButton.setOnClickListener {
@@ -145,14 +146,14 @@ class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) 
             )
             contract.duration = 250
             if(matesList.isExpanded){
-                holder.view.startAnimation(contract)
-                    holder.view.visibility = View.GONE
+                holder.buttonCard.startAnimation(contract)
+                    holder.buttonCard.visibility = View.GONE
                 matesList.isExpanded = false
             }
             else {
 
-                    holder.view.startAnimation(expand)
-                    holder.view.visibility = View.VISIBLE
+                    holder.buttonCard.startAnimation(expand)
+                    holder.buttonCard.visibility = View.VISIBLE
                     matesList.isExpanded = true
             }
         }

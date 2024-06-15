@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_marginTop="5sp"
-    app:cardElevation="5sp"
+    app:cardElevation="10sp"
+    app:cardUseCompatPadding="true"
+    android:layout_marginHorizontal="8dp"
     android:layout_height="wrap_content">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <androidx.cardview.widget.CardView
@@ -21,59 +27,64 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+
             <LinearLayout
-                android:id="@+id/matesIdLineaLayout"
+                android:id="@+id/mateNameLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                android:orientation="horizontal"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/mateImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/baseline_person_24" />
+
+                <TextView
+                    android:id="@+id/mateName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Muhammad Wahaj Sajid"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
 
+
+
+            <LinearLayout
+                android:id="@+id/phoneLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                app:layout_constraintStart_toStartOf="@id/mateNameLinearLayout"
+                app:layout_constraintTop_toBottomOf="@id/mateNameLinearLayout"
+                app:layout_constraintEnd_toEndOf="@id/mateNameLinearLayout"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/phoneIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mateNameLinearLayout"
+                    app:srcCompat="@drawable/baseline_phone_24" />
+
+                <TextView
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="03000072635"
+                    app:layout_constraintBottom_toBottomOf="@id/phoneIcon"
+                    app:layout_constraintStart_toEndOf="@id/phoneIcon"
+                    app:layout_constraintTop_toTopOf="@id/phoneIcon" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/mateImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/matesIdLineaLayout"
-                app:srcCompat="@drawable/baseline_person_24" />
-
-            <TextView
-                android:id="@+id/mateName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Muhammad Wahaj Sajid"
-                app:layout_constraintBottom_toBottomOf="@id/mateImage"
-                app:layout_constraintStart_toEndOf="@id/mateImage"
-                app:layout_constraintTop_toTopOf="@id/mateImage" />
-
-            <ImageView
-                android:id="@+id/phoneIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mateImage"
-                app:srcCompat="@drawable/baseline_phone_24" />
-
-
-
-            <TextView
-                android:id="@+id/phoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="03000072635"
-                app:layout_constraintBottom_toBottomOf="@id/phoneIcon"
-                app:layout_constraintStart_toEndOf="@id/phoneIcon"
-                app:layout_constraintTop_toTopOf="@id/phoneIcon" />
 
 
             <TextView
@@ -85,7 +96,7 @@
                 android:textColor="@color/app_theme_color"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phoneIcon" />
+                app:layout_constraintTop_toBottomOf="@id/phoneLinearLayout" />
 
             <TextView
                 android:id="@+id/mateId"
@@ -160,56 +171,66 @@
                 app:layout_constraintBottom_toBottomOf="@id/walletText"
                 app:layout_constraintStart_toEndOf="@id/walletText"
                 app:layout_constraintTop_toTopOf="@id/walletText" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/buttonLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/walletText"
-                app:layout_constraintEnd_toEndOf="parent" >
-
-                <Button
-                    android:id="@+id/editDetailsButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:backgroundTint="@color/app_theme_color"
-                    android:text="Edit"
-                    app:cornerRadius="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-                <Button
-                    android:id="@+id/updateButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:backgroundTint="@color/app_theme_color"
-                    android:text="Update"
-                    app:cornerRadius="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/editDetailsButton" />
-
-
-                <Button
-                    android:id="@+id/removeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:backgroundTint="@color/red"
-                    android:text="Remove"
-                    app:cornerRadius="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/updateButton" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/buttonsCard"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="15sp"
+        android:layout_marginTop="10sp"
+        app:cardElevation="4sp"
+        app:layout_constraintTop_toBottomOf="@id/itemCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/editDetailsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/app_theme_color"
+                android:text="Edit"
+                app:cornerRadius="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <Button
+                android:id="@+id/updateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/app_theme_color"
+                android:text="Update"
+                app:cornerRadius="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/editDetailsButton" />
+
+
+            <Button
+                android:id="@+id/removeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/red"
+                android:text="Remove"
+                app:cornerRadius="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/updateButton" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
