@@ -86,91 +86,145 @@
             </LinearLayout>
 
 
-
-            <TextView
-                android:id="@+id/mateText"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
+                android:id="@+id/duesLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5sp"
-                android:text="ID: "
-                android:textColor="@color/app_theme_color"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phoneLinearLayout" />
+                app:layout_constraintTop_toBottomOf="@id/mateIdLayout">
 
-            <TextView
-                android:id="@+id/mateId"
+                <LinearLayout
+                    android:id="@+id/rentDuesLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/otherDuesLayout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/rentText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Rent: "
+                        android:textColor="@color/app_theme_color"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mateText" />
+
+                    <TextView
+                        android:id="@+id/rentAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="0"
+                        app:layout_constraintBottom_toBottomOf="@id/rentText"
+                        app:layout_constraintStart_toEndOf="@id/rentText"
+                        app:layout_constraintTop_toTopOf="@id/rentText" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/otherDuesLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/walletDuesLayout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/rentDuesLayout"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/otherText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Others: "
+                        android:textColor="@color/app_theme_color"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rentText" />
+
+                    <TextView
+                        android:id="@+id/otherAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="0"
+                        app:layout_constraintBottom_toBottomOf="@id/otherText"
+                        app:layout_constraintStart_toEndOf="@id/otherText"
+                        app:layout_constraintTop_toTopOf="@id/otherText" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/walletDuesLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/otherDuesLayout"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/walletText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Wallet: "
+                        android:textColor="@color/app_theme_color"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/otherText" />
+
+                    <TextView
+                        android:id="@+id/walletAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="0"
+                        app:layout_constraintBottom_toBottomOf="@id/walletText"
+                        app:layout_constraintStart_toEndOf="@id/walletText"
+                        app:layout_constraintTop_toTopOf="@id/walletText" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/mateIdLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2sp"
-                android:text="9"
-                app:layout_constraintStart_toEndOf="@id/mateText"
-                app:layout_constraintTop_toTopOf="@id/mateText"
-                app:layout_constraintBottom_toBottomOf="@id/mateText"/>
+                app:layout_constraintStart_toStartOf="@id/phoneLinearLayout"
+                app:layout_constraintEnd_toEndOf="@id/phoneLinearLayout"
+                app:layout_constraintTop_toBottomOf="@id/phoneLinearLayout"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/mateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5sp"
+                    android:text=" Mate ID: "
+                    android:textColor="@color/app_theme_color"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/rentText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Rent: "
-                android:textColor="@color/app_theme_color"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mateText" />
+                <TextView
+                    android:id="@+id/mateId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2sp"
+                    android:text="9" />
 
-            <TextView
-                android:id="@+id/rentAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="@id/rentText"
-                app:layout_constraintStart_toEndOf="@id/rentText"
-                app:layout_constraintTop_toTopOf="@id/rentText" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/otherText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Others: "
-                android:textColor="@color/app_theme_color"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rentText" />
-
-            <TextView
-                android:id="@+id/otherAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="@id/otherText"
-                app:layout_constraintStart_toEndOf="@id/otherText"
-                app:layout_constraintTop_toTopOf="@id/otherText" />
-
-            <TextView
-                android:id="@+id/walletText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Wallet: "
-                android:textColor="@color/app_theme_color"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/otherText" />
-
-            <TextView
-                android:id="@+id/walletAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="@id/walletText"
-                app:layout_constraintStart_toEndOf="@id/walletText"
-                app:layout_constraintTop_toTopOf="@id/walletText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

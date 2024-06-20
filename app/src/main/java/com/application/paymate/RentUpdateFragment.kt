@@ -28,6 +28,8 @@ class RentUpdateFragment : Fragment() {
         val existingRentAmount = sharedViewModel.rentAmount.value.toString()
         binding.updateRentEditText.setText(existingRentAmount)
 
+        val mateName = sharedViewModel.mateName.value.toString()
+
         val mateIdNode = sharedViewModel.mateNode.value.toString()
 
         //Setting up items of the Drop down spinner view
@@ -52,7 +54,7 @@ class RentUpdateFragment : Fragment() {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
 
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateAmount()
+                        val updateAmountObject = UpdateAmount(mateName)
                         view?.let {
                             updateAmountObject.updateAmount(
                                 binding.updateChangesButton,
@@ -68,7 +70,7 @@ class RentUpdateFragment : Fragment() {
                     1 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_minimize_24)
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to subtract the amount in realtime database
-                        val updateAmountObject = UpdateAmount()
+                        val updateAmountObject = UpdateAmount(mateName)
                         view?.let {
                             updateAmountObject.updateAmount(
                                 binding.updateChangesButton,

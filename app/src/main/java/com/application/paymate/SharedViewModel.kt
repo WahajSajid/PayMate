@@ -49,6 +49,9 @@ class SharedViewModel:ViewModel(){
     private var __mateId = MutableLiveData(1)
     var _mateId:MutableLiveData<Int> = __mateId
 
+
+
+
     init{
         __mateId.value = 1
     }

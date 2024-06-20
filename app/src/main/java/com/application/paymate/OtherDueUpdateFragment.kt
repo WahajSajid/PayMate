@@ -24,7 +24,7 @@ class OtherDueUpdateFragment : Fragment() {
 
         val mateIdNode = sharedViewModel.mateNode.value.toString()
 
-
+        val mateName = sharedViewModel.mateName.value.toString()
         val existingOtherAmount = sharedViewModel.otherAmount.value.toString()
         binding.updateOtherAmountEditText.setText(existingOtherAmount)
 
@@ -50,7 +50,7 @@ class OtherDueUpdateFragment : Fragment() {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
 
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateAmount()
+                        val updateAmountObject = UpdateAmount(mateName)
                         view?.let {
                             updateAmountObject.updateAmount(
                                 binding.updateChangesButton,
@@ -67,7 +67,7 @@ class OtherDueUpdateFragment : Fragment() {
                         binding.addIcon.setImageResource(R.drawable.baseline_minimize_24)
 
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateAmount()
+                        val updateAmountObject = UpdateAmount(mateName)
                         view?.let {
                             updateAmountObject.updateAmount(
                                 binding.updateChangesButton,

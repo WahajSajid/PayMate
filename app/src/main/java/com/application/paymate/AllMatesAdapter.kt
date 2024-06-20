@@ -34,7 +34,7 @@ class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) 
         )
 
         fun removeButtonListener(mateId: TextView, mateText: TextView, mateName: TextView)
-        fun updateButtonClickListener(rentAmount:TextView,otherAmount:TextView,walletAmount:TextView,mateText: TextView,mateId: TextView)
+        fun updateButtonClickListener(rentAmount:TextView,otherAmount:TextView,walletAmount:TextView,mateText: TextView,mateId: TextView,mateName:TextView)
         val mutex: Mutex
     }
 
@@ -94,7 +94,7 @@ class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) 
             updateButton.setOnClickListener {
                 updateButton.findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
                     clickListener.mutex.withLock {
-                        clickListener.updateButtonClickListener(rentAmount,otherAmount,walletAmount,mateText,mateId)
+                        clickListener.updateButtonClickListener(rentAmount,otherAmount,walletAmount,mateText,mateId,mateName)
                     }
                 }
             }

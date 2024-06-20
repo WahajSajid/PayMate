@@ -99,6 +99,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+        <TextView
+            android:id="@+id/noteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="Note: Amount from wallet will be deducted if available. "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addRentLayout" />
+
         <Button
             android:id="@+id/updateChangesButton"
             android:layout_width="250dp"
@@ -110,7 +121,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addRentLayout" />
+            app:layout_constraintTop_toBottomOf="@id/noteTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
