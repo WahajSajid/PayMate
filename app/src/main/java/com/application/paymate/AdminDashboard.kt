@@ -37,6 +37,11 @@ class AdminDashboard : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+        binding.splitDuesCardImage.setOnClickListener {
+            val intent = Intent(requireContext(), SplitDuesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
 
             return binding.root
     }

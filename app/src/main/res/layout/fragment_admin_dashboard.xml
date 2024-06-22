@@ -280,7 +280,7 @@
                     android:layout_height="match_parent">
 
                     <ImageButton
-                        android:id="@+id/logOutCardImage"
+                        android:id="@+id/splitDuesCardImage"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:background="@drawable/baseline_call_split_24"
@@ -297,29 +297,14 @@
                         android:text="@string/split_bills"
                         android:textColor="@color/app_theme_color"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@id/logOutCardImage"
-                        app:layout_constraintStart_toStartOf="@id/logOutCardImage"
-                        app:layout_constraintTop_toBottomOf="@id/logOutCardImage" />
+                        app:layout_constraintEnd_toEndOf="@id/splitDuesCardImage"
+                        app:layout_constraintStart_toStartOf="@id/splitDuesCardImage"
+                        app:layout_constraintTop_toBottomOf="@id/splitDuesCardImage" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <!--            <Button-->
-            <!--                android:id="@+id/loginButton"-->
-            <!--                android:layout_width="120dp"-->
-            <!--                android:layout_height="120dp"-->
-            <!--                android:layout_marginEnd="10dp"-->
-            <!--                android:layout_marginBottom="10dp"-->
-            <!--                android:backgroundTint="#2F80ED"-->
-            <!--                android:text="@string/loginButtonText"-->
-            <!--                app:cornerRadius="7sp"-->
-            <!--                android:src="@drawable/baseline_money_24"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/logOutCard"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:strokeColor="#FFFFFF"-->
-            <!--                app:strokeWidth="2sp" />-->
 
 
 

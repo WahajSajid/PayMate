@@ -12,9 +12,13 @@
         android:theme="@style/Theme.PayMate"
         tools:targetApi="31">
         <activity
+            android:name=".SplitDuesActivity"
+            android:exported="false"
+            android:parentActivityName=".AdminActivity"/>
+        <activity
             android:name=".AllMatesActivity"
-            android:parentActivityName=".AdminActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".AdminActivity" />
         <activity
             android:name=".EditDetails"
             android:exported="false"
