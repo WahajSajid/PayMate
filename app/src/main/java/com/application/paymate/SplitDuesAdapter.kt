@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 
-class OtherDuesSplitAdapter(private val matesList: ArrayList<MatesInfo>,context: Context) : RecyclerView.Adapter<OtherDuesSplitAdapter.ViewHolder>() {
+class SplitDuesAdapter(private val matesList: ArrayList<MatesInfo>, context: Context) : RecyclerView.Adapter<SplitDuesAdapter.ViewHolder>() {
 
 
     private lateinit var clickListener: OnItemClickListener
