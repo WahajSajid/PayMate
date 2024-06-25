@@ -69,12 +69,7 @@ class SplitDuesActivity : AppCompatActivity() {
             override val mutex: Mutex = Mutex()
         })
 
-//Setting up onClick listener for select all button
-        binding.selectAllButton.setOnClickListener {
-            for(mate in matesList){
-                adapter.
-            }
-        }
+
 
 
         //Creating instance of Firebase Database
