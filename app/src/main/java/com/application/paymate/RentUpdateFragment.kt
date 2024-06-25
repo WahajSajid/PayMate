@@ -54,9 +54,9 @@ class RentUpdateFragment : Fragment() {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
 
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateAmount(mateName)
+                        val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
-                            updateAmountObject.updateAmount(
+                            updateAmountObject.updateDues(
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_rent",
@@ -70,9 +70,9 @@ class RentUpdateFragment : Fragment() {
                     1 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_minimize_24)
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to subtract the amount in realtime database
-                        val updateAmountObject = UpdateAmount(mateName)
+                        val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
-                            updateAmountObject.updateAmount(
+                            updateAmountObject.updateDues(
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_rent",
@@ -93,69 +93,4 @@ class RentUpdateFragment : Fragment() {
 
         return binding.root
     }
-
-
-    //Method to add the rent amount
-    private fun addRent() {
-        val mateIdNode = sharedViewModel.mateNode.value.toString()
-        binding.updateChangesButton.setOnClickListener {
-            val inputFieldChecker = InputFieldEmptyOrNot()
-            if (inputFieldChecker.inputFieldEmptyOrNot(binding.enterRentAmountEditText)) {
-                Toast.makeText(context, "Please Enter Amount First", Toast.LENGTH_SHORT).show()
-            } else {
-                if (NetworkUtil.isNetworkAvailable(requireContext())) {
-                    val enteredRentAmount = binding.enterRentAmountEditText.text.toString()
-                    val database = FirebaseDatabase.getInstance()
-                    val databaseReference = database.getReference("admin_profiles")
-                        .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
-                        .child(mateIdNode).child("rent_amount")
-                    databaseReference.get().addOnCompleteListener { snapshot ->
-                        val currentRentAmount = snapshot.result.value.toString()
-                        val newRentAmount = currentRentAmount.toInt() + enteredRentAmount.toInt()
-                        databaseReference.setValue(newRentAmount.toString())
-                        Toast.makeText(context, "Rent Updated", Toast.LENGTH_SHORT).show()
-                        view?.findNavController()
-                            ?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
-                    }
-                } else Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun subtractRent() {
-        val mateIdNode = sharedViewModel.mateNode.value.toString()
-        binding.updateChangesButton.setOnClickListener {
-            val inputFieldChecker = InputFieldEmptyOrNot()
-            if (inputFieldChecker.inputFieldEmptyOrNot(binding.enterRentAmountEditText)) {
-                Toast.makeText(context, "Please Enter Amount First", Toast.LENGTH_SHORT).show()
-            } else {
-                if (NetworkUtil.isNetworkAvailable(requireContext())) {
-                    val enteredRentAmount = binding.enterRentAmountEditText.text.toString()
-                    val database = FirebaseDatabase.getInstance()
-                    val databaseReference = database.getReference("admin_profiles")
-                        .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
-                        .child(mateIdNode).child("rent_amount")
-                    databaseReference.get().addOnCompleteListener { snapshot ->
-                        val currentRentAmount = snapshot.result.value.toString()
-                        val newRentAmount = currentRentAmount.toInt() - enteredRentAmount.toInt()
-
-                        //Checking if the new rent amount is negative or not if yes then do not update the rent amount
-                        if (newRentAmount < 0) {
-                            Toast.makeText(
-                                context,
-                                "Rent Amount cannot be negative",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            databaseReference.setValue(newRentAmount.toString())
-                            Toast.makeText(context, "Changes Saved", Toast.LENGTH_SHORT).show()
-                            view?.findNavController()
-                                ?.navigate(R.id.action_rentUpdateFragment2_to_allMates2)
-                        }
-                    }
-                } else Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
 }

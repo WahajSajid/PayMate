@@ -189,7 +189,7 @@
                     android:layout_marginTop="40sp"
                     android:id="@+id/enterAmountLayout"
                     android:layout_width="150dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
                     app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
                     app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
@@ -198,7 +198,7 @@
                     app:boxStrokeWidth="0.5sp"
                     app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:hintAnimationEnabled="true"
-                    app:layout_constraintEnd_toStartOf="@+id/splitBillsButton"
+                    app:layout_constraintEnd_toStartOf="@+id/splitButton"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -213,7 +213,7 @@
 
 
                 <Button
-                    android:id="@+id/splitBillsButton"
+                    android:id="@+id/splitButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
@@ -231,13 +231,26 @@
 
 
 
+            <Button
+                android:id="@+id/selectAllButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Select All"
+                android:textColor="@color/app_theme_color"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@+id/inputFieldLayout"
+                app:layout_constraintBottom_toTopOf="@id/recyclerView"/>
+
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/inputFieldLayout">
+                app:layout_constraintTop_toBottomOf="@id/selectAllButton">
 
             </androidx.recyclerview.widget.RecyclerView>
 

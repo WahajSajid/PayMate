@@ -50,9 +50,9 @@ class WalletUpdateFragment : Fragment() {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
 
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateAmount(mateName)
+                        val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
-                            updateAmountObject.updateAmount(
+                            updateAmountObject.updateDues(
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_wallet",
@@ -66,9 +66,9 @@ class WalletUpdateFragment : Fragment() {
                     1 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_minimize_24)
                         //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateAmount(mateName)
+                        val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
-                            updateAmountObject.updateAmount(
+                            updateAmountObject.updateDues(
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_wallet",

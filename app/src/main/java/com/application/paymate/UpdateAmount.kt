@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.Button
@@ -12,29 +13,21 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlin.math.absoluteValue
 
 class UpdateAmount(private var mateName:String){
+    @SuppressLint("SuspiciousIndentation")
     fun updateAmount(
-        updateChangesButton: Button,
+        amount:String,
         mateIdNode: String,
         updateContext: String,
         updateDomain: String,
-        enterAmountEditText: EditText,
+        navigateBackOrNot:Boolean,
         context: Context,
         view: View
     ) {
-        updateChangesButton.setOnClickListener {
-            val navController = view.findNavController()
-            val enteredAmount = enterAmountEditText.text.toString()
-            val inputFieldChecker = InputFieldEmptyOrNot()
+
             val database = FirebaseDatabase.getInstance()
             val databaseReference = database.getReference("admin_profiles")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
                 .child(mateIdNode)
-            if (inputFieldChecker.inputFieldEmptyOrNot(enterAmountEditText)) {
-                Toast.makeText(context, "Please Enter Amount First", Toast.LENGTH_SHORT).show()
-            } else {
-
-                //Checking if the internet is available or not
-                if (NetworkUtil.isNetworkAvailable(context)) {
 
                     //Checking if the user wants update rent
                     when (updateContext) {
@@ -45,17 +38,20 @@ class UpdateAmount(private var mateName:String){
                                     .addOnCompleteListener { snapshot ->
                                         val currentRentAmount = snapshot.result.value.toString()
                                         val newRentAmount =
-                                            currentRentAmount.toInt() + enteredAmount.toInt()
+                                            currentRentAmount.toInt() + amount.toInt()
                                         //Calling a function to add rent and check if the wallet is available is yes then subtract the rent amount from the wallet amount
                                         addAmount(databaseReference,"rent_amount",newRentAmount,context)
-                                        navController.popBackStack(R.id.allMates2, false)
+                                        if(navigateBackOrNot) {
+                                            val navController = view.findNavController()
+                                            navController.popBackStack(R.id.allMates2, false)
+                                        }
                                     }
                             } else {
                                 databaseReference.child("rent_amount").get()
                                     .addOnCompleteListener { snapshot ->
                                         val currentRentAmount = snapshot.result.value.toString()
                                         val newRentAmount =
-                                            currentRentAmount.toInt() - enteredAmount.toInt()
+                                            currentRentAmount.toInt() - amount.toInt()
                                         if (newRentAmount < 0) {
                                             Toast.makeText(
                                                 context,
@@ -70,7 +66,10 @@ class UpdateAmount(private var mateName:String){
                                                 "Rent Updated",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                            navController.popBackStack(R.id.allMates2, false)
+                                            if(navigateBackOrNot) {
+                                                val navController = view.findNavController()
+                                                navController.popBackStack(R.id.allMates2, false)
+                                            }
                                         }
 
                                     }
@@ -84,17 +83,20 @@ class UpdateAmount(private var mateName:String){
                                     .addOnCompleteListener { snapshot ->
                                         val currentOtherAmount = snapshot.result.value.toString()
                                         val newOtherAmount =
-                                            currentOtherAmount.toInt() + enteredAmount.toInt()
+                                            currentOtherAmount.toInt() + amount.toInt()
                                         //Calling a function to add rent and check if the wallet is available is yes then subtract the rent amount from the wallet amount
                                         addAmount(databaseReference,"other_amount",newOtherAmount,context)
-                                        navController.popBackStack(R.id.allMates2, false)
+                                        if(navigateBackOrNot) {
+                                            val navController = view.findNavController()
+                                            navController.popBackStack(R.id.allMates2, false)
+                                        }
                                     }
                             } else {
                                 databaseReference.child("other_amount").get()
                                     .addOnCompleteListener { snapshot ->
                                         val currentOtherAmount = snapshot.result.value.toString()
                                         val newOtherAmount =
-                                            currentOtherAmount.toInt() - enteredAmount.toInt()
+                                            currentOtherAmount.toInt() - amount.toInt()
                                         if (newOtherAmount < 0) {
                                             Toast.makeText(
                                                 context,
@@ -109,7 +111,10 @@ class UpdateAmount(private var mateName:String){
                                                 "Amount Updated",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                            navController.popBackStack(R.id.allMates2, false)
+                                            if(navigateBackOrNot) {
+                                                val navController = view.findNavController()
+                                                navController.popBackStack(R.id.allMates2, false)
+                                            }
                                         }
                                     }
                             }
@@ -120,21 +125,24 @@ class UpdateAmount(private var mateName:String){
                             if (updateDomain == "plus") {
 
                                 //Calling a function to update the wallet and to check if the other or rent amount is available then subtract it from the wallet amount
-                                updateWallet(databaseReference,enteredAmount)
+                                updateWallet(databaseReference,amount)
                                         Toast.makeText(
                                             context,
                                             "Changes Saved",
                                             Toast.LENGTH_SHORT
                                         )
                                             .show()
-                                        navController.popBackStack(R.id.allMates2, false)
+                                if(navigateBackOrNot) {
+                                    val navController = view.findNavController()
+                                    navController.popBackStack(R.id.allMates2, false)
+                                }
 
                             } else {
                                 databaseReference.child("wallet_amount").get()
                                     .addOnCompleteListener { snapshot ->
                                         val currentWalletAmount = snapshot.result.value.toString()
                                         val newWalletAmount =
-                                            currentWalletAmount.toInt() - enteredAmount.toInt()
+                                            currentWalletAmount.toInt() - amount.toInt()
                                         if (newWalletAmount < 0) {
                                             Toast.makeText(
                                                 context,
@@ -150,18 +158,16 @@ class UpdateAmount(private var mateName:String){
                                                 Toast.LENGTH_SHORT
                                             )
                                                 .show()
-                                            navController.popBackStack(R.id.allMates2, false)
+                                            if(navigateBackOrNot) {
+                                                val navController = view.findNavController()
+                                                navController.popBackStack(R.id.allMates2, false)
+                                            }
                                         }
                                     }
                             }
 
                         }
                     }
-
-
-                } else Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
 
@@ -236,14 +242,14 @@ class UpdateAmount(private var mateName:String){
                         databaseReference.child(updateContext).setValue("0")
                         databaseReference.child("wallet_amount")
                             .setValue(walletAmount.toString())
-                        Toast.makeText(context,"Rs $amount has been deducted from $mateName wallet",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,"Amount Added",Toast.LENGTH_SHORT).show()
 
                     } else {
                         newAmount = walletAmount.absoluteValue
                         databaseReference.child(updateContext)
                             .setValue(newAmount.toString())
                         databaseReference.child("wallet_amount").setValue("0")
-                        Toast.makeText(context,"Rs $wallet has been deducted from $mateName wallet",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,"Amount Added",Toast.LENGTH_SHORT).show()
                     }
                 } else{
                     databaseReference.child(updateContext).setValue(amount.toString())

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -22,9 +23,16 @@ import kotlinx.coroutines.sync.Mutex
 class SplitDuesActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplitDuesBinding
     private lateinit var matesList: ArrayList<MatesInfo>
+    private lateinit var mateIds: ArrayList<String>
+    private lateinit var mateName:ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        binding = DataBindingUtil.setContentView(this,R.layout.activity_split_dues)
+
+        //Counter for the number of mates selected
+
+        //Creating an instance of UpdateOrSplitDues class to split the dues
+        val splitDuesObject = UpdateOrSplitDues("")
 
         val toolbar = binding.myToolbar
         setSupportActionBar(toolbar)
@@ -34,33 +42,11 @@ class SplitDuesActivity : AppCompatActivity() {
         //Initializing matesList
         matesList = ArrayList()
 
-        //Setting up adapter for drop down
-        val dropDown = binding.selectOptionDropDown
-        val dropDownItems = arrayOf("Other Dues","Rent")
-        val dropDownAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_item,dropDownItems)
-        dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        dropDown.adapter = dropDownAdapter
+        //Initializing mateIds and mateNames
+        mateIds = ArrayList()
+        mateName = ArrayList()
 
 
-        //Setting up the logic to implement the on item selected for drop down items
-        dropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                when(position){
-                    0 -> Toast.makeText(this@SplitDuesActivity,dropDownItems[position],Toast.LENGTH_SHORT).show()
-                    1 -> Toast.makeText(this@SplitDuesActivity,dropDownItems[position],Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
 
 
 
@@ -70,13 +56,25 @@ class SplitDuesActivity : AppCompatActivity() {
         val adapter = SplitDuesAdapter(matesList,this)
         recyclerView.adapter = adapter
         adapter.itemClickListener(object : SplitDuesAdapter.OnItemClickListener{
-            override fun checkBoxClickListener(checkBox: CheckBox) {
-                //Implemented logic to check and uncheck the radio button on each click
-                if(checkBox.isChecked) Toast.makeText(this@SplitDuesActivity,checkBox.text.toString(),Toast.LENGTH_SHORT).show()
+            override fun checkBoxClickListener(id: TextView,checkBox: CheckBox) {
+                //Adding the selected mate id the mateId array list to split the dues
+                if(checkBox.isChecked){
+                    mateIds.add(id.text.toString())
+                    mateName.add(checkBox.text.toString())
+                }else{
+                    mateIds.remove(id.text.toString())
+                    mateName.remove(checkBox.text.toString())
+                }
             }
             override val mutex: Mutex = Mutex()
         })
 
+//Setting up onClick listener for select all button
+        binding.selectAllButton.setOnClickListener {
+            for(mate in matesList){
+                adapter.
+            }
+        }
 
 
         //Creating instance of Firebase Database
@@ -104,6 +102,7 @@ class SplitDuesActivity : AppCompatActivity() {
                         binding.listOfMatesLayout.visibility = View.VISIBLE
                     }
 //                        binding.listOfMatesLayout.visibility = View.VISIBLE
+                    matesList.clear()
                     binding.spinnerLayout.visibility = View.GONE
                     for (data in snapshot.children) {
                         val mateInfo = data.getValue(MatesInfo::class.java)
@@ -120,6 +119,58 @@ class SplitDuesActivity : AppCompatActivity() {
         } else{
             binding.spinnerLayout.visibility = View.GONE
             binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
+        }
+
+
+        //Calling a function to divide the dues
+
+        //Setting up adapter for drop down
+        val dropDown = binding.selectOptionDropDown
+        val dropDownItems = arrayOf("Other Dues","Rent")
+        val dropDownAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_item,dropDownItems)
+        dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        dropDown.adapter = dropDownAdapter
+
+
+
+        //Setting up the logic to implement the on item selected for drop down items
+        dropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when(position){
+                    0 -> {
+                        view?.let {
+                            splitDuesObject.splitDues(
+                                binding.splitButton,
+                                "update_other_amount",
+                                "plus",
+                                binding.enterAmountEditText,
+                                this@SplitDuesActivity, it, mateIds
+                            )
+                        }
+                    }
+                    1 ->{
+                        view?.let {
+                            splitDuesObject.splitDues(
+                                binding.splitButton,
+                                "update_rent",
+                                "plus",
+                                binding.enterAmountEditText,
+                                this@SplitDuesActivity, it, mateIds
+                            )
+                        }
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
         }
 
 
