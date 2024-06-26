@@ -24,10 +24,12 @@ class SplitDuesActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplitDuesBinding
     private lateinit var matesList: ArrayList<MatesInfo>
     private lateinit var mateIds: ArrayList<String>
-    private lateinit var mateName:ArrayList<String>
+    private lateinit var mateName: ArrayList<String>
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       binding = DataBindingUtil.setContentView(this,R.layout.activity_split_dues)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_split_dues)
 
         //Counter for the number of mates selected
 
@@ -47,29 +49,25 @@ class SplitDuesActivity : AppCompatActivity() {
         mateName = ArrayList()
 
 
-
-
-
 //        Setting up adapter for recycler View
-        val recyclerView= binding.recyclerView
+        val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = SplitDuesAdapter(matesList,this)
+        val adapter = SplitDuesAdapter(matesList, this)
         recyclerView.adapter = adapter
-        adapter.itemClickListener(object : SplitDuesAdapter.OnItemClickListener{
-            override fun checkBoxClickListener(id: TextView,checkBox: CheckBox) {
+        adapter.itemClickListener(object : SplitDuesAdapter.OnItemClickListener {
+            override fun checkBoxClickListener(id: TextView, checkBox: CheckBox) {
                 //Adding the selected mate id the mateId array list to split the dues
-                if(checkBox.isChecked){
+                if (checkBox.isChecked) {
                     mateIds.add(id.text.toString())
                     mateName.add(checkBox.text.toString())
-                }else{
+                } else {
                     mateIds.remove(id.text.toString())
                     mateName.remove(checkBox.text.toString())
                 }
             }
+
             override val mutex: Mutex = Mutex()
         })
-
-
 
 
         //Creating instance of Firebase Database
@@ -80,7 +78,7 @@ class SplitDuesActivity : AppCompatActivity() {
         binding.spinnerLayout.visibility = View.VISIBLE
 
         //Value Event listener to retrieve the data from firebase realtime database
-        if(NetworkUtil.isNetworkAvailable(this)){
+        if (NetworkUtil.isNetworkAvailable(this)) {
 
             databaseReference.addValueEventListener(object : ValueEventListener {
                 @SuppressLint("NotifyDataSetChanged")
@@ -88,11 +86,10 @@ class SplitDuesActivity : AppCompatActivity() {
                     binding.spinnerLayout.visibility = View.GONE
 
                     //Checking if any mate is exists in the database or not. If exists then show the list is empty message
-                    if(!snapshot.exists()) {
+                    if (!snapshot.exists()) {
                         binding.emptyListLayout.visibility = View.VISIBLE
                         binding.listOfMatesLayout.visibility = View.GONE
-                    }
-                    else {
+                    } else {
                         binding.emptyListLayout.visibility = View.GONE
                         binding.listOfMatesLayout.visibility = View.VISIBLE
                     }
@@ -105,13 +102,14 @@ class SplitDuesActivity : AppCompatActivity() {
                     }
                     adapter.notifyDataSetChanged()
                 }
+
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@SplitDuesActivity,error.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SplitDuesActivity, error.message, Toast.LENGTH_SHORT).show()
                     binding.spinnerLayout.visibility = View.GONE
                 }
             })
 
-        } else{
+        } else {
             binding.spinnerLayout.visibility = View.GONE
             binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
         }
@@ -121,15 +119,31 @@ class SplitDuesActivity : AppCompatActivity() {
 
         //Setting up adapter for drop down
         val dropDown = binding.selectOptionDropDown
-        val dropDownItems = arrayOf("Other Dues","Rent")
-        val dropDownAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_item,dropDownItems)
+        val dropDownItems = arrayOf("Other Dues", "Rent")
+        val dropDownAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, dropDownItems)
         dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dropDown.adapter = dropDownAdapter
 
+        var isSelected = false
 
+        //Setting up onClick listener for select all button
+        binding.selectAllButton.setOnClickListener {
+            isSelected = !isSelected
+          val allMateIds =  adapter.selectAllMates(isSelected)
+            if (isSelected) {
+                mateIds.addAll(allMateIds)
+                binding.selectAllButton.text = "Unselect All"
+            }
+            if (!isSelected) {
+                mateIds.clear()
+                allMateIds.clear()
+                binding.selectAllButton.text = "Select All"
+            }
+        }
 
         //Setting up the logic to implement the on item selected for drop down items
-        dropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        dropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -137,11 +151,12 @@ class SplitDuesActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                when(position){
+                when (position) {
                     0 -> {
                         view?.let {
                             splitDuesObject.splitDues(
                                 binding.splitButton,
+                                binding.selectAllButton,
                                 "update_other_amount",
                                 "plus",
                                 binding.enterAmountEditText,
@@ -149,10 +164,12 @@ class SplitDuesActivity : AppCompatActivity() {
                             )
                         }
                     }
-                    1 ->{
+
+                    1 -> {
                         view?.let {
                             splitDuesObject.splitDues(
                                 binding.splitButton,
+                                binding.selectAllButton,
                                 "update_rent",
                                 "plus",
                                 binding.enterAmountEditText,

@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.Button
@@ -29,8 +30,10 @@ class UpdateOrSplitDues(private var mateName: String) {
         }
     }
 
+   @SuppressLint("SetTextI18n")
    fun splitDues(
-        button: Button,
+        splitButton: Button,
+        selectAllButton:Button,
         updateContext: String,
         updateDomain: String,
         editText: EditText,
@@ -38,10 +41,11 @@ class UpdateOrSplitDues(private var mateName: String) {
         view: View,
         mateIds:ArrayList<String>
     ) {
-        button.setOnClickListener {
+       splitButton.setOnClickListener {
             if (editText.text.isNotEmpty()) {
                 if(mateIds.isNotEmpty()) {
                     if (NetworkUtil.isNetworkAvailable(context)) {
+                        selectAllButton.text = "Select All"
                         val amount = editText.text.toString().toInt()
                         val dividedAmount:Int = amount / mateIds.size
                         val addAmount = UpdateAmount(mateName)
@@ -58,6 +62,7 @@ class UpdateOrSplitDues(private var mateName: String) {
                                 view
                             )
                         }
+                        Toast.makeText(context,"Amount divided among selected mates",Toast.LENGTH_SHORT).show()
                     } else Toast.makeText(context, "No Internet connection", Toast.LENGTH_SHORT)
                         .show()
                 }else Toast.makeText(context,"Please select any mate first",Toast.LENGTH_SHORT).show()

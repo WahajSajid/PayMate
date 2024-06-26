@@ -8,6 +8,7 @@ class MatesInfo {
     var other_amount:String?= null
     var wallet_amount:String?= null
     var isExpanded: Boolean = false
+    var isSelected:Boolean = false
     // Add a no-argument constructor
     constructor() {}
 

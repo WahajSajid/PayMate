@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 
-class SplitDuesAdapter(private val matesList: ArrayList<MatesInfo>, context: Context) : RecyclerView.Adapter<SplitDuesAdapter.ViewHolder>() {
+class SplitDuesAdapter(private val matesList: ArrayList<MatesInfo>,private val  context: Context) : RecyclerView.Adapter<SplitDuesAdapter.ViewHolder>() {
 
-
+   private var mateIds = ArrayList<String>()
     private lateinit var clickListener: OnItemClickListener
 
     interface OnItemClickListener {
@@ -28,10 +29,21 @@ class SplitDuesAdapter(private val matesList: ArrayList<MatesInfo>, context: Con
     }
 
 
+    @SuppressLint("InflateParams", "NotifyDataSetChanged")
+    fun selectAllMates(selectAll:Boolean):ArrayList<String>{
+        matesList.forEach {it.isSelected  = selectAll}
+        notifyDataSetChanged()
+        return mateIds
+    }
+
     class ViewHolder(itemView: View, clickListener: OnItemClickListener) :
         RecyclerView.ViewHolder(itemView) {
         val checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)!!
         val id = itemView.findViewById<TextView>(R.id.mateIdForSplitBills)!!
+
+        fun bind(item: MatesInfo) {
+            checkBox.isChecked = item.isSelected
+        }
 
         init {
             checkBox.setOnClickListener {
@@ -56,5 +68,7 @@ class SplitDuesAdapter(private val matesList: ArrayList<MatesInfo>, context: Con
         val matesNames = matesList[position]
         holder.checkBox.text = matesNames.name.toString()
         holder.id.text = matesNames.mate_id.toString()
+        holder.bind(matesList[position])
+        mateIds.add(holder.id.text.toString())
     }
 }

@@ -40,7 +40,7 @@ class UpdateAmount(private var mateName:String){
                                         val newRentAmount =
                                             currentRentAmount.toInt() + amount.toInt()
                                         //Calling a function to add rent and check if the wallet is available is yes then subtract the rent amount from the wallet amount
-                                        addAmount(databaseReference,"rent_amount",newRentAmount,context)
+                                        addAmount(databaseReference,"rent_amount",newRentAmount,context,navigateBackOrNot)
                                         if(navigateBackOrNot) {
                                             val navController = view.findNavController()
                                             navController.popBackStack(R.id.allMates2, false)
@@ -85,7 +85,7 @@ class UpdateAmount(private var mateName:String){
                                         val newOtherAmount =
                                             currentOtherAmount.toInt() + amount.toInt()
                                         //Calling a function to add rent and check if the wallet is available is yes then subtract the rent amount from the wallet amount
-                                        addAmount(databaseReference,"other_amount",newOtherAmount,context)
+                                        addAmount(databaseReference,"other_amount",newOtherAmount,context,navigateBackOrNot)
                                         if(navigateBackOrNot) {
                                             val navController = view.findNavController()
                                             navController.popBackStack(R.id.allMates2, false)
@@ -230,7 +230,7 @@ class UpdateAmount(private var mateName:String){
     }
 
     //Method to add the rent amount after checking if the wallet is available or not if the wallet is available then subtract the rent amount from
-    private fun addAmount(databaseReference: DatabaseReference,updateContext:String,amount:Int,context:Context){
+    private fun addAmount(databaseReference: DatabaseReference,updateContext:String,amount:Int,context:Context,navigateBackOrNot: Boolean){
         var newAmount: Int
         var walletAmount: Int
         databaseReference.child("wallet_amount").get()
@@ -249,11 +249,15 @@ class UpdateAmount(private var mateName:String){
                         databaseReference.child(updateContext)
                             .setValue(newAmount.toString())
                         databaseReference.child("wallet_amount").setValue("0")
-                        Toast.makeText(context,"Amount Added",Toast.LENGTH_SHORT).show()
+                        if(navigateBackOrNot){
+                            Toast.makeText(context,"Amount Added",Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else{
                     databaseReference.child(updateContext).setValue(amount.toString())
-                    Toast.makeText(context,"Amount Added",Toast.LENGTH_SHORT).show()
+                    if(navigateBackOrNot){
+                        Toast.makeText(context,"Amount Added",Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
     }
