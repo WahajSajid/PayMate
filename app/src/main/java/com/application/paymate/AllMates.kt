@@ -50,7 +50,7 @@ class AllMates : Fragment() {
         //Setting Up click listener for editButton on recycler view item
         adapter.itemClickListener(object : AllMatesAdapter.OnItemClickListener{
             override fun editButtonListener(position: Int, mateId: TextView,mateText:TextView,mateName:TextView,matePhone:TextView) {
-                sharedViewModel.mateNode.value = "Mate " + mateId.text.toString()
+                sharedViewModel.mateNode.value = "Mate: " + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
                 sharedViewModel.matePhone.value = matePhone.text.toString()
                 view?.findNavController()?.navigate(R.id.action_allMates2_to_editMateDetailsFragment)
@@ -62,7 +62,7 @@ class AllMates : Fragment() {
                 mateText: TextView,
                 mateName: TextView
             ) {
-                sharedViewModel.mateNode.value = "Mate " + mateId.text.toString()
+                sharedViewModel.mateNode.value = "Mate: " + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
                 val popScreen = RemoveMatePopUp()
                 popScreen.show(childFragmentManager,"remove_popup_fragment")
@@ -72,7 +72,7 @@ class AllMates : Fragment() {
                 sharedViewModel.rentAmount.value = rentAmount.text.toString()
                 sharedViewModel.otherAmount.value = otherAmount.text.toString()
                 sharedViewModel.walletAmount.value = walletAmount.text.toString()
-                sharedViewModel.mateNode.value = "Mate " + mateId.text.toString()
+                sharedViewModel.mateNode.value = "Mate: " + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
                 view?.findNavController()?.navigate(R.id.action_allMates2_to_updateFragment2)
             }

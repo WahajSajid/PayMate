@@ -194,7 +194,6 @@
                     app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
                     app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
                     app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-                    app:boxStrokeColor="@color/app_theme_color"
                     app:boxStrokeWidth="0.5sp"
                     app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:hintAnimationEnabled="true"

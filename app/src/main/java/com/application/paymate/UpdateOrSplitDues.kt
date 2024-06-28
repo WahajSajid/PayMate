@@ -51,7 +51,7 @@ class UpdateOrSplitDues(private var mateName: String) {
                         val addAmount = UpdateAmount(mateName)
                         for(mateId in mateIds.withIndex()){
                             val id = mateId.value
-                            val mateIdNode = "Mate $id"
+                            val mateIdNode = "Mate: $id"
                             addAmount.updateAmount(
                                 dividedAmount.toString(),
                                 mateIdNode,
