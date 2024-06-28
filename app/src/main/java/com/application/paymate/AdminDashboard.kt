@@ -1,6 +1,7 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.getIntent
@@ -32,12 +33,40 @@ class AdminDashboard : Fragment() {
         val adminName = sharedPreferences.getString("adminName","Loading....")
         binding.adminName.text  = adminName
 
+
+
+        //Setting up onClick Listener for all mates card and on all the views present in this card view. Because user can click on anything.
         binding.allMatesCardImage.setOnClickListener {
             val intent = Intent(requireContext(), AllMatesActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+        binding.allMatesCard.setOnClickListener{
+            val intent = Intent(requireContext(), AllMatesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
+
+        binding.arrow1NextImageview.setOnClickListener{
+            val intent = Intent(requireContext(), AllMatesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
+
+        //Setting up onClick Listener for split dues card and on all the views present in this card view. Because user can click on anything.
         binding.splitDuesCardImage.setOnClickListener {
+            val intent = Intent(requireContext(), SplitDuesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
+
+        binding.splitDuesCard.setOnClickListener{
+            val intent = Intent(requireContext(), SplitDuesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
+
+        binding.arrow2NextImageview.setOnClickListener {
             val intent = Intent(requireContext(), SplitDuesActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
