@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SettingsActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_theme_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/editNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginStart="10sp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="Edit Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20sp"
+                app:layout_constraintTop_toBottomOf="@id/editNameTextView"
+                android:hint="Name" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@id/editName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="?android:attr/listDivider" />
+
+
+        <TextView
+            android:id="@+id/additionalTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="40sp"
+            android:layout_marginStart="10sp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="Additional"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/checkBoxCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardElevation="10sp"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="10sp"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/additionalTextView">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add yourself as mate also?"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/instructionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note: Checking the box will add yourself to the mates list \n to add and split dues for yourself also. "
+            app:layout_constraintStart_toStartOf="@id/checkBoxCardView"
+            app:layout_constraintEnd_toEndOf="@id/checkBoxCardView"
+            app:layout_constraintTop_toBottomOf="@id/checkBoxCardView"
+            android:layout_marginTop="20sp"/>
+
+
+        <Button
+            android:id="@+id/saveChangesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="Save Changes"
+            android:backgroundTint="@android:color/transparent"
+            app:strokeWidth="1sp"
+            android:textColor="@color/app_theme_color"
+            app:strokeColor="@color/app_theme_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/instructionTextView"
+            tools:ignore="HardcodedText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
