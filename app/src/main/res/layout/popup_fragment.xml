@@ -3,110 +3,43 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardElevation="5sp"
-        app:cardCornerRadius="20sp">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/changeNameInputLayout"
-            android:layout_width="250dp"
+        <RelativeLayout
+            android:id="@+id/spinnerLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="@color/app_theme_color"
-            app:boxStrokeErrorColor="@color/design_default_color_error"
-            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:cursorErrorColor="@color/design_default_color_error"
-            app:errorEnabled="true"
-            app:errorTextColor="@color/design_default_color_error"
-            app:hintAnimationEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"
+            android:layout_marginStart="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/changeNameEditText"
-                android:layout_width="match_parent"
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@android:style/Widget.ProgressBar.Inverse"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Name"
-                android:inputType="text|textPersonName|textAutoComplete"
-                android:text="Muhammad Wahaj Sajid" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progress_icon"
+                android:progressDrawable="@drawable/progress_icon"
+                android:progressTint="@color/app_theme_color" />
+        </RelativeLayout>
 
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/changePhoneInputLayout"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
-            app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
-            app:boxStrokeColor="@color/app_theme_color"
-            app:boxStrokeErrorColor="@color/design_default_color_error"
-            app:counterTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:cursorErrorColor="@color/design_default_color_error"
-            app:errorEnabled="true"
-            app:errorTextColor="@color/design_default_color_error"
-            app:hintAnimationEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/changeNameInputLayout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/changePhoneEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/phone_hint"
-                android:text="03000072635"
-                android:inputType="phone"
-                android:maxLength="11" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/buttonLayout"
+        <TextView
+            android:id="@+id/loadingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Loading Data..."
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/spinnerLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/changePhoneInputLayout">
+            app:layout_constraintTop_toTopOf="@id/spinnerLayout"
+            app:layout_constraintBottom_toBottomOf="@id/spinnerLayout"/>
 
 
-            <Button
-                android:id="@+id/changeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/app_theme_color"
-                android:text="Change"
-                app:cornerRadius="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="#FFFFFF"
-                app:strokeWidth="1sp" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
 

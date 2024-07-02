@@ -3,23 +3,15 @@ package com.application.paymate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -44,13 +36,12 @@ class AdminActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdmin2Binding.inflate(layoutInflater)
-
-
         //Setting Up logic for navigation drawer
         setContentView(binding.root)
         val toolBar = binding.toolbar
         setSupportActionBar(toolBar)
         drawerLayout = findViewById(R.id.nav_drawer_header)
+
 
         //Updating UI of navigation drawer header with admin details
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
@@ -59,16 +50,17 @@ class AdminActivity : AppCompatActivity() {
         val adminEmailText = headerView.findViewById<TextView>(R.id.navAdminEmail)
         val sharedPreferences =
             getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
-        val adminName = sharedPreferences.getString("adminName", "Loading....")
         val adminEmail = sharedPreferences.getString("adminEmail", "Loading...")
-        val name = getNameOnRealTime()
-        adminNameText.text = name
+
+
+        getName(adminNameText)
         adminEmailText.text = adminEmail
 
         //Setting up logic for navigation drawer items clicked.
         navigationView.setNavigationItemSelectedListener { item -> // Handle item selection here
             when (item.itemId) {
                 R.id.nav_settings -> {
+                    val adminName = adminNameText.text.toString()
                     val intent = Intent(this, SettingsActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     intent.putExtra("adminName", adminName)
@@ -129,24 +121,19 @@ class AdminActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getNameOnRealTime(): String {
-        var adminName: String = ""
+    fun getName(adminNameTextView: TextView){
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("name").get()
-        databaseReference.addOnSuccessListener {
-            object : ValueEventListener {
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("name")
+        databaseReference.addValueEventListener(object : ValueEventListener {
 
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    adminName = snapshot.value.toString()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@AdminActivity, error.message, Toast.LENGTH_SHORT).show()
-                }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                adminNameTextView.text = snapshot.value.toString()
             }
-        }
-        return adminName
-    }
 
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@AdminActivity, error.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }

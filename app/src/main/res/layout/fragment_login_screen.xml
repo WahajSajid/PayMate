@@ -12,14 +12,14 @@
 
 
         <RelativeLayout
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="parent"
             android:id="@+id/spinnerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" >
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -31,7 +31,6 @@
                 android:progressDrawable="@drawable/progress_icon"
                 android:progressTint="@color/app_theme_color" />
         </RelativeLayout>
-
 
 
         <ImageView
@@ -120,14 +119,14 @@
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/enterPasswordInputLayout"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enterPasswordInputLayout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/app_theme_color"
-                android:text="@string/new_here_text" />
+                android:text="@string/new_here_text"
+                android:textColor="@color/app_theme_color" />
 
             <TextView
                 android:id="@+id/registerTextButton"

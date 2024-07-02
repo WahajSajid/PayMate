@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -28,7 +29,6 @@ class SettingsActivity : AppCompatActivity() {
         val adminName = intent.getStringExtra("adminName")
         binding.editName.setText(adminName)
         markCheckBox()
-        Toast.makeText(this,adminName,Toast.LENGTH_SHORT).show()
         binding.saveChangesButton.setOnClickListener {
             saveChanges()
         }
@@ -42,6 +42,7 @@ class SettingsActivity : AppCompatActivity() {
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
         databaseReference.child("name").setValue(editedName)
+        Toast.makeText(this@SettingsActivity,editedName,Toast.LENGTH_SHORT).show()
         if(binding.checkBox.isChecked){
             enableAsMate()
         } else{
@@ -66,6 +67,7 @@ class SettingsActivity : AppCompatActivity() {
 
 
     //Function to mark the check box as checked if the admin made changes before.
+   @SuppressLint("SuspiciousIndentation")
    private fun markCheckBox(){
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
