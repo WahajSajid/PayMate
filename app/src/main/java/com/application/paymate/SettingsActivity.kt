@@ -54,8 +54,8 @@ class SettingsActivity : AppCompatActivity() {
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate")
         databaseReference.child("enabled").setValue(true)
-        databaseReference.child("rent").setValue("")
-        databaseReference.child("other_dues").setValue("")
+        databaseReference.child("rent_amount").setValue("0")
+        databaseReference.child("other_amount").setValue("0")
     }
 
     private fun disableAsMate(){

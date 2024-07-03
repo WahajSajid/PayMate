@@ -57,6 +57,7 @@ class RentUpdateFragment : Fragment() {
                         val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
                             updateAmountObject.updateDues(
+                                "false",
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_rent",
@@ -73,6 +74,7 @@ class RentUpdateFragment : Fragment() {
                         val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
                             updateAmountObject.updateDues(
+                                "false",
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_rent",

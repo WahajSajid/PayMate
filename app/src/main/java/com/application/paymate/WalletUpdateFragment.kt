@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.application.paymate.databinding.FragmentWalletUpdateBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class WalletUpdateFragment : Fragment() {
     private lateinit var binding:FragmentWalletUpdateBinding
@@ -53,6 +55,7 @@ class WalletUpdateFragment : Fragment() {
                         val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
                             updateAmountObject.updateDues(
+                                "false",
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_wallet",
@@ -69,6 +72,7 @@ class WalletUpdateFragment : Fragment() {
                         val updateAmountObject = UpdateOrSplitDues(mateName)
                         view?.let {
                             updateAmountObject.updateDues(
+                                "false",
                                 binding.updateChangesButton,
                                 mateIdNode,
                                 "update_wallet",

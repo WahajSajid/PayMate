@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.application.paymate.databinding.FragmentOtherDueBinding
 
 class OtherDueUpdateFragment : Fragment() {
-    private lateinit var binding:FragmentOtherDueBinding
+    private lateinit var binding: FragmentOtherDueBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -20,10 +20,11 @@ class OtherDueUpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-       binding = DataBindingUtil.inflate(inflater,R.layout.fragment_other_due, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_other_due, container, false)
 
         val mateIdNode = sharedViewModel.mateNode.value.toString()
-
+        val addToMateAlso= sharedViewModel.admin.value.toString()
+        val updateContext = sharedViewModel.updateContext.value.toString()
         val mateName = sharedViewModel.mateName.value.toString()
         val existingOtherAmount = sharedViewModel.otherAmount.value.toString()
         binding.updateOtherAmountEditText.setText(existingOtherAmount)
@@ -49,35 +50,36 @@ class OtherDueUpdateFragment : Fragment() {
                     0 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_add_24)
 
-                        //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateOrSplitDues(mateName)
-                        view?.let {
-                            updateAmountObject.updateDues(
-                                binding.updateChangesButton,
-                                mateIdNode,
-                                "update_other_amount",
-                                "plus",
-                                binding.enterOtherAmountEditText,
-                                requireActivity(), it
-                            )
-                        }
+                            //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
+                            val updateAmountObject = UpdateOrSplitDues(mateName)
+                            view?.let {
+                                updateAmountObject.updateDues(
+                                    addToMateAlso,
+                                    binding.updateChangesButton,
+                                    mateIdNode,
+                                    updateContext,
+                                    "plus",
+                                    binding.enterOtherAmountEditText,
+                                    requireActivity(), it
+                                )
+                            }
                     }
 
                     1 -> {
                         binding.addIcon.setImageResource(R.drawable.baseline_minimize_24)
-
-                        //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
-                        val updateAmountObject = UpdateOrSplitDues(mateName)
-                        view?.let {
-                            updateAmountObject.updateDues(
-                                binding.updateChangesButton,
-                                mateIdNode,
-                                "update_other_amount",
-                                "minus",
-                                binding.enterOtherAmountEditText,
-                                requireActivity(), it
-                            )
-                        }
+                            //Making an instance of the UpdateAmount class and calling the updateAmount method to add the amount in realtime database
+                            val updateAmountObject = UpdateOrSplitDues(mateName)
+                            view?.let {
+                                updateAmountObject.updateDues(
+                                    addToMateAlso,
+                                    binding.updateChangesButton,
+                                    mateIdNode,
+                                    updateContext,
+                                    "minus",
+                                    binding.enterOtherAmountEditText,
+                                    requireActivity(), it
+                                )
+                            }
                     }
                 }
             }

@@ -49,7 +49,13 @@ class SharedViewModel:ViewModel(){
     private var __mateId = MutableLiveData(1)
     var _mateId:MutableLiveData<Int> = __mateId
 
+    //Add amount to admin
+    private var _admin = MutableLiveData<String>()
+    var admin = _admin
 
+    //Update context
+    private var _updateContext = MutableLiveData<String>()
+    var updateContext = _updateContext
 
 
     init{

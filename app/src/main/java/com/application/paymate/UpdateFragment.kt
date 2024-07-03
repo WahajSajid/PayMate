@@ -25,19 +25,26 @@ class UpdateFragment : Fragment() {
         val rentAmount = sharedViewModel.rentAmount.value.toString()
         val otherAmount = sharedViewModel.otherAmount.value.toString()
         val walletAmount = sharedViewModel.walletAmount.value.toString()
+        val adToAdmin = sharedViewModel.admin.value.toString()
 
         //Overriding the text of the Text View to update the UI
        binding.rentUpdateEditText.setText(rentAmount)
         binding.otherUpdateEditText.setText(otherAmount)
         binding.walletUpdateEditText.setText(walletAmount)
 
+        //Setting up if statement to check if the click on update button of admin card
+        if(adToAdmin == "true"){
+
+        }
 
         //Setting up click listeners for the edit texts
         binding.rentUpdateEditText.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_updateFragment2_to_rentUpdateFragment2)
+            sharedViewModel.updateContext.value = "update_rent"
+            view?.findNavController()?.navigate(R.id.action_updateFragment2_to_otherDueUpdateFragment2)
         }
 
         binding.otherUpdateEditText.setOnClickListener{
+            sharedViewModel.updateContext.value = "update_other_amount"
             view?.findNavController()?.navigate(R.id.action_updateFragment2_to_otherDueUpdateFragment2)
         }
 

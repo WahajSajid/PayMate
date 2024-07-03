@@ -116,7 +116,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/otherDuesHeader"/>
 
 
-
+        
 
         <View
             android:id="@+id/divider2"
@@ -177,6 +177,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </layout>

@@ -130,13 +130,7 @@ class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) 
                 Animation.RELATIVE_TO_PARENT, 0f
             )
             expand.duration = 250
-//            val expand = ScaleAnimation(
-//                0f, 1.1f,
-//                1f, 1f,
-//                Animation.RELATIVE_TO_PARENT, 0f,
-//                Animation.RELATIVE_TO_PARENT, 0f
-//            )
-//            expand.duration = 250
+
 
             val contract = ScaleAnimation(
                 1.1f, 0f,

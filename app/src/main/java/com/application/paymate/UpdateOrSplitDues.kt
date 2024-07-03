@@ -7,10 +7,12 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.database.DatabaseReference
 
 class UpdateOrSplitDues(private var mateName: String) {
 
     fun updateDues(
+        addToMateAlso:String,
         button: Button,
         mateIdNode: String,
         updateContext: String,
@@ -24,7 +26,7 @@ class UpdateOrSplitDues(private var mateName: String) {
                 if (NetworkUtil.isNetworkAvailable(context)) {
                     val amount = editText.text.toString()
                     val addAmount = UpdateAmount(mateName)
-                    addAmount.updateAmount(amount,mateIdNode,updateContext,updateDomain, true,context,view)
+                    addAmount.updateAmount(addToMateAlso,amount,mateIdNode,updateContext,updateDomain, true,context,view)
                 } else Toast.makeText(context, "No Internet connection", Toast.LENGTH_SHORT).show()
             } else Toast.makeText(context, "Please enter amount first", Toast.LENGTH_SHORT).show()
         }
@@ -53,6 +55,7 @@ class UpdateOrSplitDues(private var mateName: String) {
                             val id = mateId.value
                             val mateIdNode = "Mate: $id"
                             addAmount.updateAmount(
+                                "false",
                                 dividedAmount.toString(),
                                 mateIdNode,
                                 updateContext,
