@@ -57,6 +57,10 @@ class SharedViewModel:ViewModel(){
     private var _updateContext = MutableLiveData<String>()
     var updateContext = _updateContext
 
+    //Update Button clicked for admin
+    private var _adminUpdateButtonClicked = MutableLiveData<String>()
+    var adminUpdateButtonClicked = _adminUpdateButtonClicked
+
 
     init{
         __mateId.value = 1

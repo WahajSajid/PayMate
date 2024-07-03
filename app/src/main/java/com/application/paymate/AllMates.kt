@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -19,6 +20,7 @@ import com.application.paymate.databinding.FragmentAllMatesBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.sync.Mutex
@@ -49,8 +51,12 @@ class AllMates : Fragment() {
         val adapter = AllMatesAdapter(matesList, requireContext())
         recyclerView.adapter = adapter
 
-        showAdminCard()
 
+        if (NetworkUtil.isNetworkAvailable(requireContext())) {
+            val showCard = ShowAdminCard()
+            showCard.showAdminCard(binding.itemCard)
+            retrieveAdminDuesData()
+        }
 
         //Animation to show the button
         val showButton = ScaleAnimation(
@@ -74,7 +80,7 @@ class AllMates : Fragment() {
         var isClickedOrNot = false
         //Setting up onClick Listener for admin Card
         binding.itemCard.setOnClickListener {
-            if(isClickedOrNot){
+            if (isClickedOrNot) {
                 binding.updateButton.startAnimation(hideButton)
                 binding.updateButton.visibility = View.GONE
                 isClickedOrNot = !isClickedOrNot
@@ -89,7 +95,6 @@ class AllMates : Fragment() {
         binding.updateButton.setOnClickListener {
             updateDues()
         }
-
 
 
         //Setting Up click listener for editButton on recycler view item
@@ -133,6 +138,7 @@ class AllMates : Fragment() {
                 sharedViewModel.walletAmount.value = walletAmount.text.toString()
                 sharedViewModel.mateNode.value = "Mate: " + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
+                sharedViewModel.adminUpdateButtonClicked.value = "false"
                 view?.findNavController()?.navigate(R.id.action_allMates2_to_updateFragment2)
             }
 
@@ -184,7 +190,38 @@ class AllMates : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value == true) {
                     binding.itemCard.visibility = View.VISIBLE
+                    retrieveAdminDuesData()
                 } else binding.itemCard.visibility = View.GONE
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    private fun updateDues() {
+        //Navigating to update dues fragment.
+        val rentAmount = binding.rentAmount.text.toString()
+        val otherDuesAmount = binding.otherAmount.text.toString()
+        sharedViewModel.rentAmount.value = rentAmount
+        sharedViewModel.otherAmount.value = otherDuesAmount
+        sharedViewModel.admin.value = "true"
+        sharedViewModel.adminUpdateButtonClicked.value = "true"
+        view?.findNavController()?.navigate(R.id.action_allMates2_to_updateFragment2)
+    }
+
+    private fun retrieveAdminDuesData() {
+        val database = FirebaseDatabase.getInstance()
+        val databaseReference = database.getReference("admin_profiles")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate")
+        valueEventListener(binding.rentAmount, databaseReference.child("rent_amount"))
+        valueEventListener(binding.otherAmount,databaseReference.child("other_amount"))
+    }
+
+    private fun valueEventListener(textView: TextView, databaseReference: DatabaseReference) {
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                textView.text = snapshot.value.toString()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -192,13 +229,5 @@ class AllMates : Fragment() {
             }
         })
     }
-    private fun updateDues(){
-        //Navigating to update dues fragment.
-        val rentAmount = binding.rentAmount.text.toString()
-        val otherDuesAmount = binding.otherAmount.text.toString()
-        sharedViewModel.rentAmount.value = rentAmount
-        sharedViewModel.otherAmount.value = otherDuesAmount
-        sharedViewModel.admin.value = "true"
-        view?.findNavController()?.navigate(R.id.action_allMates2_to_updateFragment2)
-    }
+
 }

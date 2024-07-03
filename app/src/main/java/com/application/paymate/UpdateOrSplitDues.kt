@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.google.firebase.database.DatabaseReference
 
 class UpdateOrSplitDues(private var mateName: String) {
@@ -41,16 +42,25 @@ class UpdateOrSplitDues(private var mateName: String) {
         editText: EditText,
         context: Context,
         view: View,
-        mateIds:ArrayList<String>
+        mateIds:ArrayList<String>,
+        checkBox: CheckBox,
+        checkBoxCard:CardView
     ) {
        splitButton.setOnClickListener {
             if (editText.text.isNotEmpty()) {
                 if(mateIds.isNotEmpty()) {
                     if (NetworkUtil.isNetworkAvailable(context)) {
                         selectAllButton.text = "Select All"
-                        val amount = editText.text.toString().toInt()
-                        val dividedAmount:Int = amount / mateIds.size
+                        val mates:Int
                         val addAmount = UpdateAmount(mateName)
+                        //Checking if the As Mate option is enabled or not by check the visibility of admin card view
+                        if(checkBoxCard.visibility == View.VISIBLE){
+                            mates = mateIds.size + 1
+                            //Calling a function to add the dues to admin also
+                            addAmountToAdmin(mates,addAmount,checkBox,editText,updateContext,updateDomain,view,context)
+                        } else mates = mateIds.size
+                        val amount = editText.text.toString().toInt()
+                        val dividedAmount:Int = amount / mates
                         for(mateId in mateIds.withIndex()){
                             val id = mateId.value
                             val mateIdNode = "Mate: $id"
@@ -70,6 +80,23 @@ class UpdateOrSplitDues(private var mateName: String) {
                         .show()
                 }else Toast.makeText(context,"Please select any mate first",Toast.LENGTH_SHORT).show()
             } else Toast.makeText(context, "Please enter amount first", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun addAmountToAdmin(mates:Int,addAmount: UpdateAmount,checkBox:CheckBox,editText: EditText,updateContext: String,updateDomain: String,view: View,context: Context){
+        if(checkBox.isChecked){
+            val amount = editText.text.toString().toInt()
+            val dividedAmount:Int = amount / mates
+            addAmount.updateAmount(
+                "true",
+                dividedAmount.toString(),
+                " ",
+                updateContext,
+                updateDomain,
+                false,
+                context,
+                view
+            )
+            checkBox.isChecked = false
         }
     }
 

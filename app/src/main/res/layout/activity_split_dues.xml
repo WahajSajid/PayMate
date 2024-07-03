@@ -156,11 +156,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/my_toolbar">
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/inputFieldLayout"
@@ -238,9 +237,34 @@
                 android:text="Select All"
                 android:textColor="@color/app_theme_color"
                 android:background="@android:color/transparent"
-                app:layout_constraintTop_toBottomOf="@+id/inputFieldLayout"
-                app:layout_constraintBottom_toTopOf="@id/recyclerView"/>
+                app:layout_constraintTop_toBottomOf="@+id/inputFieldLayout" />
 
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/checkBoxCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="10sp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="10sp"
+                android:layout_marginHorizontal="8dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectAllButton">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/app_theme_color"
+                    android:backgroundTintMode="src_in"
+                    android:text="You"
+                    app:buttonIconTintMode="multiply"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/selectAllButton"/>
+
+            </androidx.cardview.widget.CardView>
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -249,7 +273,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/selectAllButton">
+                app:layout_constraintTop_toBottomOf="@id/checkBoxCard">
 
             </androidx.recyclerview.widget.RecyclerView>
 

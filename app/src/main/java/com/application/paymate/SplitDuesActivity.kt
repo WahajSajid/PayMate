@@ -26,7 +26,7 @@ class SplitDuesActivity : AppCompatActivity() {
     private lateinit var mateIds: ArrayList<String>
     private lateinit var mateName: ArrayList<String>
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_split_dues)
@@ -47,6 +47,12 @@ class SplitDuesActivity : AppCompatActivity() {
         //Initializing mateIds and mateNames
         mateIds = ArrayList()
         mateName = ArrayList()
+
+
+        if (NetworkUtil.isNetworkAvailable(this)) {
+            val showCard = ShowAdminCard()
+            showCard.showAdminCard(binding.checkBox)
+        }
 
 
 //        Setting up adapter for recycler View
@@ -126,21 +132,29 @@ class SplitDuesActivity : AppCompatActivity() {
         dropDown.adapter = dropDownAdapter
 
         var isSelected = false
-
+        binding.checkBox.isChecked = false
         //Setting up onClick listener for select all button
         binding.selectAllButton.setOnClickListener {
             isSelected = !isSelected
+
           val allMateIds =  adapter.selectAllMates(isSelected)
             if (isSelected) {
                 mateIds.addAll(allMateIds)
+                binding.checkBox.isChecked = true
                 binding.selectAllButton.text = "Unselect All"
             }
             if (!isSelected) {
                 mateIds.clear()
                 allMateIds.clear()
+                binding.checkBox.isChecked = false
                 binding.selectAllButton.text = "Select All"
             }
         }
+
+
+
+
+
 
         //Setting up the logic to implement the on item selected for drop down items
         dropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -160,7 +174,7 @@ class SplitDuesActivity : AppCompatActivity() {
                                 "update_other_amount",
                                 "plus",
                                 binding.enterAmountEditText,
-                                this@SplitDuesActivity, it, mateIds
+                                this@SplitDuesActivity, it, mateIds,binding.checkBox,binding.checkBoxCard
                             )
                         }
                     }
@@ -173,7 +187,7 @@ class SplitDuesActivity : AppCompatActivity() {
                                 "update_rent",
                                 "plus",
                                 binding.enterAmountEditText,
-                                this@SplitDuesActivity, it, mateIds
+                                this@SplitDuesActivity, it, mateIds,binding.checkBox,binding.checkBoxCard
                             )
                         }
                     }

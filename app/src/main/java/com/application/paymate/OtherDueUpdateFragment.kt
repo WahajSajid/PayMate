@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.application.paymate.databinding.FragmentOtherDueBinding
@@ -27,7 +28,12 @@ class OtherDueUpdateFragment : Fragment() {
         val updateContext = sharedViewModel.updateContext.value.toString()
         val mateName = sharedViewModel.mateName.value.toString()
         val existingOtherAmount = sharedViewModel.otherAmount.value.toString()
-        binding.updateOtherAmountEditText.setText(existingOtherAmount)
+        if(updateContext == "update_rent"){
+            binding.updateOtherAmountEditText.setText(sharedViewModel.rentAmount.value.toString())
+        } else {
+            binding.updateOtherAmountEditText.setText(sharedViewModel.otherAmount.value.toString())
+        }
+
 
         //Setting up items of the Drop down spinner view
         val dropDownItems = arrayOf("Add", "Subtract")

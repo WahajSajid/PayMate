@@ -87,7 +87,6 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
-
         <TextView
             android:id="@+id/otherTextView"
             android:layout_width="wrap_content"
@@ -116,48 +115,60 @@
                 app:layout_constraintTop_toBottomOf="@+id/otherDuesHeader"/>
 
 
-        
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="wrap_content"
-            android:layout_height="5dp"
-            android:background="?android:attr/listDivider"
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/walletLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/walletHeader"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/otherUpdateEditText" />
+            app:layout_constraintTop_toBottomOf="@id/otherUpdateEditText">
 
 
 
-        <TextView
-            android:id="@+id/walletHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="5dp"
-            android:text="Wallet"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/divider2"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="wrap_content"
+                android:layout_height="5dp"
+                android:background="?android:attr/listDivider"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/walletHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <TextView
+                android:id="@+id/walletHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:text="Wallet"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/divider2"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
 
 
 
-        <TextView
-            android:id="@+id/walletTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5sp"
-            android:text="Wallet"
-            app:layout_constraintStart_toStartOf="@id/walletUpdateEditText"
-            app:layout_constraintBottom_toTopOf="@id/walletUpdateEditText"/>
+            <TextView
+                android:id="@+id/walletTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:text="Wallet"
+                app:layout_constraintStart_toStartOf="@id/walletUpdateEditText"
+                app:layout_constraintBottom_toTopOf="@id/walletUpdateEditText"/>
 
 
-        
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/walletUpdateEditText"
@@ -172,6 +183,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/walletHeader"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 

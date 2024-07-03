@@ -44,8 +44,8 @@
     <fragment
         android:id="@+id/otherDueUpdateFragment2"
         android:name="com.application.paymate.OtherDueUpdateFragment"
-        android:label="Update Other Dues"
-        tools:layout="@layout/fragment_other_due" >
+        android:label="Add Dues"
+        tools:layout="@layout/fragment_other_due">
         <action
             android:id="@+id/action_otherDueUpdateFragment2_to_allMates2"
             app:destination="@id/allMates2" />
