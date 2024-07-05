@@ -62,6 +62,11 @@ class SharedViewModel:ViewModel(){
     var adminUpdateButtonClicked = _adminUpdateButtonClicked
 
 
+    //To check the As Mate option is enable or not
+    private var _enabled  = MutableLiveData<String>()
+    var enabled = _enabled
+
+
     init{
         __mateId.value = 1
     }

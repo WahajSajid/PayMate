@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 @Suppress("DEPRECATION")
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
+    private val sharedViewModel:SharedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
@@ -56,6 +58,9 @@ class SettingsActivity : AppCompatActivity() {
         databaseReference.child("enabled").setValue(true)
         databaseReference.child("rent_amount").setValue("0")
         databaseReference.child("other_amount").setValue("0")
+      val myApp = application as App
+        myApp.enabled = true
+
     }
 
     private fun disableAsMate(){

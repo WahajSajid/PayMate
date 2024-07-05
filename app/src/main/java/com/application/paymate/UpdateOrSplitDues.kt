@@ -44,7 +44,7 @@ class UpdateOrSplitDues(private var mateName: String) {
         view: View,
         mateIds:ArrayList<String>,
         checkBox: CheckBox,
-        checkBoxCard:CardView
+        enabled:Boolean
     ) {
        splitButton.setOnClickListener {
             if (editText.text.isNotEmpty()) {
@@ -54,7 +54,7 @@ class UpdateOrSplitDues(private var mateName: String) {
                         val mates:Int
                         val addAmount = UpdateAmount(mateName)
                         //Checking if the As Mate option is enabled or not by check the visibility of admin card view
-                        if(checkBoxCard.visibility == View.VISIBLE){
+                        if(enabled){
                             mates = mateIds.size + 1
                             //Calling a function to add the dues to admin also
                             addAmountToAdmin(mates,addAmount,checkBox,editText,updateContext,updateDomain,view,context)

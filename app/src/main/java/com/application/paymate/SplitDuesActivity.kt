@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,13 +26,17 @@ class SplitDuesActivity : AppCompatActivity() {
     private lateinit var matesList: ArrayList<MatesInfo>
     private lateinit var mateIds: ArrayList<String>
     private lateinit var mateName: ArrayList<String>
+    private  val sharedViewModel:SharedViewModel by viewModels()
 
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_split_dues)
 
-        //Counter for the number of mates selected
+        //Creating an instance of App class to get the data
+        val myApp = application as App
+
+
 
         //Creating an instance of UpdateOrSplitDues class to split the dues
         val splitDuesObject = UpdateOrSplitDues("")
@@ -131,6 +136,8 @@ class SplitDuesActivity : AppCompatActivity() {
         dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dropDown.adapter = dropDownAdapter
 
+
+
         var isSelected = false
         binding.checkBox.isChecked = false
         //Setting up onClick listener for select all button
@@ -139,14 +146,18 @@ class SplitDuesActivity : AppCompatActivity() {
 
           val allMateIds =  adapter.selectAllMates(isSelected)
             if (isSelected) {
+                if(myApp.enabled){
+                    binding.checkBox.isChecked = true
+                }
                 mateIds.addAll(allMateIds)
-                binding.checkBox.isChecked = true
                 binding.selectAllButton.text = "Unselect All"
             }
             if (!isSelected) {
+                if(myApp.enabled){
+                    binding.checkBox.isChecked = false
+                }
                 mateIds.clear()
                 allMateIds.clear()
-                binding.checkBox.isChecked = false
                 binding.selectAllButton.text = "Select All"
             }
         }
@@ -174,7 +185,7 @@ class SplitDuesActivity : AppCompatActivity() {
                                 "update_other_amount",
                                 "plus",
                                 binding.enterAmountEditText,
-                                this@SplitDuesActivity, it, mateIds,binding.checkBox,binding.checkBoxCard
+                                this@SplitDuesActivity, it, mateIds,binding.checkBox,myApp.enabled
                             )
                         }
                     }
@@ -187,7 +198,7 @@ class SplitDuesActivity : AppCompatActivity() {
                                 "update_rent",
                                 "plus",
                                 binding.enterAmountEditText,
-                                this@SplitDuesActivity, it, mateIds,binding.checkBox,binding.checkBoxCard
+                                this@SplitDuesActivity, it, mateIds,binding.checkBox,myApp.enabled
                             )
                         }
                     }
