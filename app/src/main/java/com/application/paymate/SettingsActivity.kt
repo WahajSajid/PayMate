@@ -42,7 +42,7 @@ class SettingsActivity : AppCompatActivity() {
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
         databaseReference.child("name").setValue(editedName)
-        Toast.makeText(this@SettingsActivity,editedName,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@SettingsActivity,"Changes Saved",Toast.LENGTH_SHORT).show()
         if(binding.checkBox.isChecked){
             enableAsMate()
         } else{

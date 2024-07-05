@@ -120,8 +120,6 @@ class AddMate : Fragment() {
         //Adding the hashmap to all_phone_numbers node
         val newPhoneNumber = HashMap<String, String>()
         newPhoneNumber["phone_number"] = phone
-
-
         val databaseReference =
             database.getReference("admin_profiles")
         if (NetworkUtil.isNetworkAvailable(requireContext())) {
