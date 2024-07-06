@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -17,6 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
 
 
         <TextView
@@ -31,7 +33,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editName"
                 android:layout_width="match_parent"
@@ -41,6 +42,7 @@
                 android:layout_marginTop="20sp"
                 app:layout_constraintTop_toBottomOf="@id/editNameTextView"
                 android:hint="Name" />
+
 
         <View
             android:id="@+id/divider"
@@ -92,16 +94,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
 
+
         <TextView
             android:id="@+id/instructionTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Note: Checking the box will add yourself to the mates list \n to add and split dues for yourself also. "
+            android:layout_marginHorizontal="15dp"
+            android:text="Note: Checking the box will add yourself to the mates list  to add and split dues for yourself also. "
             app:layout_constraintStart_toStartOf="@id/checkBoxCardView"
             app:layout_constraintEnd_toEndOf="@id/checkBoxCardView"
             app:layout_constraintTop_toBottomOf="@id/checkBoxCardView"
@@ -123,6 +126,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/instructionTextView"
             tools:ignore="HardcodedText" />
+
+
+        <Button
+            android:id="@+id/deleteAccountButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:text="Delete Account"
+            android:textColor="@color/red"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintTop_toBottomOf="@id/saveChangesButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -110,9 +110,6 @@ class AdminActivity : AppCompatActivity() {
 
     @SuppressLint("CommitPrefEdits")
     private fun logOut() {
-        firebaseAuth = FirebaseAuth.getInstance()
-        if(firebaseAuth.currentUser != null){
-            firebaseAuth.signOut()
             val loginDetail = getSharedPreferences(
                 "com.application.paymate",
                 MODE_PRIVATE
@@ -120,9 +117,6 @@ class AdminActivity : AppCompatActivity() {
             loginDetail?.edit()?.putBoolean("isLoggedIn", false)?.apply()
             startActivity(Intent(this, AdminLoginActivity::class.java))
             finish()
-        } else{
-            Toast.makeText(this,"Access denied",Toast.LENGTH_SHORT).show()
-        }
 
     }
 

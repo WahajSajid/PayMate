@@ -12,6 +12,7 @@ import android.view.animation.ScaleAnimation
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -37,10 +38,7 @@ class AllMates : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all_mates, container, false)
-        // Initialize Firebase
-        val database = FirebaseDatabase.getInstance()
-        val databaseReference = database.getReference("admin_profiles")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
+
         // Initialize matesList
         matesList = ArrayList()
         // Show spinner
@@ -121,8 +119,7 @@ class AllMates : Fragment() {
             ) {
                 sharedViewModel.mateNode.value = "Mate: " + mateId.text.toString()
                 sharedViewModel.mateName.value = mateName.text.toString()
-                val popScreen = RemoveMatePopUp()
-                popScreen.show(childFragmentManager, "remove_popup_fragment")
+                showDialog()
             }
 
             override fun updateButtonClickListener(
@@ -146,38 +143,18 @@ class AllMates : Fragment() {
             override val mutex: Mutex = Mutex()
         })
 
-
-        //Value Event listener to retrieve the data from firebase realtime database
-        if (NetworkUtil.isNetworkAvailable(requireContext())) {
-
-            databaseReference.addValueEventListener(object : ValueEventListener {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    binding.spinnerLayout.visibility = View.GONE
-
-                    //Checking if any mate is exists in the database or not. If exists then show the list is empty message
-                    if (!snapshot.exists()) binding.emptyListLayout.visibility = View.VISIBLE
-                    else binding.emptyListLayout.visibility = View.GONE
-
-                    binding.spinnerLayout.visibility = View.GONE
-                    matesList.clear()
-                    for (data in snapshot.children) {
-                        val mateInfo = data.getValue(MatesInfo::class.java)
-                        matesList.add(mateInfo!!)
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-                    binding.spinnerLayout.visibility = View.GONE
-                }
-            })
-
-        } else {
-            binding.spinnerLayout.visibility = View.GONE
-            binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
+        binding.refreshButton.setOnClickListener {
+            binding.spinnerLayout.visibility = View.VISIBLE
+            retrieveDataFromDatabase(adapter)
+            if (NetworkUtil.isNetworkAvailable(requireContext())) {
+                val showCard = ShowAdminCard()
+                showCard.showAdminCard(binding.itemCard)
+                retrieveAdminDuesData()
+            }
         }
+
+        //Calling a function to retrieve the data from the database.
+        retrieveDataFromDatabase(adapter)
 
         return binding.root
     }
@@ -215,7 +192,7 @@ class AllMates : Fragment() {
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate")
         valueEventListener(binding.rentAmount, databaseReference.child("rent_amount"))
-        valueEventListener(binding.otherAmount,databaseReference.child("other_amount"))
+        valueEventListener(binding.otherAmount, databaseReference.child("other_amount"))
     }
 
     private fun valueEventListener(textView: TextView, databaseReference: DatabaseReference) {
@@ -230,4 +207,66 @@ class AllMates : Fragment() {
         })
     }
 
+    private fun showDialog() {
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Confirmation")
+            .setMessage("Are you sure, you want remove mate?")
+            .setPositiveButton("Yes") { _, _ ->
+                deleteMate()
+            }
+            .setNegativeButton("No"){ dialog, _ -> dialog.dismiss()}
+            .show()
+    }
+
+    private fun deleteMate() {
+        val mateName = sharedViewModel.mateName.value.toString()
+        val mateId = sharedViewModel.mateNode.value.toString()
+        val database = FirebaseDatabase.getInstance()
+        val databaseReference = database.getReference("admin_profiles")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates").child(mateId)
+        databaseReference.removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(context, "$mateName Removed Successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Some Failure Occurred", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+private fun retrieveDataFromDatabase(adapter:AllMatesAdapter){
+    // Initialize Firebase
+    val database = FirebaseDatabase.getInstance()
+    val databaseReference = database.getReference("admin_profiles")
+        .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
+    //Value Event listener to retrieve the data from firebase realtime database
+    if (NetworkUtil.isNetworkAvailable(requireContext())) {
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                binding.spinnerLayout.visibility = View.GONE
+
+                //Checking if any mate is exists in the database or not. If exists then show the list is empty message
+                if (!snapshot.exists()) binding.emptyListLayout.visibility = View.VISIBLE
+                else binding.emptyListLayout.visibility = View.GONE
+                binding.noInternetConnectionIconLayout.visibility = View.GONE
+                binding.spinnerLayout.visibility = View.GONE
+                matesList.clear()
+                for (data in snapshot.children) {
+                    val mateInfo = data.getValue(MatesInfo::class.java)
+                    matesList.add(mateInfo!!)
+                }
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                binding.spinnerLayout.visibility = View.GONE
+            }
+        })
+
+    } else {
+        binding.spinnerLayout.visibility = View.GONE
+        binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
+    }
+}
 }
