@@ -1,6 +1,8 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -13,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.application.paymate.databinding.ActivitySettingsBinding
+import com.google.firebase.auth.EmailAuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -29,6 +33,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
+        val app = application as App
 
         val toolBar = binding.toolbar
         setSupportActionBar(toolBar)
@@ -39,10 +44,15 @@ class SettingsActivity : AppCompatActivity() {
         markCheckBox()
         binding.saveChangesButton.setOnClickListener {
             if (NetworkUtil.isNetworkAvailable(this)) {
-                saveChanges()
+                saveChanges(app)
             } else Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show()
         }
 
+        binding.uid.text = app.uid.toString()
+
+        binding.copyButton.setOnClickListener {
+            copyText()
+        }
 
         binding.deleteAccountButton.setOnClickListener {
             showAlertDialog()
@@ -50,7 +60,7 @@ class SettingsActivity : AppCompatActivity() {
 
     }
 
-    private fun saveChanges() {
+    private fun saveChanges(myApp: App) {
         val editedName = binding.editName.text.toString()
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
@@ -58,20 +68,19 @@ class SettingsActivity : AppCompatActivity() {
         databaseReference.child("name").setValue(editedName)
         Toast.makeText(this@SettingsActivity, "Changes Saved", Toast.LENGTH_SHORT).show()
         if (binding.checkBox.isChecked) {
-            enableAsMate()
+            enableAsMate(myApp)
         } else {
             disableAsMate()
         }
     }
 
-    private fun enableAsMate() {
+    private fun enableAsMate(myApp:App) {
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate")
         databaseReference.child("enabled").setValue(true)
         databaseReference.child("rent_amount").setValue("0")
         databaseReference.child("other_amount").setValue("0")
-        val myApp = application as App
         myApp.enabled = true
 
     }
@@ -120,16 +129,20 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun deleteAccount() {
+        val sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
+        val password = sharedPreferences.getString("password","0")
         fragmentManager = supportFragmentManager
         deletingAccount = DeletingAccountDialog()
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles").child(FirebaseAuth.getInstance().currentUser!!.uid)
-        databaseReference.removeValue()
         deletingAccount.show(fragmentManager,"deleting_account")
-        val firebaseAuth = FirebaseAuth.getInstance()
-        databaseReference.removeValue().addOnCompleteListener { task ->
+        val user = FirebaseAuth.getInstance().currentUser
+        val credential = EmailAuthProvider.getCredential(user?.email!!,password.toString())
+        user.reauthenticate(credential).addOnCompleteListener { task ->
             if(task.isSuccessful){
-                val sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
+                user.delete()
+                databaseReference.removeValue()
+                sharedPreferences.edit()?.putString("password","0")?.apply()
                 sharedPreferences.edit().putBoolean("isInstalledAndAdmin", false).apply()
                 sharedPreferences.edit().putBoolean("isLoggedIn",false).apply()
                 startActivity(Intent(this, WelcomeActivity::class.java))
@@ -140,5 +153,14 @@ class SettingsActivity : AppCompatActivity() {
                 deletingAccount.dismiss()
             }
         }
+    }
+
+    //Function to copy the text to clipboard
+    private fun copyText(){
+       val text =  binding.uid.text.toString()
+        val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("label", text)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(this,"uid copied to clipboard",Toast.LENGTH_SHORT).show()
     }
 }

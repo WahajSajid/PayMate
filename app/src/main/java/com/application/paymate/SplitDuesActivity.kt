@@ -1,6 +1,7 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -36,7 +37,14 @@ class SplitDuesActivity : AppCompatActivity() {
         //Creating an instance of App class to get the data
         val myApp = application as App
 
-
+        binding.refreshButtonSplitActivity.setOnClickListener {
+            binding.noInternetConnectionIconLayout.visibility = View.GONE
+            if (NetworkUtil.isNetworkAvailable(this)) {
+                val showCard = ShowAdminCard()
+                showCard.showAdminCard(binding.checkBox)
+            }
+            showRecyclerView(myApp)
+        }
 
         //Creating an instance of UpdateOrSplitDues class to split the dues
         val splitDuesObject = UpdateOrSplitDues("")
@@ -54,75 +62,11 @@ class SplitDuesActivity : AppCompatActivity() {
         mateName = ArrayList()
 
 
+        showRecyclerView(myApp)
+
         if (NetworkUtil.isNetworkAvailable(this)) {
             val showCard = ShowAdminCard()
             showCard.showAdminCard(binding.checkBox)
-        }
-
-
-//        Setting up adapter for recycler View
-        val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = SplitDuesAdapter(matesList, this)
-        recyclerView.adapter = adapter
-        adapter.itemClickListener(object : SplitDuesAdapter.OnItemClickListener {
-            override fun checkBoxClickListener(id: TextView, checkBox: CheckBox) {
-                //Adding the selected mate id the mateId array list to split the dues
-                if (checkBox.isChecked) {
-                    mateIds.add(id.text.toString())
-                    mateName.add(checkBox.text.toString())
-                } else {
-                    mateIds.remove(id.text.toString())
-                    mateName.remove(checkBox.text.toString())
-                }
-            }
-
-            override val mutex: Mutex = Mutex()
-        })
-
-
-        //Creating instance of Firebase Database
-        val database = FirebaseDatabase.getInstance()
-        val databaseReference = database.getReference("admin_profiles")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
-
-        binding.spinnerLayout.visibility = View.VISIBLE
-
-        //Value Event listener to retrieve the data from firebase realtime database
-        if (NetworkUtil.isNetworkAvailable(this)) {
-
-            databaseReference.addValueEventListener(object : ValueEventListener {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    binding.spinnerLayout.visibility = View.GONE
-
-                    //Checking if any mate is exists in the database or not. If exists then show the list is empty message
-                    if (!snapshot.exists()) {
-                        binding.emptyListLayout.visibility = View.VISIBLE
-                        binding.listOfMatesLayout.visibility = View.GONE
-                    } else {
-                        binding.emptyListLayout.visibility = View.GONE
-                        binding.listOfMatesLayout.visibility = View.VISIBLE
-                    }
-//                        binding.listOfMatesLayout.visibility = View.VISIBLE
-                    matesList.clear()
-                    binding.spinnerLayout.visibility = View.GONE
-                    for (data in snapshot.children) {
-                        val mateInfo = data.getValue(MatesInfo::class.java)
-                        matesList.add(mateInfo!!)
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@SplitDuesActivity, error.message, Toast.LENGTH_SHORT).show()
-                    binding.spinnerLayout.visibility = View.GONE
-                }
-            })
-
-        } else {
-            binding.spinnerLayout.visibility = View.GONE
-            binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
         }
 
 
@@ -136,31 +80,6 @@ class SplitDuesActivity : AppCompatActivity() {
         dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dropDown.adapter = dropDownAdapter
 
-
-
-        var isSelected = false
-        binding.checkBox.isChecked = false
-        //Setting up onClick listener for select all button
-        binding.selectAllButton.setOnClickListener {
-            isSelected = !isSelected
-
-          val allMateIds =  adapter.selectAllMates(isSelected)
-            if (isSelected) {
-                if(myApp.enabled){
-                    binding.checkBox.isChecked = true
-                }
-                mateIds.addAll(allMateIds)
-                binding.selectAllButton.text = "Unselect All"
-            }
-            if (!isSelected) {
-                if(myApp.enabled){
-                    binding.checkBox.isChecked = false
-                }
-                mateIds.clear()
-                allMateIds.clear()
-                binding.selectAllButton.text = "Select All"
-            }
-        }
 
 
 
@@ -217,4 +136,97 @@ class SplitDuesActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
+    private fun showRecyclerView(myApp:App){
+        //        Setting up adapter for recycler View
+        val recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = SplitDuesAdapter(matesList, this)
+        recyclerView.adapter = adapter
+        adapter.itemClickListener(object : SplitDuesAdapter.OnItemClickListener {
+            override fun checkBoxClickListener(id: TextView, checkBox: CheckBox) {
+                //Adding the selected mate id the mateId array list to split the dues
+                if (checkBox.isChecked) {
+                    mateIds.add(id.text.toString())
+                    mateName.add(checkBox.text.toString())
+                } else {
+                    mateIds.remove(id.text.toString())
+                    mateName.remove(checkBox.text.toString())
+                }
+            }
+
+            override val mutex: Mutex = Mutex()
+        })
+
+        var isSelected = false
+        binding.checkBox.isChecked = false
+        //Setting up onClick listener for select all button
+        binding.selectAllButton.setOnClickListener {
+            isSelected = !isSelected
+
+            val allMateIds =  adapter.selectAllMates(isSelected)
+            if (isSelected) {
+                if(myApp.enabled){
+                    binding.checkBox.isChecked = true
+                }
+                mateIds.addAll(allMateIds)
+                binding.selectAllButton.text = "Unselect All"
+            }
+            if (!isSelected) {
+                if(myApp.enabled){
+                    binding.checkBox.isChecked = false
+                }
+                mateIds.clear()
+                allMateIds.clear()
+                binding.selectAllButton.text = "Select All"
+            }
+        }
+
+
+        //Creating instance of Firebase Database
+        val database = FirebaseDatabase.getInstance()
+        val databaseReference = database.getReference("admin_profiles")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
+
+        binding.spinnerLayout.visibility = View.VISIBLE
+
+        //Value Event listener to retrieve the data from firebase realtime database
+        if (NetworkUtil.isNetworkAvailable(this)) {
+
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    binding.spinnerLayout.visibility = View.GONE
+
+                    //Checking if any mate is exists in the database or not. If exists then show the list is empty message
+                    if (!snapshot.exists()) {
+                        binding.emptyListLayout.visibility = View.VISIBLE
+                        binding.listOfMatesLayout.visibility = View.GONE
+                    } else {
+                        binding.emptyListLayout.visibility = View.GONE
+                        binding.listOfMatesLayout.visibility = View.VISIBLE
+                    }
+//                        binding.listOfMatesLayout.visibility = View.VISIBLE
+                    matesList.clear()
+                    binding.spinnerLayout.visibility = View.GONE
+                    for (data in snapshot.children) {
+                        val mateInfo = data.getValue(MatesInfo::class.java)
+                        matesList.add(mateInfo!!)
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@SplitDuesActivity, error.message, Toast.LENGTH_SHORT).show()
+                    binding.spinnerLayout.visibility = View.GONE
+                }
+            })
+
+        } else {
+            binding.spinnerLayout.visibility = View.GONE
+            binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
+        }
+
+    }
+
+
 }

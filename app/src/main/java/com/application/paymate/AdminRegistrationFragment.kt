@@ -1,5 +1,6 @@
 package com.application.paymate
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -151,6 +152,7 @@ class AdminRegistrationFragment : Fragment() {
                     myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name").setValue(name)
                     myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("email").setValue(email)
                     myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("password").setValue(password)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("uid").setValue(FirebaseAuth.getInstance().currentUser?.uid!!)
                     Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
                     view?.findNavController()
                         ?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)

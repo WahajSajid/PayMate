@@ -35,7 +35,7 @@ class AdminLoginFragment : Fragment() {
 
             //Setting up click listener on Login Button
             binding.loginButton.setOnClickListener {
-                if (emptyOrNot()) {
+                if (LoginInputsEmptyChecker.emptyOrNot(binding.enterEmailEditText,binding.passwordEditText)) {
                     val email: String = binding.enterEmailEditText.text.toString()
                     val password: String = binding.passwordEditText.text.toString()
                     signInUser(email, password)
@@ -50,18 +50,6 @@ class AdminLoginFragment : Fragment() {
             }
         return binding.root
     }
-
-    //Function to check if the input fields are empty or not.
-    private fun emptyOrNot(): Boolean {
-        var isTrueOrFalse = false
-        if (binding.enterEmailEditText.text.toString()
-                .isEmpty() || binding.passwordEditText.text.toString().isEmpty()
-        ) {
-            isTrueOrFalse = false
-        } else isTrueOrFalse = true
-        return isTrueOrFalse
-    }
-
 
     //Function to sign user
     @SuppressLint("CommitPrefEdits")
@@ -83,6 +71,7 @@ class AdminLoginFragment : Fragment() {
                             sharedPreferences?.edit()?.putBoolean("isLoggedIn",isLoggedIn)?.apply()
                             sharedPreferences?.edit()?.putString("adminName",adminName)?.apply()
                             sharedPreferences?.edit()?.putString("adminEmail",adminEmail)?.apply()
+                            sharedPreferences?.edit()?.putString("password",password)?.apply()
                             startActivity(intent)
                             activity?.finish()
                         }

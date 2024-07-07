@@ -88,10 +88,17 @@ class AdminDashboard : Fragment() {
 
 
     fun getName(){
+        val app = requireActivity().application as App
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("name")
-        databaseReference.addValueEventListener(object : ValueEventListener {
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+
+        databaseReference.child("uid").get().addOnCompleteListener{ task ->
+            if(task.isSuccessful) app.uid = task.result.value.toString()
+
+        }
+
+        databaseReference.child("name").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 binding.adminName.text = snapshot.value.toString()

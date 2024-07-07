@@ -58,7 +58,7 @@
         <TextView
             android:id="@+id/additionalTextView"
             android:layout_width="wrap_content"
-            android:layout_marginTop="40sp"
+            android:layout_marginTop="30sp"
             android:layout_marginStart="10sp"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -66,6 +66,42 @@
             android:text="Additional"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+
+
+        <TextView
+            android:id="@+id/uidText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UID: "
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="20sp"
+            app:layout_constraintStart_toStartOf="@id/additionalTextView"
+            app:layout_constraintTop_toBottomOf="@id/additionalTextView" />
+
+        <TextView
+            android:id="@+id/uid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/uidText"
+            app:layout_constraintBottom_toBottomOf="@id/uidText"
+            app:layout_constraintStart_toEndOf="@id/uidText"
+            android:layout_marginStart="10sp"
+            android:textSize="18sp"
+            android:text="ljdf;lkaj;lkfja;lj"/>
+
+        <ImageButton
+            android:id="@+id/copyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@drawable/baseline_content_copy_24"
+            app:layout_constraintBottom_toBottomOf="@+id/uid"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_10sp"
+            app:layout_constraintTop_toTopOf="@id/uid" />
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/checkBoxCardView"
@@ -78,7 +114,7 @@
             android:layout_marginHorizontal="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/additionalTextView">
+            app:layout_constraintTop_toBottomOf="@id/uidText">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout

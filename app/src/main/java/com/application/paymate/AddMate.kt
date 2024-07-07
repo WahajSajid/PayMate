@@ -97,8 +97,8 @@ class AddMate : Fragment() {
 
     //Function to add the mate
     private fun addMateMethod(name: String, phone: String, _mateId: Int) {
-
-
+        val databaseForAllMates = FirebaseDatabase.getInstance()
+        val allMatesReference = databaseForAllMates.getReference("All_Mates")
         val trimmedName = name.trim().replace(" ", "")
         val lowerCaseName = trimmedName.lowercase(Locale.getDefault())
 
@@ -164,8 +164,6 @@ class AddMate : Fragment() {
                                         databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                                             .child("Mates")
                                             .child(mateNode).child("wallet_amount").setValue("0")
-                                        Toast.makeText(context, "Mate Added", Toast.LENGTH_SHORT)
-                                            .show()
                                         binding.spinnerLayout.visibility = View.GONE
 
                                     }
@@ -192,7 +190,6 @@ class AddMate : Fragment() {
                                             .show()
                                         binding.spinnerLayout.visibility = View.GONE
                                     } else {
-
                                         //Setting initial mate Id node
                                         val initialMateId = "$lowerCaseName@1"
                                         val initialMateNode = "Mate: $lowerCaseName@1"
@@ -218,13 +215,11 @@ class AddMate : Fragment() {
                                             .child("Mates")
                                             .child(initialMateNode).child("wallet_amount")
                                             .setValue("0")
-
                                         //Initializing the mate id with 1 and storing it using sharePreference
                                         sharedPreferences.edit()?.putInt("mate_id", 1)?.apply()
                                         Toast.makeText(context, "Mate Added", Toast.LENGTH_SHORT)
                                             .show()
                                         binding.spinnerLayout.visibility = View.GONE
-
                                     }
                                 }
 
