@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentAdminRegistrationBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,8 @@ class AdminRegistrationFragment : Fragment() {
     private var password: String = ""
     private lateinit var auth: FirebaseAuth
     private lateinit var email: String
+    private lateinit var registeringDialog: RegisteringDialog
+    private lateinit var fragmentManager: FragmentManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +32,10 @@ class AdminRegistrationFragment : Fragment() {
             container,
             false
         )
+
+        //Initializing fragment manager and fragment manager and registeringDialog
+        registeringDialog = RegisteringDialog()
+        fragmentManager = childFragmentManager
 
 
         //Initializing Firebase Auth
@@ -44,7 +51,6 @@ class AdminRegistrationFragment : Fragment() {
         val emailValidator = EmailValidator(object : EmailValidatorCallBack {
             override fun onInputValidated(isValid: Boolean) {
                 if (isValid) {
-                    //FireBase code goes here to store user input
                     email = binding.enterEmailEditText.text.toString()
                 } else {
                     binding.enterEmailEditText.error = "Invalid"
@@ -58,7 +64,6 @@ class AdminRegistrationFragment : Fragment() {
         val createPinValidator = CreatePasswordValidator(object : CreaatePasswordValidatorCallBack {
             override fun onInputValidated(isValid: Boolean) {
                 if (isValid) {
-                    //FireBase code goes here to store user input
                     password = binding.createPasswordEditText.text.toString()
                 } else {
                     binding.createPasswordEditText.error = "Invalid"
@@ -73,7 +78,6 @@ class AdminRegistrationFragment : Fragment() {
                 override fun onInputValidated(isValid: Boolean) {
                     if (isValid) {
                         if (binding.confirmPasswordEditText.text.toString() == password) {
-                            //FireBase code goes here to store user input
                             password = binding.confirmPasswordEditText.text.toString()
                         } else binding.confirmPasswordEditText.error =
                             "Create and confirm pin numbers does not match"
@@ -88,17 +92,43 @@ class AdminRegistrationFragment : Fragment() {
         binding.registerButton.setOnClickListener {
             //Checking if the checkIfInputFieldIsEmpty function returns true or false
             if (checkIfInputFieldIsEmpty()) {
-                if(checkCreateAndConfirmPasswordsMatchOrNot()){
-                    val name = binding.enterNameEditText.text.toString()
-                    registerUser(email, password, name)
+                if (checkCreateAndConfirmPasswordsMatchOrNot()) {
+                    registeringDialog.show(fragmentManager, "loading")
+                    if (NetworkUtil.isNetworkAvailable(requireContext())) {
+                        HasInternetAccess.hasInternetAccess(object : HasInternetAccessCallback {
+                            override fun onInternetAvailable() {
+                                val name = binding.enterNameEditText.text.toString()
+                                registerUser(email, password, name)
+                            }
+
+                            override fun onInternetNotAvailable() {
+                                requireActivity().runOnUiThread {
+                                    Toast.makeText(
+                                        context,
+                                        "Connection Timeout",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    registeringDialog.dismiss()
+                                }
+                            }
+                        })
+                    } else {
+                        Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
+                        registeringDialog.dismiss()
+                    }
+
                 } else binding.confirmPasswordInputLayout.error = "Passwords does not match"
-            } else Toast.makeText(context,"Please Input all the fields before entering register",Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(
+                context,
+                "Please Input all the fields before entering register",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         return binding.root
     }
 
     //Function to check if the create and confirm passwords match or not
-    private fun checkCreateAndConfirmPasswordsMatchOrNot():Boolean{
+    private fun checkCreateAndConfirmPasswordsMatchOrNot(): Boolean {
         var isTrueOrFalse = false
         if (binding.createPasswordEditText.text.toString() == binding.confirmPasswordEditText.text.toString()) {
             isTrueOrFalse = true
@@ -108,8 +138,8 @@ class AdminRegistrationFragment : Fragment() {
 
 
     //Function to check if the input field is empty or not
-    private fun checkIfInputFieldIsEmpty() : Boolean {
-        var isTrueOrFalse = false
+    private fun checkIfInputFieldIsEmpty(): Boolean {
+        var isTrueOrFalse = true
         val editTexts = arrayOf(
             binding.enterNameEditText.text.toString(),
             binding.enterEmailEditText.text.toString(),
@@ -131,11 +161,9 @@ class AdminRegistrationFragment : Fragment() {
         for (i in editTexts.indices) {
             if (editTexts[i].isEmpty()) {
                 editLayouts[i].error = "${editTextHints[i]} Cannot be empty"
-            isTrueOrFalse = false
-            }
-            else {
+                isTrueOrFalse = false
+            } else {
                 editLayouts[i].error = null
-                isTrueOrFalse = true
             }
         }
         return isTrueOrFalse
@@ -143,26 +171,30 @@ class AdminRegistrationFragment : Fragment() {
 
     //Function to register the user using Firebase authentication
     private fun registerUser(email: String, password: String, name: String) {
-        binding.spinnerLayout.visibility = View.VISIBLE
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("admin_profiles")
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name").setValue(name)
-                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("email").setValue(email)
-                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("password").setValue(password)
-                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("uid").setValue(FirebaseAuth.getInstance().currentUser?.uid!!)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("name")
+                        .setValue(name)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("email")
+                        .setValue(email)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("password")
+                        .setValue(password)
+                    myRef.child(FirebaseAuth.getInstance().currentUser?.uid!!).child("uid")
+                        .setValue(FirebaseAuth.getInstance().currentUser?.uid!!)
                     Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
+                    registeringDialog.dismiss()
                     view?.findNavController()
                         ?.navigate(R.id.action_adminRegistrationFragment_to_adminLoginFragment)
                 } else {
                     Toast.makeText(
-                    context,
-                    "Registration Failed: ${task.exception?.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-                binding.spinnerLayout.visibility = View.GONE
+                        context,
+                        "Registration Failed: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    registeringDialog.dismiss()
                 }
             }
     }
