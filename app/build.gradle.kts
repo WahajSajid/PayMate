@@ -54,6 +54,7 @@ dependencies {
     //Card View Dependency
     implementation ("androidx.cardview:cardview:1.0.0")
 
+    implementation(libs.okhttp)
 
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)

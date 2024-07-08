@@ -56,7 +56,7 @@ class AllMatesAdapter(private var list: ArrayList<MatesInfo>, context: Context) 
         val rentAmount :TextView = itemView.findViewById(R.id.rentAmount)
         val otherAmount:TextView = itemView.findViewById(R.id.otherAmount)
         val walletAmount :TextView = itemView.findViewById(R.id.walletAmount)
-        val buttonCard:CardView = itemView.findViewById(R.id.buttonsCard)
+        val buttonCard:ConstraintLayout = itemView.findViewById(R.id.buttonLayout)
         fun collapseExpandedView(){
             buttonCard.visibility = View.GONE
         }

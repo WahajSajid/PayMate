@@ -7,6 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
+        android:background="@color/background_color"
         android:layout_height="match_parent">
 
 
@@ -66,71 +67,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dashboardItems"
             style="@style/admin_dashboard_itemsLayout_style"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/adminDashboardHeaderLayout">
-
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/notifyAllCard"
-                style="@style/admin_dashboard_itemsLayout_cards_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/splitDuesCard">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/notificationImage"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="35sp"
-                        android:layout_marginBottom="20sp"
-                        android:contentDescription="@string/notify_all_image_description"
-                        app:layout_constraintBottom_toBottomOf="@id/arrow3NextImageview"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/arrow3NextImageview"
-                        android:background="@drawable/baseline_notifications_active_24" />
-
-
-                    <ImageView
-                        android:id="@+id/arrow3NextImageview"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginEnd="5sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/baseline_arrow_forward_ios_24" />
-
-                    <TextView
-                        android:id="@+id/notifyAllText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notify_all"
-                        android:textColor="@color/app_theme_color"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@id/notificationImage"
-                        app:layout_constraintStart_toStartOf="@id/notificationImage"
-                        app:layout_constraintTop_toBottomOf="@id/notificationImage" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
 
 
             <androidx.cardview.widget.CardView
@@ -139,36 +84,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/splitDuesCard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient_color">
 
                     <ImageButton
                         android:id="@+id/allMatesCardImage"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
                         android:layout_marginStart="35sp"
-                        android:layout_marginBottom="20sp"
+                        android:background="@drawable/baseline_people_24"
                         android:contentDescription="@string/all_mates_image_description"
                         android:text="All Mates"
                         app:layout_constraintBottom_toBottomOf="@id/arrow1NextImageview"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/arrow1NextImageview"
-                        android:background="@drawable/baseline_people_24">
-                    </ImageButton>
+                        app:layout_constraintTop_toTopOf="@id/arrow1NextImageview" />
 
 
                     <ImageView
                         android:id="@+id/arrow1NextImageview"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginEnd="5sp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="-25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -180,7 +125,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/all_mates"
-                        android:textColor="@color/app_theme_color"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@id/allMatesCardImage"
                         app:layout_constraintStart_toStartOf="@id/allMatesCardImage"
@@ -197,18 +143,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/allMatesCard"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/allMatesCard"
-                app:layout_constraintTop_toBottomOf="@id/allMatesCard">
+                app:layout_constraintTop_toBottomOf="@+id/allMatesCard">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@drawable/gradient_color"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageButton
                         android:id="@+id/splitDuesCardImage"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
                         android:layout_marginStart="35dp"
                         android:layout_marginBottom="20sp"
                         android:background="@drawable/baseline_call_split_24"
@@ -220,9 +170,9 @@
 
                     <ImageView
                         android:id="@+id/arrow2NextImageview"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginEnd="5sp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="-25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -233,7 +183,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/split_bills"
-                        android:textColor="@color/app_theme_color"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@id/splitDuesCardImage"
                         app:layout_constraintStart_toStartOf="@id/splitDuesCardImage"

@@ -5,6 +5,7 @@
     android:layout_marginTop="5sp"
     app:cardElevation="10sp"
     app:cardUseCompatPadding="true"
+    android:backgroundTint="@color/background_color"
     android:layout_marginHorizontal="8dp"
     android:layout_height="wrap_content">
 
@@ -25,7 +26,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background_color">
 
 
 
@@ -48,6 +50,7 @@
                     android:id="@+id/mateName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Muhammad Wahaj Sajid"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
@@ -79,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="03000072635"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@id/phoneIcon"
                     app:layout_constraintStart_toEndOf="@id/phoneIcon"
                     app:layout_constraintTop_toTopOf="@id/phoneIcon" />
@@ -120,6 +124,7 @@
                         android:id="@+id/rentAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_marginStart="5dp"
                         android:text="0"
                         app:layout_constraintBottom_toBottomOf="@id/rentText"
@@ -154,6 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:textColor="@color/black"
                         android:text="0"
                         app:layout_constraintBottom_toBottomOf="@id/otherText"
                         app:layout_constraintStart_toEndOf="@id/otherText"
@@ -188,11 +194,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:textColor="@color/black"
                         android:text="0"
                         app:layout_constraintBottom_toBottomOf="@id/walletText"
                         app:layout_constraintStart_toEndOf="@id/walletText"
                         app:layout_constraintTop_toTopOf="@id/walletText" />
-
                 </LinearLayout>
 
 
@@ -220,6 +226,7 @@
                     android:id="@+id/mateId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_marginStart="2sp"
                     android:text="9" />
 
@@ -230,22 +237,16 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/buttonsCard"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="15sp"
-        android:layout_marginTop="10sp"
-        app:cardElevation="4sp"
-        app:layout_constraintTop_toBottomOf="@id/itemCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/buttonLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/itemCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            android:layout_marginTop="10sp"
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/editDetailsButton"
@@ -281,6 +282,5 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/updateButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

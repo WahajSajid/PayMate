@@ -7,19 +7,17 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import com.application.paymate.databinding.PopupFragmentBinding
 
-@Suppress("DEPRECATION")
-class LoadingDialogFragment : DialogFragment() {
-    private lateinit var binding: PopupFragmentBinding
-    @SuppressLint("UseGetLayoutInflater")
+class SigningInDialog:DialogFragment() {
+    private lateinit var binding:PopupFragmentBinding
+    @SuppressLint("UseGetLayoutInflater", "SetTextI18n")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val inflater = LayoutInflater.from(context)
-        binding = DataBindingUtil.inflate(inflater,R.layout.popup_fragment, null,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.popup_fragment, null, false)
 
-
-
+        binding.loadingTextView.text = "Logging In..."
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(binding.root)
@@ -27,5 +25,4 @@ class LoadingDialogFragment : DialogFragment() {
 
         return dialog
     }
-
 }

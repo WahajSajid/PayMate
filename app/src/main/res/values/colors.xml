@@ -24,5 +24,6 @@
 
     <color name="blue">#2F80ED</color>
     <color name="app_theme_color">#FFA500</color>
+    <color name="background_color">#EAC88D</color>
 
 </resources>

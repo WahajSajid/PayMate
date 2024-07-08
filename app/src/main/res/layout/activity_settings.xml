@@ -19,8 +19,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-
-
         <TextView
             android:id="@+id/editNameTextView"
             android:layout_width="wrap_content"
@@ -87,8 +85,7 @@
             app:layout_constraintTop_toTopOf="@id/uidText"
             app:layout_constraintBottom_toBottomOf="@id/uidText"
             app:layout_constraintStart_toEndOf="@id/uidText"
-            android:layout_marginStart="10sp"
-            android:textSize="18sp"
+            android:layout_marginStart="2sp"
             android:text="ljdf;lkaj;lkfja;lj"/>
 
         <ImageButton

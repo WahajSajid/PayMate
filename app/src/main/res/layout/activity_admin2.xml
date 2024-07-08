@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/white"
+            android:backgroundTint="@color/background_color"
             app:fabCradleMargin="10dp"
             app:fabCradleRoundedCornerRadius="50dp"
             tools:ignore="BottomAppBar">
@@ -87,8 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
+                android:background="@color/background_color"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_nav_items" />
 

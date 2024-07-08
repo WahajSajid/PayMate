@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:allowBackup="false"
         android:name=".App"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/app_mate_logo"
@@ -13,9 +13,12 @@
         android:theme="@style/Theme.PayMate"
         tools:targetApi="31">
         <activity
+            android:name=".MateDashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false"
-            android:parentActivityName=".AdminActivity"/>
+            android:parentActivityName=".AdminActivity" />
         <activity
             android:name=".SplitDuesActivity"
             android:exported="false"
