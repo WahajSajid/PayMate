@@ -16,27 +16,45 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 
-class SplitDuesAdapter(private val matesList: ArrayList<MatesInfo>,private val  context: Context,private val app: App) : RecyclerView.Adapter<SplitDuesAdapter.ViewHolder>() {
+class SplitDuesAdapter(
+    private val matesList: ArrayList<MatesInfo>,
+    private val context: Context,
+    private val app: App
+) : RecyclerView.Adapter<SplitDuesAdapter.ViewHolder>() {
 
-   private var mateIds = ArrayList<String>()
+    private var mateIds = ArrayList<String>()
     private val checkBoxStates = SparseBooleanArray()
-    private var selectAllButtonClicked:Boolean = false
+    private var selectAllButtonClicked: Boolean = false
+
     @SuppressLint("InflateParams", "NotifyDataSetChanged")
-    fun selectAllMates(selectAll:Boolean):ArrayList<String>{
+    fun selectAllMates(selectAll: Boolean): ArrayList<String> {
         selectAllButtonClicked = selectAll
-        matesList.forEach {it.isSelected  = selectAll}
+        matesList.forEach { it.isSelected = selectAll }
+        if (selectAll) {
+            checkBoxStates.clear()
+            for (i in 0 until matesList.size) {
+                checkBoxStates.put(i, true)
+            }
+        } else {
+            checkBoxStates.clear()
+            for (i in 0 until matesList.size) {
+                checkBoxStates.put(i, false)
+            }
+        }
         notifyDataSetChanged()
         return mateIds
     }
 
-   inner class ViewHolder(itemView: View) :
+    inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)!!
         val id = itemView.findViewById<TextView>(R.id.mateIdForSplitBills)!!
         fun bind(item: MatesInfo) {
-            checkBox.isChecked = item.isSelected
+
+            if (selectAllButtonClicked) {
+                checkBox.isChecked = item.isSelected
+            }
         }
-        var clicked:Boolean = false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,26 +74,23 @@ class SplitDuesAdapter(private val matesList: ArrayList<MatesInfo>,private val  
         mateIds.add(holder.id.text.toString())
 
 
+        holder.checkBox.isChecked = checkBoxStates.get(position, false)
+
         // Set checkbox state from checkBoxStates array
-
-
-        if(!selectAllButtonClicked){
-            holder.checkBox.isChecked = checkBoxStates.get(position, false)
-            holder.checkBox.setOnClickListener {
-                holder.clicked = !holder.clicked
-                if(holder.clicked){
-                    app.ids.add(holder.id.text.toString())
-                    checkBoxStates.put(position, holder.clicked)
-                    holder.checkBox.isChecked = holder.clicked
-                    Toast.makeText(context,app.ids.size.toString(),Toast.LENGTH_SHORT).show()
-                }else{
-                    if(selectAllButtonClicked) holder.checkBox.isChecked = !holder.clicked
-                    app.ids.remove(holder.id.text.toString())
-                    holder.checkBox.isChecked = holder.clicked
-                    checkBoxStates.remove(position,!holder.clicked)
-                    notifyItemChanged(position)
-                    Toast.makeText(context,app.ids.size.toString(),Toast.LENGTH_SHORT).show()
-                }
+        holder.checkBox.setOnClickListener {
+            if (matesNames.isSelected) {
+                app.ids.remove(holder.id.text.toString())
+                matesNames.isSelected = !matesNames.isSelected
+                checkBoxStates.put(position, matesNames.isSelected)
+                holder.checkBox.isChecked = matesNames.isSelected
+                notifyItemChanged(position)
+                Toast.makeText(context, app.ids.size.toString(), Toast.LENGTH_SHORT).show()
+            } else {
+                app.ids.add(holder.id.text.toString())
+                matesNames.isSelected = !matesNames.isSelected
+                holder.checkBox.isChecked = matesNames.isSelected
+                checkBoxStates.put(position, matesNames.isSelected)
+                Toast.makeText(context, app.ids.size.toString(), Toast.LENGTH_SHORT).show()
             }
         }
 

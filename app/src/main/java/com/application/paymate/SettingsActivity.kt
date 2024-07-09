@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -27,13 +28,15 @@ import com.google.firebase.database.ValueEventListener
 @Suppress("DEPRECATION")
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
-    private val sharedViewModel: SharedViewModel by viewModels()
-    private lateinit var fragmentManager:FragmentManager
-    private lateinit var deletingAccount:DeletingAccountDialog
+    private lateinit var fragmentManager: FragmentManager
+    private lateinit var deletingAccount: DeletingAccountDialog
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
         val app = application as App
+
+        sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
 
         val toolBar = binding.toolbar
         setSupportActionBar(toolBar)
@@ -69,14 +72,14 @@ class SettingsActivity : AppCompatActivity() {
         Toast.makeText(this@SettingsActivity, "Changes Saved", Toast.LENGTH_SHORT).show()
         if (binding.checkBox.isChecked) {
             enableAsMate(myApp)
-            myApp.enabled = true
+            sharedPreferences.edit().putBoolean("as_mate_enabled", true).apply()
         } else {
             disableAsMate()
-            myApp.enabled = false
+            sharedPreferences.edit().putBoolean("as_mate_enabled", false).apply()
         }
     }
 
-    private fun enableAsMate(myApp:App) {
+    private fun enableAsMate(myApp: App) {
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate")
@@ -131,37 +134,38 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun deleteAccount() {
         val sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
-        val password = sharedPreferences.getString("password","0")
+        val password = sharedPreferences.getString("password", "0")
         fragmentManager = supportFragmentManager
         deletingAccount = DeletingAccountDialog()
         val database = FirebaseDatabase.getInstance()
-        val databaseReference = database.getReference("admin_profiles").child(FirebaseAuth.getInstance().currentUser!!.uid)
-        deletingAccount.show(fragmentManager,"deleting_account")
+        val databaseReference = database.getReference("admin_profiles")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+        deletingAccount.show(fragmentManager, "deleting_account")
         val user = FirebaseAuth.getInstance().currentUser
-        val credential = EmailAuthProvider.getCredential(user?.email!!,password.toString())
+        val credential = EmailAuthProvider.getCredential(user?.email!!, password.toString())
         user.reauthenticate(credential).addOnCompleteListener { task ->
-            if(task.isSuccessful){
+            if (task.isSuccessful) {
                 user.delete()
                 databaseReference.removeValue()
-                sharedPreferences.edit()?.putString("password","0")?.apply()
+                sharedPreferences.edit()?.putString("password", "0")?.apply()
                 sharedPreferences.edit().putBoolean("isInstalledAndAdmin", false).apply()
-                sharedPreferences.edit().putBoolean("isLoggedIn",false).apply()
+                sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
-                Toast.makeText(this,"Account deleted successfully",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this,"Some Error Occurs",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Some Error Occurs", Toast.LENGTH_SHORT).show()
                 deletingAccount.dismiss()
             }
         }
     }
 
     //Function to copy the text to clipboard
-    private fun copyText(){
-       val text =  binding.uid.text.toString()
+    private fun copyText() {
+        val text = binding.uid.text.toString()
         val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("label", text)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(this,"uid copied to clipboard",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "uid copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 }

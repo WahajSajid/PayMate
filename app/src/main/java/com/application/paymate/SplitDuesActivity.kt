@@ -1,6 +1,7 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener
 class SplitDuesActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplitDuesBinding
     private lateinit var matesList: ArrayList<MatesInfo>
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var myApp: App
 
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
@@ -29,6 +31,9 @@ class SplitDuesActivity : AppCompatActivity() {
 
         //Creating an instance of App class to get the data
         myApp = application as App
+
+        sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
+        val enabledAsMate = sharedPreferences.getBoolean("as_mate_enabled", false)
         matesList = ArrayList()
         binding.refreshButtonSplitActivity.setOnClickListener {
             binding.noInternetConnectionIconLayout.visibility = View.GONE
@@ -36,7 +41,7 @@ class SplitDuesActivity : AppCompatActivity() {
                 val showCard = ShowAdminCard()
                 showCard.showAdminCard(binding.checkBox)
             }
-            showRecyclerView()
+            showRecyclerView(enabledAsMate)
         }
 
         //Creating an instance of UpdateOrSplitDues class to split the dues
@@ -47,7 +52,7 @@ class SplitDuesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Split Dues"
 
-        showRecyclerView()
+        showRecyclerView(enabledAsMate)
 
         if (NetworkUtil.isNetworkAvailable(this)) {
             val showCard = ShowAdminCard()
@@ -85,7 +90,7 @@ class SplitDuesActivity : AppCompatActivity() {
                                 it,
                                 myApp,
                                 binding.checkBox,
-                                myApp.enabled
+                                enabledAsMate
                             )
                         }
                     }
@@ -102,7 +107,7 @@ class SplitDuesActivity : AppCompatActivity() {
                                 it,
                                 myApp,
                                 binding.checkBox,
-                                myApp.enabled
+                                enabledAsMate
                             )
                         }
                     }
@@ -124,7 +129,7 @@ class SplitDuesActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showRecyclerView() {
+    private fun showRecyclerView(enableAsMate: Boolean) {
         //        Setting up adapter for recycler View
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -135,31 +140,32 @@ class SplitDuesActivity : AppCompatActivity() {
         binding.checkBox.isChecked = false
         //Setting up onClick listener for select all button
         binding.selectAllButton.setOnClickListener {
-            isSelected = !isSelected
-            val allMateIds = adapter.selectAllMates(isSelected)
             if (isSelected) {
-                if (myApp.enabled) {
-                    binding.checkBox.isChecked = true
+                isSelected = false
+                if (enableAsMate) {
+                    binding.checkBox.isChecked = isSelected
                 }
+                adapter.selectAllMates(isSelected)
                 myApp.ids.clear()
-                for(data in myApp.mateList){
-                    myApp.ids.add(data.mate_id!!)
-                }
 
                 Toast.makeText(
                     this@SplitDuesActivity, myApp.ids.size.toString(), Toast.LENGTH_SHORT
                 ).show()
-                binding.selectAllButton.text = "Unselect All"
-            }
-            if (!isSelected) {
-                if (myApp.enabled) {
-                    binding.checkBox.isChecked = false
+                binding.selectAllButton.text = "Select All"
+            } else {
+                isSelected = true
+                if (enableAsMate) {
+                    binding.checkBox.isChecked = isSelected
                 }
+                adapter.selectAllMates(isSelected)
                 myApp.ids.clear()
+                for (data in myApp.mateList) {
+                    myApp.ids.add(data.mate_id!!)
+                }
                 Toast.makeText(
                     this@SplitDuesActivity, myApp.ids.size.toString(), Toast.LENGTH_SHORT
                 ).show()
-                binding.selectAllButton.text = "Select All"
+                binding.selectAllButton.text = "Unselect All"
             }
         }
 

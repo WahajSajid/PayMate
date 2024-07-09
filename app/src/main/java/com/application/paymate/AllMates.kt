@@ -74,22 +74,6 @@ class AllMates : Fragment() {
         )
         hideButton.duration = 250
 
-
-        var isClickedOrNot = false
-        //Setting up onClick Listener for admin Card
-        binding.itemCard.setOnClickListener {
-            if (isClickedOrNot) {
-                binding.updateButton.startAnimation(hideButton)
-                binding.updateButton.visibility = View.GONE
-                isClickedOrNot = !isClickedOrNot
-            } else {
-                binding.updateButton.startAnimation(showButton)
-                binding.updateButton.visibility = View.VISIBLE
-                isClickedOrNot = !isClickedOrNot
-            }
-        }
-
-
         binding.updateButton.setOnClickListener {
             updateDues()
         }
