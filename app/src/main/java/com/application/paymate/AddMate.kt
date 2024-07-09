@@ -164,6 +164,8 @@ class AddMate : Fragment() {
                                         databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                                             .child("Mates")
                                             .child(mateNode).child("wallet_amount").setValue("0")
+                                        Toast.makeText(context, "Mate Added", Toast.LENGTH_SHORT)
+                                            .show()
                                         binding.spinnerLayout.visibility = View.GONE
 
                                     }

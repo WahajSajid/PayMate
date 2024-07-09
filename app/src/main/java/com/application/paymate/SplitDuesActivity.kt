@@ -31,7 +31,7 @@ class SplitDuesActivity : AppCompatActivity() {
 
         //Creating an instance of App class to get the data
         myApp = application as App
-
+        myApp.ids.clear()
         sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
         val enabledAsMate = sharedPreferences.getBoolean("as_mate_enabled", false)
         matesList = ArrayList()
@@ -123,8 +123,8 @@ class SplitDuesActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
         myApp.ids.clear()
+        onBackPressed()
         return true
     }
 
@@ -147,7 +147,6 @@ class SplitDuesActivity : AppCompatActivity() {
                 }
                 adapter.selectAllMates(isSelected)
                 myApp.ids.clear()
-
                 Toast.makeText(
                     this@SplitDuesActivity, myApp.ids.size.toString(), Toast.LENGTH_SHORT
                 ).show()
@@ -184,6 +183,7 @@ class SplitDuesActivity : AppCompatActivity() {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
                     binding.spinnerLayout.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
 
                     //Checking if any mate is exists in the database or not. If exists then show the list is empty message
                     if (!snapshot.exists()) {
@@ -213,6 +213,7 @@ class SplitDuesActivity : AppCompatActivity() {
         } else {
             binding.spinnerLayout.visibility = View.GONE
             binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
+            binding.recyclerView.visibility = View.GONE
         }
 
     }

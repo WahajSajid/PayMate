@@ -3,6 +3,7 @@ package com.application.paymate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -68,7 +69,7 @@ class AdminActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_about -> {
-
+                    about()
                 }
 
                 R.id.nav_logout -> {
@@ -134,5 +135,10 @@ class AdminActivity : AppCompatActivity() {
                 Toast.makeText(this@AdminActivity, error.message, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+    private fun about(){
+        val url = "https://codeworks.kesug.com/2024/07/09/paymate/"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

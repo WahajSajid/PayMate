@@ -2,14 +2,10 @@ package com.application.paymate
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -25,7 +21,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.sync.Mutex
-import org.w3c.dom.Text
 
 class AllMates : Fragment() {
     private lateinit var binding: FragmentAllMatesBinding
@@ -45,9 +40,22 @@ class AllMates : Fragment() {
         binding.spinnerLayout.visibility = View.VISIBLE
         // Recycler View initialization and adapter setting
         val recyclerView = binding.allMatesRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         val adapter = AllMatesAdapter(matesList, requireContext())
         recyclerView.adapter = adapter
+
+
+        binding.refreshButton.setOnClickListener {
+            binding.spinnerLayout.visibility = View.VISIBLE
+            binding.noInternetConnectionIconLayout.visibility = View.GONE
+            retrieveDataFromDatabase(adapter)
+            if (NetworkUtil.isNetworkAvailable(requireContext())) {
+                val showCard = ShowAdminCard()
+                showCard.showAdminCard(binding.itemCard)
+                retrieveAdminDuesData()
+            }
+        }
+
 
 
         if (NetworkUtil.isNetworkAvailable(requireContext())) {
@@ -56,27 +64,11 @@ class AllMates : Fragment() {
             retrieveAdminDuesData()
         }
 
-        //Animation to show the button
-        val showButton = ScaleAnimation(
-            0f, 1.0f,
-            0f, 1.0f,
-            Animation.RELATIVE_TO_PARENT, 0f,
-            Animation.RELATIVE_TO_PARENT, 0f
-        )
-        showButton.duration = 250
-
-        //Animation to hide the button
-        val hideButton = ScaleAnimation(
-            1.1f, 0f,
-            1f, 1f,
-            Animation.RELATIVE_TO_PARENT, 0f,
-            Animation.RELATIVE_TO_PARENT, 0f
-        )
-        hideButton.duration = 250
 
         binding.updateButton.setOnClickListener {
             updateDues()
         }
+
 
 
         //Setting Up click listener for editButton on recycler view item
@@ -122,42 +114,13 @@ class AllMates : Fragment() {
                 sharedViewModel.adminUpdateButtonClicked.value = "false"
                 view?.findNavController()?.navigate(R.id.action_allMates2_to_updateFragment2)
             }
-
-
             override val mutex: Mutex = Mutex()
         })
-
-        binding.refreshButton.setOnClickListener {
-            binding.spinnerLayout.visibility = View.VISIBLE
-            retrieveDataFromDatabase(adapter)
-            if (NetworkUtil.isNetworkAvailable(requireContext())) {
-                val showCard = ShowAdminCard()
-                showCard.showAdminCard(binding.itemCard)
-                retrieveAdminDuesData()
-            }
-        }
 
         //Calling a function to retrieve the data from the database.
         retrieveDataFromDatabase(adapter)
 
         return binding.root
-    }
-
-    private fun showAdminCard() {
-        val database = FirebaseDatabase.getInstance()
-        val databaseReference = database.getReference("admin_profiles")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate").child("enabled")
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.value == true) {
-                    binding.itemCard.visibility = View.VISIBLE
-                    retrieveAdminDuesData()
-                } else binding.itemCard.visibility = View.GONE
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
     }
 
     private fun updateDues() {
@@ -192,7 +155,7 @@ class AllMates : Fragment() {
     }
 
     private fun showDialog() {
-        val alertDialog = AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle("Confirmation")
             .setMessage("Are you sure, you want remove mate?")
             .setPositiveButton("Yes") { _, _ ->
@@ -223,12 +186,11 @@ private fun retrieveDataFromDatabase(adapter:AllMatesAdapter){
         .child(FirebaseAuth.getInstance().currentUser!!.uid).child("Mates")
     //Value Event listener to retrieve the data from firebase realtime database
     if (NetworkUtil.isNetworkAvailable(requireContext())) {
-
         databaseReference.addValueEventListener(object : ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 binding.spinnerLayout.visibility = View.GONE
-
+                binding.allMatesRecyclerView.visibility = View.VISIBLE
                 //Checking if any mate is exists in the database or not. If exists then show the list is empty message
                 if (!snapshot.exists()) binding.emptyListLayout.visibility = View.VISIBLE
                 else binding.emptyListLayout.visibility = View.GONE
@@ -250,6 +212,7 @@ private fun retrieveDataFromDatabase(adapter:AllMatesAdapter){
 
     } else {
         binding.spinnerLayout.visibility = View.GONE
+        binding.allMatesRecyclerView.visibility = View.GONE
         binding.noInternetConnectionIconLayout.visibility = View.VISIBLE
     }
 }

@@ -8,153 +8,167 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_marginTop="20dp"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/itemCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="4dp"
-            android:visibility="gone"
-            android:layout_marginHorizontal="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="130dp"
             app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:id="@+id/mateNameLinearLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/mateImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/baseline_person_24" />
-
-                    <TextView
-                        android:id="@+id/mateName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="You"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/phoneLinearLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintStart_toStartOf="@id/mateNameLinearLayout"
-                    app:layout_constraintTop_toBottomOf="@id/mateNameLinearLayout"
-                    app:layout_constraintEnd_toEndOf="@id/mateNameLinearLayout"
-                    android:orientation="horizontal">
-                </LinearLayout>
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                android:layout_marginHorizontal="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/duesLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/mateIdLayout">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:id="@+id/rentDuesLayout"
+                        android:id="@+id/mateNameLinearLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toStartOf="@+id/otherDuesLayout"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <TextView
-                            android:id="@+id/rentText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:text="Rent: "
-                            android:textColor="@color/app_theme_color"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/mateText" />
-
-                        <TextView
-                            android:id="@+id/rentAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:text="0"
-                            app:layout_constraintBottom_toBottomOf="@id/rentText"
-                            app:layout_constraintStart_toEndOf="@id/rentText"
-                            app:layout_constraintTop_toTopOf="@id/rentText" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/otherDuesLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/rentDuesLayout">
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/otherText"
+                        <ImageView
+                            android:id="@+id/mateImage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:text="Others: "
-                            android:textColor="@color/app_theme_color"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/rentText" />
+                            app:srcCompat="@drawable/baseline_person_24" />
 
                         <TextView
-                            android:id="@+id/otherAmount"
+                            android:id="@+id/mateName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:text="0"
-                            app:layout_constraintBottom_toBottomOf="@id/otherText"
-                            app:layout_constraintStart_toEndOf="@id/otherText"
-                            app:layout_constraintTop_toTopOf="@id/otherText" />
+                            android:text="You"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/phoneLinearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintStart_toStartOf="@id/mateNameLinearLayout"
+                        app:layout_constraintTop_toBottomOf="@id/mateNameLinearLayout"
+                        app:layout_constraintEnd_toEndOf="@id/mateNameLinearLayout"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/duesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mateIdLayout">
+
+                        <LinearLayout
+                            android:id="@+id/rentDuesLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toStartOf="@+id/otherDuesLayout"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <TextView
+                                android:id="@+id/rentText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:text="Rent: "
+                                android:textColor="@color/app_theme_color"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/mateText" />
+
+                            <TextView
+                                android:id="@+id/rentAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:text="0"
+                                app:layout_constraintBottom_toBottomOf="@id/rentText"
+                                app:layout_constraintStart_toEndOf="@id/rentText"
+                                app:layout_constraintTop_toTopOf="@id/rentText" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/otherDuesLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/rentDuesLayout">
+
+                            <TextView
+                                android:id="@+id/otherText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:text="Others: "
+                                android:textColor="@color/app_theme_color"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/rentText" />
+
+                            <TextView
+                                android:id="@+id/otherAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:text="0"
+                                app:layout_constraintBottom_toBottomOf="@id/otherText"
+                                app:layout_constraintStart_toEndOf="@id/otherText"
+                                app:layout_constraintTop_toTopOf="@id/otherText" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:id="@+id/mateIdLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/phoneLinearLayout"
+                        app:layout_constraintEnd_toEndOf="@id/phoneLinearLayout"
+                        app:layout_constraintTop_toBottomOf="@id/phoneLinearLayout"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/updateButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:backgroundTint="@color/app_theme_color"
+                        android:text="Update"
+                        android:visibility="visible"
+                        app:cornerRadius="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/duesLayout" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:id="@+id/mateIdLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/phoneLinearLayout"
-                    app:layout_constraintEnd_toEndOf="@id/phoneLinearLayout"
-                    app:layout_constraintTop_toBottomOf="@id/phoneLinearLayout"
-                    android:orientation="horizontal">
-                </LinearLayout>
 
-                <Button
-                    android:id="@+id/updateButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/app_theme_color"
-                    android:text="Update"
-                    android:visibility="visible"
-                    app:cornerRadius="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/duesLayout" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/emptyListLayout"
@@ -296,7 +310,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/allMatesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:isScrollContainer="true"
             android:persistentDrawingCache="scrolling|animation"
             android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -306,6 +320,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemCard" />
+            app:layout_constraintTop_toBottomOf="@id/itemCard"
+            app:layout_constraintVertical_bias="0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
