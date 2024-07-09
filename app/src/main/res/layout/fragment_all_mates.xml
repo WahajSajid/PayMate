@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AllMates">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
-
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="20dp"
             android:id="@+id/itemCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="15sp"
-            app:cardElevation="4sp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="4dp"
             android:visibility="gone"
             android:layout_marginHorizontal="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +24,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-
 
                 <LinearLayout
                     android:id="@+id/mateNameLinearLayout"
@@ -54,28 +49,22 @@
                         android:textStyle="bold"/>
                 </LinearLayout>
 
-
-
-
                 <LinearLayout
                     android:id="@+id/phoneLinearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintStart_toStartOf="@id/mateNameLinearLayout"
                     app:layout_constraintTop_toBottomOf="@id/mateNameLinearLayout"
                     app:layout_constraintEnd_toEndOf="@id/mateNameLinearLayout"
                     android:orientation="horizontal">
-
-
                 </LinearLayout>
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/duesLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mateIdLayout">
 
@@ -108,7 +97,6 @@
                             app:layout_constraintBottom_toBottomOf="@id/rentText"
                             app:layout_constraintStart_toEndOf="@id/rentText"
                             app:layout_constraintTop_toTopOf="@id/rentText" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -140,10 +128,7 @@
                             app:layout_constraintBottom_toBottomOf="@id/otherText"
                             app:layout_constraintStart_toEndOf="@id/otherText"
                             app:layout_constraintTop_toTopOf="@id/otherText" />
-
                     </LinearLayout>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
@@ -154,40 +139,22 @@
                     app:layout_constraintEnd_toEndOf="@id/phoneLinearLayout"
                     app:layout_constraintTop_toBottomOf="@id/phoneLinearLayout"
                     android:orientation="horizontal">
-
-
                 </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
 
                 <Button
                     android:id="@+id/updateButton"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/app_theme_color"
                     android:text="Update"
-                    android:visibility="gone"
-                    app:cornerRadius="15sp"
-                    app:layout_constraintTop_toBottomOf="@id/itemCard"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/allMatesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/updateButton" />
-
+                    android:visibility="visible"
+                    app:cornerRadius="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/duesLayout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/emptyListLayout"
@@ -199,7 +166,6 @@
             android:layout_height="wrap_content"
             android:visibility="gone">
 
-
             <ImageView
                 android:id="@+id/emptyListIcon"
                 android:layout_width="150dp"
@@ -209,7 +175,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/explore" />
-
 
             <LinearLayout
                 android:id="@+id/exploreListIsEmptyTextLayout"
@@ -230,7 +195,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
+                    android:layout_marginStart="5dp"
                     android:text="EMPTY"
                     android:textColor="@android:color/holo_orange_light"
                     android:textStyle="bold" />
@@ -245,11 +210,7 @@
                 app:layout_constraintEnd_toEndOf="@id/exploreListIsEmptyTextLayout"
                 app:layout_constraintStart_toStartOf="@id/exploreListIsEmptyTextLayout"
                 app:layout_constraintTop_toBottomOf="@id/exploreListIsEmptyTextLayout" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/noInternetConnectionIconLayout"
@@ -271,7 +232,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/no_internet_removebg_preview" />
 
-
             <LinearLayout
                 android:id="@+id/noNetworkTextLayout"
                 android:layout_width="wrap_content"
@@ -290,12 +250,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
+                    android:layout_marginStart="5dp"
                     android:text="CONNECTION"
                     android:textColor="@android:color/holo_orange_light"
                     android:textStyle="bold" />
             </LinearLayout>
-
 
             <Button
                 android:id="@+id/refreshButton"
@@ -304,26 +263,24 @@
                 app:layout_constraintStart_toStartOf="@id/noNetworkTextLayout"
                 app:layout_constraintEnd_toEndOf="@id/noNetworkTextLayout"
                 app:layout_constraintTop_toBottomOf="@id/noNetworkTextLayout"
-                android:layout_marginTop="10sp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@android:color/transparent"
                 android:textColor="@color/app_theme_color"
                 android:text="Refresh"
-                app:strokeWidth="1sp"
+                app:strokeWidth="1dp"
                 app:strokeColor="@color/app_theme_color"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <RelativeLayout
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="20dp"
             android:id="@+id/spinnerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -336,5 +293,19 @@
                 android:progressTint="@color/app_theme_color" />
         </RelativeLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/allMatesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:persistentDrawingCache="scrolling|animation"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="vertical"
+            android:soundEffectsEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemCard" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

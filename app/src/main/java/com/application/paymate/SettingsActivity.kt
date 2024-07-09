@@ -69,8 +69,10 @@ class SettingsActivity : AppCompatActivity() {
         Toast.makeText(this@SettingsActivity, "Changes Saved", Toast.LENGTH_SHORT).show()
         if (binding.checkBox.isChecked) {
             enableAsMate(myApp)
+            myApp.enabled = true
         } else {
             disableAsMate()
+            myApp.enabled = false
         }
     }
 
@@ -81,7 +83,6 @@ class SettingsActivity : AppCompatActivity() {
         databaseReference.child("enabled").setValue(true)
         databaseReference.child("rent_amount").setValue("0")
         databaseReference.child("other_amount").setValue("0")
-        myApp.enabled = true
 
     }
 

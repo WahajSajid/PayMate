@@ -1,15 +1,11 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,15 +15,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.sync.Mutex
 
 @Suppress("DEPRECATION")
 class SplitDuesActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplitDuesBinding
     private lateinit var matesList: ArrayList<MatesInfo>
-    private lateinit var mateIds: ArrayList<String>
-    private lateinit var mateName: ArrayList<String>
-    private  val sharedViewModel:SharedViewModel by viewModels()
+    private lateinit var myApp: App
 
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,15 +28,15 @@ class SplitDuesActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_split_dues)
 
         //Creating an instance of App class to get the data
-        val myApp = application as App
-
+        myApp = application as App
+        matesList = ArrayList()
         binding.refreshButtonSplitActivity.setOnClickListener {
             binding.noInternetConnectionIconLayout.visibility = View.GONE
             if (NetworkUtil.isNetworkAvailable(this)) {
                 val showCard = ShowAdminCard()
                 showCard.showAdminCard(binding.checkBox)
             }
-            showRecyclerView(myApp)
+            showRecyclerView()
         }
 
         //Creating an instance of UpdateOrSplitDues class to split the dues
@@ -54,15 +47,7 @@ class SplitDuesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Split Dues"
 
-        //Initializing matesList
-        matesList = ArrayList()
-
-        //Initializing mateIds and mateNames
-        mateIds = ArrayList()
-        mateName = ArrayList()
-
-
-        showRecyclerView(myApp)
+        showRecyclerView()
 
         if (NetworkUtil.isNetworkAvailable(this)) {
             val showCard = ShowAdminCard()
@@ -81,19 +66,11 @@ class SplitDuesActivity : AppCompatActivity() {
         dropDown.adapter = dropDownAdapter
 
 
-
-
-
-
-
         //Setting up the logic to implement the on item selected for drop down items
         dropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 when (position) {
                     0 -> {
@@ -104,7 +81,11 @@ class SplitDuesActivity : AppCompatActivity() {
                                 "update_other_amount",
                                 "plus",
                                 binding.enterAmountEditText,
-                                this@SplitDuesActivity, it, mateIds,binding.checkBox,myApp.enabled
+                                this@SplitDuesActivity,
+                                it,
+                                myApp,
+                                binding.checkBox,
+                                myApp.enabled
                             )
                         }
                     }
@@ -117,7 +98,11 @@ class SplitDuesActivity : AppCompatActivity() {
                                 "update_rent",
                                 "plus",
                                 binding.enterAmountEditText,
-                                this@SplitDuesActivity, it, mateIds,binding.checkBox,myApp.enabled
+                                this@SplitDuesActivity,
+                                it,
+                                myApp,
+                                binding.checkBox,
+                                myApp.enabled
                             )
                         }
                     }
@@ -134,49 +119,46 @@ class SplitDuesActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
+        myApp.ids.clear()
         return true
     }
-    private fun showRecyclerView(myApp:App){
+
+    @SuppressLint("SetTextI18n")
+    private fun showRecyclerView() {
         //        Setting up adapter for recycler View
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = SplitDuesAdapter(matesList, this)
+        val adapter = SplitDuesAdapter(matesList, this, myApp)
         recyclerView.adapter = adapter
-        adapter.itemClickListener(object : SplitDuesAdapter.OnItemClickListener {
-            override fun checkBoxClickListener(id: TextView, checkBox: CheckBox) {
-                //Adding the selected mate id the mateId array list to split the dues
-                if (checkBox.isChecked) {
-                    mateIds.add(id.text.toString())
-                    mateName.add(checkBox.text.toString())
-                } else {
-                    mateIds.remove(id.text.toString())
-                    mateName.remove(checkBox.text.toString())
-                }
-            }
-
-            override val mutex: Mutex = Mutex()
-        })
 
         var isSelected = false
         binding.checkBox.isChecked = false
         //Setting up onClick listener for select all button
         binding.selectAllButton.setOnClickListener {
             isSelected = !isSelected
-
-            val allMateIds =  adapter.selectAllMates(isSelected)
+            val allMateIds = adapter.selectAllMates(isSelected)
             if (isSelected) {
-                if(myApp.enabled){
+                if (myApp.enabled) {
                     binding.checkBox.isChecked = true
                 }
-                mateIds.addAll(allMateIds)
+                myApp.ids.clear()
+                for(data in myApp.mateList){
+                    myApp.ids.add(data.mate_id!!)
+                }
+
+                Toast.makeText(
+                    this@SplitDuesActivity, myApp.ids.size.toString(), Toast.LENGTH_SHORT
+                ).show()
                 binding.selectAllButton.text = "Unselect All"
             }
             if (!isSelected) {
-                if(myApp.enabled){
+                if (myApp.enabled) {
                     binding.checkBox.isChecked = false
                 }
-                mateIds.clear()
-                allMateIds.clear()
+                myApp.ids.clear()
+                Toast.makeText(
+                    this@SplitDuesActivity, myApp.ids.size.toString(), Toast.LENGTH_SHORT
+                ).show()
                 binding.selectAllButton.text = "Select All"
             }
         }
@@ -212,6 +194,7 @@ class SplitDuesActivity : AppCompatActivity() {
                         val mateInfo = data.getValue(MatesInfo::class.java)
                         matesList.add(mateInfo!!)
                     }
+                    myApp.mateList = matesList
                     adapter.notifyDataSetChanged()
                 }
 
@@ -227,6 +210,5 @@ class SplitDuesActivity : AppCompatActivity() {
         }
 
     }
-
 
 }
