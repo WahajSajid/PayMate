@@ -83,7 +83,6 @@ class UserLoginActivity : AppCompatActivity() {
             database.getReference("admin_profiles").child(enteredAdminUid).child("Mates")
                 .child(matePath)
         databaseReference.child("mate_id").get().addOnSuccessListener {
-            Toast.makeText(this, enteredAdminUid, Toast.LENGTH_SHORT).show()
             val id = it.value.toString()
             if (enteredMateUid == id) {
                 sharedPreferences.edit().putString("id", id).apply()

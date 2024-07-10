@@ -44,8 +44,9 @@ class UpdateFragment : Fragment() {
         binding.walletUpdateEditText.setText(walletAmount)
 
 
+
         //Setting up if statement to check if the click on update button of admin card
-        if (enabledAsMate) {
+        if (sharedViewModel.adminUpdateButtonClicked.value.toString()  == "true") {
             binding.walletLayout.visibility = View.GONE
         } else binding.walletLayout.visibility = View.VISIBLE
         //Setting up click listeners for the edit texts

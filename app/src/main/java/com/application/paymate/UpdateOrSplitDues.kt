@@ -42,12 +42,14 @@ class UpdateOrSplitDues(private var mateName: String) {
         view: View,
         app:App,
         checkBox: CheckBox,
-        enabled:Boolean
+        enabled:Boolean,
+        adapter:SplitDuesAdapter
     ) {
        splitButton.setOnClickListener {
             if (editText.text.isNotEmpty()) {
                 if(app.ids.isNotEmpty()) {
                     if (NetworkUtil.isNetworkAvailable(context)) {
+
                         selectAllButton.text = "Select All"
                         val mates:Int
                         val addAmount = UpdateAmount(mateName)
@@ -74,6 +76,7 @@ class UpdateOrSplitDues(private var mateName: String) {
                             )
                         }
                         Toast.makeText(context,"Amount divided among selected mates",Toast.LENGTH_SHORT).show()
+                        adapter.selectAllMates(false)
                         app.ids.clear()
                     } else Toast.makeText(context, "No Internet connection", Toast.LENGTH_SHORT)
                         .show()

@@ -3,11 +3,11 @@ package com.application.paymate
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -30,8 +30,7 @@ class AdminActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdmin2Binding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val shareViewModel: SharedViewModel by viewModels()
-    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +42,24 @@ class AdminActivity : AppCompatActivity() {
         setSupportActionBar(toolBar)
         drawerLayout = findViewById(R.id.nav_drawer_header)
 
+        //Checking if the as mate option is enabled or not  everytime
+        EnableAsMateOrNot.enableOrNot(object: EnableOrNotCallBack{
+            override fun whenEnable() {
+                sharedPreferences.edit().putBoolean("as_mate_enabled", true).apply()
+            }
+
+            override fun whenDisable() {
+                sharedPreferences.edit().putBoolean("as_mate_enabled", false).apply()
+            }
+        })
+
 
         //Updating UI of navigation drawer header with admin details
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         val headerView = navigationView.getHeaderView(0)
         val adminNameText = headerView.findViewById<TextView>(R.id.navAdminName)
         val adminEmailText = headerView.findViewById<TextView>(R.id.navAdminEmail)
-        val sharedPreferences =
+        sharedPreferences =
             getSharedPreferences("com.application.paymate", Context.MODE_PRIVATE)
         val adminEmail = sharedPreferences.getString("adminEmail", "Loading...")
 

@@ -83,14 +83,14 @@ class SplitDuesAdapter(
                 matesNames.isSelected = !matesNames.isSelected
                 checkBoxStates.put(position, matesNames.isSelected)
                 holder.checkBox.isChecked = matesNames.isSelected
+                Toast.makeText(context,app.ids.size.toString(),Toast.LENGTH_SHORT).show()
                 notifyItemChanged(position)
-                Toast.makeText(context, app.ids.size.toString(), Toast.LENGTH_SHORT).show()
             } else {
                 app.ids.add(holder.id.text.toString())
                 matesNames.isSelected = !matesNames.isSelected
                 holder.checkBox.isChecked = matesNames.isSelected
+                Toast.makeText(context,app.ids.size.toString(),Toast.LENGTH_SHORT).show()
                 checkBoxStates.put(position, matesNames.isSelected)
-                Toast.makeText(context, app.ids.size.toString(), Toast.LENGTH_SHORT).show()
             }
         }
 

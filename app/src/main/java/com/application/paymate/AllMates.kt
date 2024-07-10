@@ -66,6 +66,7 @@ class AllMates : Fragment() {
 
 
         binding.updateButton.setOnClickListener {
+            sharedViewModel.adminUpdateButtonClicked.value = "true"
             updateDues()
         }
 

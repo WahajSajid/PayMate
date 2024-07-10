@@ -35,13 +35,14 @@ class SplitDuesActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
         val enabledAsMate = sharedPreferences.getBoolean("as_mate_enabled", false)
         matesList = ArrayList()
+        val adapter = SplitDuesAdapter(matesList, this, myApp)
         binding.refreshButtonSplitActivity.setOnClickListener {
             binding.noInternetConnectionIconLayout.visibility = View.GONE
             if (NetworkUtil.isNetworkAvailable(this)) {
                 val showCard = ShowAdminCard()
                 showCard.showAdminCard(binding.checkBox)
             }
-            showRecyclerView(enabledAsMate)
+            showRecyclerView(enabledAsMate, adapter)
         }
 
         //Creating an instance of UpdateOrSplitDues class to split the dues
@@ -52,7 +53,7 @@ class SplitDuesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Split Dues"
 
-        showRecyclerView(enabledAsMate)
+        showRecyclerView(enabledAsMate, adapter)
 
         if (NetworkUtil.isNetworkAvailable(this)) {
             val showCard = ShowAdminCard()
@@ -90,7 +91,8 @@ class SplitDuesActivity : AppCompatActivity() {
                                 it,
                                 myApp,
                                 binding.checkBox,
-                                enabledAsMate
+                                enabledAsMate,
+                                adapter
                             )
                         }
                     }
@@ -107,7 +109,8 @@ class SplitDuesActivity : AppCompatActivity() {
                                 it,
                                 myApp,
                                 binding.checkBox,
-                                enabledAsMate
+                                enabledAsMate,
+                                adapter
                             )
                         }
                     }
@@ -129,11 +132,10 @@ class SplitDuesActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showRecyclerView(enableAsMate: Boolean) {
+    private fun showRecyclerView(enableAsMate: Boolean, adapter: SplitDuesAdapter) {
         //        Setting up adapter for recycler View
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = SplitDuesAdapter(matesList, this, myApp)
         recyclerView.adapter = adapter
 
         var isSelected = false
@@ -148,7 +150,9 @@ class SplitDuesActivity : AppCompatActivity() {
                 adapter.selectAllMates(isSelected)
                 myApp.ids.clear()
                 Toast.makeText(
-                    this@SplitDuesActivity, myApp.ids.size.toString(), Toast.LENGTH_SHORT
+                    this@SplitDuesActivity,
+                    myApp.ids.size.toString(),
+                    Toast.LENGTH_SHORT
                 ).show()
                 binding.selectAllButton.text = "Select All"
             } else {
@@ -162,7 +166,9 @@ class SplitDuesActivity : AppCompatActivity() {
                     myApp.ids.add(data.mate_id!!)
                 }
                 Toast.makeText(
-                    this@SplitDuesActivity, myApp.ids.size.toString(), Toast.LENGTH_SHORT
+                    this@SplitDuesActivity,
+                    myApp.ids.size.toString(),
+                    Toast.LENGTH_SHORT
                 ).show()
                 binding.selectAllButton.text = "Unselect All"
             }
@@ -184,6 +190,7 @@ class SplitDuesActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     binding.spinnerLayout.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
+
 
                     //Checking if any mate is exists in the database or not. If exists then show the list is empty message
                     if (!snapshot.exists()) {

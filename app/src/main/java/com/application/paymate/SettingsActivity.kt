@@ -7,23 +7,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.application.paymate.databinding.ActivitySettingsBinding
-import com.google.firebase.auth.EmailAuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 @Suppress("DEPRECATION")
 class SettingsActivity : AppCompatActivity() {
@@ -31,10 +22,11 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var fragmentManager: FragmentManager
     private lateinit var deletingAccount: DeletingAccountDialog
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var app: App
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
-        val app = application as App
+        app = application as App
 
         sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
 
@@ -72,10 +64,8 @@ class SettingsActivity : AppCompatActivity() {
         Toast.makeText(this@SettingsActivity, "Changes Saved", Toast.LENGTH_SHORT).show()
         if (binding.checkBox.isChecked) {
             enableAsMate(myApp)
-            sharedPreferences.edit().putBoolean("as_mate_enabled", true).apply()
         } else {
             disableAsMate()
-            sharedPreferences.edit().putBoolean("as_mate_enabled", false).apply()
         }
     }
 
@@ -100,17 +90,15 @@ class SettingsActivity : AppCompatActivity() {
     //Function to mark the check box as checked if the admin made changes before.
     @SuppressLint("SuspiciousIndentation")
     private fun markCheckBox() {
-        val database = FirebaseDatabase.getInstance()
-        val databaseReference = database.getReference("admin_profiles")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate").child("enabled")
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.value == true) binding.checkBox.isChecked = true
-                else binding.checkBox.isChecked = false
+        EnableAsMateOrNot.enableOrNot(object : EnableOrNotCallBack {
+            override fun whenEnable() {
+                binding.checkBox.isChecked = true
+                sharedPreferences.edit().putBoolean("as_mate_enabled", true).apply()
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SettingsActivity, error.message, Toast.LENGTH_SHORT).show()
+            override fun whenDisable() {
+                binding.checkBox.isChecked = false
+                sharedPreferences.edit().putBoolean("as_mate_enabled", false).apply()
             }
         })
     }
@@ -147,9 +135,7 @@ class SettingsActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 user.delete()
                 databaseReference.removeValue()
-                sharedPreferences.edit()?.putString("password", "0")?.apply()
-                sharedPreferences.edit().putBoolean("isInstalledAndAdmin", false).apply()
-                sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+                sharedPreferences.edit().clear().apply()
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
                 Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
