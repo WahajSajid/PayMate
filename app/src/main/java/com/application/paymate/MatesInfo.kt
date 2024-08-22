@@ -9,15 +9,5 @@ class MatesInfo {
     var wallet_amount:String?= null
     var isExpanded: Boolean = false
     var isSelected:Boolean = false
-    // Add a no-argument constructor
-    constructor() {}
 
-    constructor(name :String,phoneNumber:String,id:String,rentAmount:String,otherAmount:String,walletAmount:String) {
-        this.name = name
-        this.phone = phoneNumber
-        this.mate_id = id
-        this.rent_amount = rentAmount
-        this.other_amount = otherAmount
-        this.wallet_amount = walletAmount
-    }
 }

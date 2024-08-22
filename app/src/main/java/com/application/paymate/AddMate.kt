@@ -17,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.Locale
 
-@Suppress("NAME_SHADOWING")
 class AddMate : Fragment() {
     private lateinit var binding: FragmentAddMateBinding
     private var phoneNumber: String = ""
@@ -50,11 +49,11 @@ class AddMate : Fragment() {
 
         binding.addMateButton.setOnClickListener {
             if (inputFieldsEmptyOrNot()) {
-                if (phoneNumberValidOrNot(phoneNumber)) {
+                if (phoneNumberValidOrNot()) {
                     val name = binding.enterNameEditText.text.toString()
                     _mateIdNode = "Mate $_mateId"
 //                    addMate(name, phoneNumber,_mateId)
-                    addMateMethod(name, phoneNumber, _mateId)
+                    addMateMethod(name, phoneNumber)
                 } else binding.enterPhoneInputLayout.error = "Invalid Phone Number"
             } else Toast.makeText(context, "Please input all the fields", Toast.LENGTH_SHORT).show()
 
@@ -65,7 +64,7 @@ class AddMate : Fragment() {
     }
 
     //Function to check if the phoneNumber is valid or not
-    private fun phoneNumberValidOrNot(phoneNumber: String): Boolean {
+    private fun phoneNumberValidOrNot(): Boolean {
         val isTrueOrFalse: Boolean = binding.enterPhoneEditText.text?.length == 11
         return isTrueOrFalse
     }
@@ -96,9 +95,7 @@ class AddMate : Fragment() {
     }
 
     //Function to add the mate
-    private fun addMateMethod(name: String, phone: String, _mateId: Int) {
-        val databaseForAllMates = FirebaseDatabase.getInstance()
-        val allMatesReference = databaseForAllMates.getReference("All_Mates")
+    private fun addMateMethod(name: String, phone: String) {
         val trimmedName = name.trim().replace(" ", "")
         val lowerCaseName = trimmedName.lowercase(Locale.getDefault())
 

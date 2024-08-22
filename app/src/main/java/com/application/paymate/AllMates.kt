@@ -41,7 +41,7 @@ class AllMates : Fragment() {
         // Recycler View initialization and adapter setting
         val recyclerView = binding.allMatesRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-        val adapter = AllMatesAdapter(matesList, requireContext())
+        val adapter = AllMatesAdapter(matesList)
         recyclerView.adapter = adapter
 
 

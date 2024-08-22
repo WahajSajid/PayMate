@@ -7,13 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import com.application.paymate.databinding.FragmentRentUpdateBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 class RentUpdateFragment : Fragment() {
     private lateinit var binding: FragmentRentUpdateBinding

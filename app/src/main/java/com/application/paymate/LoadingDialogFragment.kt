@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import com.application.paymate.databinding.PopupFragmentBinding
 
-@Suppress("DEPRECATION")
 class LoadingDialogFragment : DialogFragment() {
     private lateinit var binding: PopupFragmentBinding
     @SuppressLint("UseGetLayoutInflater")

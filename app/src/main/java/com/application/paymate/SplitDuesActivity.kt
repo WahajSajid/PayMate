@@ -35,7 +35,7 @@ class SplitDuesActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("com.application.paymate", MODE_PRIVATE)
         val enabledAsMate = sharedPreferences.getBoolean("as_mate_enabled", false)
         matesList = ArrayList()
-        val adapter = SplitDuesAdapter(matesList, this, myApp)
+        val adapter = SplitDuesAdapter(matesList, myApp)
         binding.refreshButtonSplitActivity.setOnClickListener {
             binding.noInternetConnectionIconLayout.visibility = View.GONE
             if (NetworkUtil.isNetworkAvailable(this)) {
@@ -149,11 +149,6 @@ class SplitDuesActivity : AppCompatActivity() {
                 }
                 adapter.selectAllMates(isSelected)
                 myApp.ids.clear()
-                Toast.makeText(
-                    this@SplitDuesActivity,
-                    myApp.ids.size.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
                 binding.selectAllButton.text = "Select All"
             } else {
                 isSelected = true
@@ -165,11 +160,6 @@ class SplitDuesActivity : AppCompatActivity() {
                 for (data in myApp.mateList) {
                     myApp.ids.add(data.mate_id!!)
                 }
-                Toast.makeText(
-                    this@SplitDuesActivity,
-                    myApp.ids.size.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
                 binding.selectAllButton.text = "Unselect All"
             }
         }

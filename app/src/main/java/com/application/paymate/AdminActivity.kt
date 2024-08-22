@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-@Suppress("DEPRECATION", "CAST_NEVER_SUCCEEDS", "NAME_SHADOWING")
+@Suppress("DEPRECATION")
 class AdminActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityAdmin2Binding
@@ -131,7 +131,7 @@ class AdminActivity : AppCompatActivity() {
 
     }
 
-    fun getName(adminNameTextView: TextView){
+   private fun getName(adminNameTextView: TextView){
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("name")

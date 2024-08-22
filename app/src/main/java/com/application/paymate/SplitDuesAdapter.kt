@@ -1,24 +1,16 @@
 package com.application.paymate
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.util.remove
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
 
 class SplitDuesAdapter(
     private val matesList: ArrayList<MatesInfo>,
-    private val context: Context,
     private val app: App
 ) : RecyclerView.Adapter<SplitDuesAdapter.ViewHolder>() {
 
@@ -83,13 +75,11 @@ class SplitDuesAdapter(
                 matesNames.isSelected = !matesNames.isSelected
                 checkBoxStates.put(position, matesNames.isSelected)
                 holder.checkBox.isChecked = matesNames.isSelected
-                Toast.makeText(context,app.ids.size.toString(),Toast.LENGTH_SHORT).show()
                 notifyItemChanged(position)
             } else {
                 app.ids.add(holder.id.text.toString())
                 matesNames.isSelected = !matesNames.isSelected
                 holder.checkBox.isChecked = matesNames.isSelected
-                Toast.makeText(context,app.ids.size.toString(),Toast.LENGTH_SHORT).show()
                 checkBoxStates.put(position, matesNames.isSelected)
             }
         }

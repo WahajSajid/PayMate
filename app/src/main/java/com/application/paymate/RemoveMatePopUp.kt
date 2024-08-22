@@ -2,7 +2,6 @@ package com.application.paymate
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -10,12 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.application.paymate.databinding.RemoveMatePopupFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-@Suppress("DEPRECATION")
 class RemoveMatePopUp : DialogFragment() {
     private lateinit var binding: RemoveMatePopupFragmentBinding
     private val sharedViewModel: SharedViewModel by activityViewModels()

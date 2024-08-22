@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.application.paymate.databinding.FragmentOtherDueBinding
@@ -27,7 +26,6 @@ class OtherDueUpdateFragment : Fragment() {
         val addToMateAlso= sharedViewModel.admin.value.toString()
         val updateContext = sharedViewModel.updateContext.value.toString()
         val mateName = sharedViewModel.mateName.value.toString()
-        val existingOtherAmount = sharedViewModel.otherAmount.value.toString()
         if(updateContext == "update_rent"){
             binding.updateOtherAmountEditText.setText(sharedViewModel.rentAmount.value.toString())
         } else {

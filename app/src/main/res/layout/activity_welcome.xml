@@ -11,32 +11,32 @@
         android:background="@drawable/background">
 
         <Button
-            android:id="@+id/userButton"
+            android:id="@+id/loginButton"
             android:layout_width="144dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/app_theme_color"
-            android:text="Mate"
+            android:text="Login"
             app:cornerRadius="7sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:strokeColor="#FFFFFF"
             app:strokeWidth="1sp" />
 
-        <Button
-            android:id="@+id/adminButton"
-            android:layout_width="144dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/app_theme_color"
-            android:text="@string/admin_screen_title"
-            app:cornerRadius="7sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:strokeColor="#FFFFFF"
-            app:strokeWidth="1sp" />
+<!--        <Button-->
+<!--            android:id="@+id/adminButton"-->
+<!--            android:layout_width="144dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:backgroundTint="@color/app_theme_color"-->
+<!--            android:text="@string/admin_screen_title"-->
+<!--            app:cornerRadius="7sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:strokeColor="#FFFFFF"-->
+<!--            app:strokeWidth="1sp" />-->
 
 
         <ImageView

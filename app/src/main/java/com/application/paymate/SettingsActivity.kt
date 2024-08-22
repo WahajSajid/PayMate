@@ -39,7 +39,7 @@ class SettingsActivity : AppCompatActivity() {
         markCheckBox()
         binding.saveChangesButton.setOnClickListener {
             if (NetworkUtil.isNetworkAvailable(this)) {
-                saveChanges(app)
+                saveChanges()
             } else Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show()
         }
 
@@ -55,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
 
     }
 
-    private fun saveChanges(myApp: App) {
+    private fun saveChanges() {
         val editedName = binding.editName.text.toString()
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
@@ -63,13 +63,13 @@ class SettingsActivity : AppCompatActivity() {
         databaseReference.child("name").setValue(editedName)
         Toast.makeText(this@SettingsActivity, "Changes Saved", Toast.LENGTH_SHORT).show()
         if (binding.checkBox.isChecked) {
-            enableAsMate(myApp)
+            enableAsMate()
         } else {
             disableAsMate()
         }
     }
 
-    private fun enableAsMate(myApp: App) {
+    private fun enableAsMate() {
         val database = FirebaseDatabase.getInstance()
         val databaseReference = database.getReference("admin_profiles")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("As_Mate")

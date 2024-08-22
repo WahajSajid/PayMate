@@ -38,7 +38,7 @@ class AllMatesActivity : AppCompatActivity() {
 
     //Method to set up the action bar with back stack of activity and fragments
     private fun setupBackButton() {
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             supportActionBar?.setDisplayHomeAsUpEnabled(destination.id == R.id.allMates2 || destination.id == R.id.editMateDetailsFragment || destination.id == R.id.updateFragment2 || destination.id == R.id.rentUpdateFragment2 || destination.id == R.id.otherDueUpdateFragment2 || destination.id == R.id.walletUpdateFragment4)
             supportActionBar?.title = destination.label
         }

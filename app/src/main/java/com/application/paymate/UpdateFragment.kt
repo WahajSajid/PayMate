@@ -28,14 +28,12 @@ class UpdateFragment : Fragment() {
             "com.application.paymate",
             Context.MODE_PRIVATE
         )
-       val enabledAsMate = sharedPreferences.getBoolean("as_mate_enabled",false)
 
 
         //Retrieving data from the sharedViewModel
         val rentAmount = sharedViewModel.rentAmount.value.toString()
         val otherAmount = sharedViewModel.otherAmount.value.toString()
         val walletAmount = sharedViewModel.walletAmount.value.toString()
-        val addToAdmin = sharedViewModel.admin.value.toString()
 
 
         //Overriding the text of the Text View to update the UI
