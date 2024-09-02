@@ -44,6 +44,8 @@ android {
 
 dependencies {
 
+    implementation (libs.firebase.messaging)
+
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     val nav_version = "2.7.7"
